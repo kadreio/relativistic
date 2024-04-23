@@ -1,0 +1,1 @@
+kubectl port-forward `kubectl get pods -l airbyte_deploy=webapp -o name`  8080:5959 --address 0.0.0.0

@@ -1,0 +1,10 @@
+name: quickstart
+runtime:
+  name: python
+  options:
+    virtualenv: venv
+description: A minimal Kubernetes Python Pulumi program
+config:
+  pulumi:tags:
+    value:
+      pulumi:template: kubernetes-python

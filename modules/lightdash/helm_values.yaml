@@ -1,0 +1,226 @@
+## @section Global Parameters
+
+## @param global.imageRegistry Global Docker image registry
+## @param global.storageClass Global StorageClass for Persistent Volume(s)
+##
+global:
+  imageRegistry: ""
+  storageClass: ""
+
+## @section Common Parameters
+
+## @param nameOverride String to partially override airbyte.fullname template with a string (will prepend the release name)
+##
+nameOverride: ""
+## @param fullnameOverride String to fully override airbyte.fullname template with a string
+##
+fullnameOverride: ""
+
+configMap:
+  # -- Secure Cookies
+  SECURE_COOKIES: "false"
+  # -- Trust the reverse proxy when setting secure cookies (via the "X-Forwarded-Proto" header)
+  TRUST_PROXY: "false"
+  # -- Port for lightdash
+  PORT: "8080"
+  # -- Path to your local dbt project. Only set this value if you are mounting a DBT project
+  DBT_PROJECT_DIR: ""
+  # -- Public URL of your instance including protocol e.g. https://lightdash.myorg.com
+  SITE_URL: ""
+
+secrets:
+  # -- 	This is the secret used to sign the session ID cookie and to encrypt sensitive information. Do not share this secret!
+  LIGHTDASH_SECRET: changeme
+
+extraEnv: []
+# extraEnv:
+#   - name: LIGHTDASH_SECRET
+#     valueFrom:
+#       secretKeyRef:
+#         name: lightdash
+#         key: LIGHTDASH_SECRET
+schedulerExtraEnv: []
+
+# -- Specify the number of lightdash instances.
+replicaCount: 1
+
+image:
+  repository: lightdash/lightdash
+  pullPolicy: IfNotPresent
+  tag: ""
+
+imagePullSecrets: []
+
+podAnnotations: {}
+
+podSecurityContext:
+  {}
+  # fsGroup: 2000
+
+securityContext:
+  {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
+
+service:
+  type: ClusterIP
+  port: 8080
+
+ingress:
+  enabled: false
+  className: ""
+  annotations:
+    {}
+    # kubernetes.io/ingress.class: nginx
+    # kubernetes.io/tls-acme: "true"
+  hosts:
+    - host: chart-example.local
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+  tls: []
+  #  - secretName: chart-example-tls
+  #    hosts:
+  #      - chart-example.local
+
+livenessProbe:
+  initialDelaySeconds: 30
+  timeoutSeconds: 60
+  periodSeconds: 30
+
+readinessProbe:
+  initialDelaySeconds: 30
+  periodSeconds: 60
+  timeoutSeconds: 30
+
+resources:
+  {}
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 100
+  targetCPUUtilizationPercentage: 80
+  # targetMemoryUtilizationPercentage: 80
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+
+## Browserless Chrome chart configuration
+## ref: https://github.com/sagikazarmark/helm-charts/tree/master/charts/browserless-chrome
+## @param browserless-chrome.enabled default true - whether to enable headless browser
+## @param browserless-chrome.replicaCount total replicas
+## @param browserless-chrome.resources custom limits and requests for resources
+## @param browserless-chrome.image.tag override appVersion in chart
+## @param browserless-chrome.image.port override default port of service
+browserless-chrome:
+  enabled: true
+  replicaCount: 1
+  resources:
+    limits:
+      memory: '512Mi'
+      cpu: '500m'
+    requests:
+      memory: '512Mi'
+      cpu: '500m'
+  image:
+    tag: ""
+  service:
+    port: 80
+  env:
+    CONNECTION_TIMEOUT: "180000"
+## @section Lightdash Database parameters
+
+## PostgreSQL chart configuration
+## ref: https://github.com/bitnami/charts/blob/master/bitnami/postgresql/values.yaml
+## @param postgresql.enabled Switch to enable or disable the PostgreSQL helm chart (i.e. deploy postgres in k8s)
+## @param postgresql.auth.username Lightdash Postgresql username (creates non-admin user)
+## @param postgresql.auth.password Lightdash Postgresql password (creates non-admin user)
+## @param postgresql.auth.database Lightdash Postgresql database (creates new database)
+## @param postgresql.auth.existingSecret An existing secret to use for the postgres password
+## @param postgresql.auth.secretKeys.userPasswordKey Key  in the existingSecret to use for the postgres password
+## @param postgresql.commonAnnotations.helm.sh/hook It will determine when the hook should be rendered
+## @param postgresql.commonAnnotations.helm.sh/hook-weight The order in which the hooks are executed. If weight is lower, it has higher priority
+##
+postgresql:
+  enabled: true
+  ## with Postgres 10 helm chart, user "postgres" has superuser privileges (fixing lightdash uuid)
+  auth:
+    username: lightdash
+    password: ""
+    database: lightdash
+    existingSecret: ""
+    secretKeys:
+      userPasswordKey: "password"
+  commonAnnotations:
+    helm.sh/hook: pre-install,pre-upgrade
+    helm.sh/hook-weight: "-1"
+## External PostgreSQL configuration
+## All of these values are only used when postgresql.enabled is set to false
+## @param externalDatabase.host Database host
+## @param externalDatabase.user non-root Username for Lightdash Database
+## @param externalDatabase.password Database password
+## @param externalDatabase.existingSecret Name of an existing secret resource containing the DB password. If not set a secret will be created from the value in externalDatabase.password
+## @param externalDatabase.secretKeys.passwordKey (only used when externalDatabase.existingSecret is set) Key in the existing secret resource containing the DB password
+## @param externalDatabase.database Database name
+## @param externalDatabase.port Database port number
+##
+externalDatabase:
+  host: localhost
+  user: lightdash
+  password: ""
+  existingSecret: ""
+  secretKeys:
+    passwordKey: "postgresql-password"
+  database: lightdash
+  port: 5432
+
+## @param additional sidecar containers for the lightdash image
+extraContainers: []
+
+## Create service account for workload identity
+## @param serviceAccount.create create a service account for workload identity
+## @param serviceAccount.name name for the created service account
+## @param serviceAccount.annotations
+serviceAccount:
+  create: true
+  name: ""
+  annotations: {}
+
+## Customise backend configuration for GCP
+backendConfig:
+  create: false
+
+scheduler:
+  port: 8080
+  enabled: false
+  replicas: 1
+  resources:
+    requests:
+      memory: 725Mi
+      cpu: 475m
+      ephemeral-storage: 1Gi
+  sqlProxy:
+    resources:
+      requests:
+        memory: 25Mi
+        cpu: 25m
+        ephemeral-storage: 10Mi
+

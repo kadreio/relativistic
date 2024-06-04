@@ -5,3 +5,4 @@ analytics_postgres_enabled = true
 dagster_enabled           = true
 lightdash_enabled = true
 tooljet_enabled = true
+jitsu_enabled = true

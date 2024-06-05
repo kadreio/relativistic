@@ -1,14 +1,14 @@
 # Relativistic
 
-Relativistic is Terraform, Helm, and custom configuration to be able to deploy an production grade open source data stack quickly.
+Relativistic is a Terraform, Helm, and custom configuration project to be able to deploy an production grade open source data stack quickly.
 
-The data landscape is [overwhelming](https://mattturck.com/landscape/mad2023.pdf), with thousands of offerings across dozens of categories. As AI and other data initiatives becomes more and more core to every technology business's core strategy, determining what is the right set of tools for you is a daunting task. 
+The data landscape is [overwhelming](https://mattturck.com/landscape/mad2023.pdf), with thousands of offerings across dozens of categories. As AI and other data initiatives become more and more central to every technology business's core strategy, determining the right set of tools for you is a daunting task. 
 
 Relativistic's goal is to be an opinionated but flexible configuration platform to deploy best in class tools easily. It comes out of the box with a set of configured terraform helm modules to deploy curated tooling, and, as it's simply a TF module itself, is extensible so that other tooling can easily be deployed to the same clusters.
 
 ### Origin
 
-[Kadre](https://kadre.io), an AI and Data consultancy, after setting up many "modern data stacks" found that the same problems were having to be solved over and over. Often times "free" open source projects were discounted in favor of managed services, as the up front cost of deployment was too high. After 2-3 years, companies were looking at bills north of $200,000, needing to migrate to the standard tools anyway.
+[Kadre](https://kadre.io), an AI and Data consultancy, after setting up many "modern data stacks" found that the same problems were having to be solved over and over. Oftentimes, "free" open source projects were discounted in favor of managed services, as the upfront cost of deployment was too high. After 2-3 years, companies were looking at bills north of $200,000, needing to migrate to the standard tools anyway.
 
 ## Tooling Categories 
 
@@ -17,7 +17,7 @@ Relativistic's goal is to be an opinionated but flexible configuration platform 
 - ETL Tooling: Data needs to be able to be moved around
 	- Major Players: [Fivetran](https://www.fivetran.com/), [Stitch](https://www.stitchdata.com/), [Airbyte](https://airbyte.com/)
 	- Open Source Platforms: [Airbyte](https://github.com/airbytehq/airbyte), [Meltano](https://meltano.com/), [DLTHub](https://github.com/dlt-hub/dlt)
-- Data Lake and Data Warehouse: Data needs to be able to be consolidated into a single place. This place needs to support both unstructured data for unprocessed data, and horizontally scaling columnar tables for processed Data
+- Data Lake and Data Warehouse: Data needs to be consolidated into a single place. This place should support both unstructured data for unprocessed data and horizontally scaling columnar tables for processed data.
 	- Major Players: [Snowflake](https://www.snowflake.com/), [Amazon Redshift](https://aws.amazon.com/redshift/), [Google BigQuery](https://cloud.google.com/bigquery?hl=en), [S3](https://aws.amazon.com/s3/), [GCS](https://cloud.google.com/storage), [R2](https://developers.cloudflare.com/r2/)
 	- Open Source: [Apache Druid](https://github.com/apache/druid/), [Apache Doris](https://github.com/apache/doris), [Minio](https://github.com/minio/minio), [Postgres](https://github.com/postgres/postgres)
 - Data Transformation: A structured way to turn the unprocessed data into analyzable datasets
@@ -73,12 +73,12 @@ Evaluation Criteria
 Based on those categories and evaluation criteria the following tools are the defaults:
 
 #### ETL: Airbyte
-Airbyte does have some drawbacks, it's a venture backed open core product, and as such the licensing restricts its use cases. That being said, the connectors provided are robust, and the competitors are either not well supported (Meltano) or very new and still maturing (DLTHub).
+Airbyte does have some drawbacks, it's a venture backed open core product, and as such the licensing restricts its use cases. That being said, the connectors provided are robust, and the competitors either lack support (Meltano) or are very new and still maturing (DLTHub).
 
 #### Data Lake and Warehouse: Postgres
-Note that of all the things *not* to deploy as self managed, the warehouse is the one you should give the most thought to. The feature gaps between managed services and self managed, as well as the risk of data loss should make choosing open source a last resort.
+Note that of all the things *not* to deploy as self-managed, the warehouse is the one you should give the most thought to. The feature gaps between managed services and self managed, as well as the risk of data loss should make choosing open source a last resort.
 
-That being said, there is a analytics Postgres available to be deployed by default, to allow evaluation, and small scale deployments. If a data lake is needed, S3 or R2 are recommended.
+That being said, there is an analytics Postgres available to be deployed by default, to allow evaluation, and small scale deployments. If a data lake is needed, S3 or R2 are recommended.
 
 #### Data Transformation: DBT
 DBT is the industry standard and their core offering covers the use cases needed by development teams. Note that DBT is to be used in conjunction with the orchestrator as a library, rather than a standalone deployed service.
@@ -86,12 +86,12 @@ DBT is the industry standard and their core offering covers the use cases needed
 #### Data Visualization: Superset
 Apache Superset is a robust open source data visualization platform with a large amount of different charts. It also provides the most features out of the box, including whitelabel embed. Metabase is also a strong choice, and better at self service analytics from non technical users. 
 
-Note that if you plan to make money off your visualizations, by reselling either directly, or with product embeds, it may be work investigating closed source offerings, as they may have better SSO stories. Additionally for high quality self service, such as Spreadsheet style interfaces, closed source platforms are better.
+Note that if you plan to make money from your visualizations, either by reselling directly or with product embeds, it may be worth investigating closed source offerings, as they may have better SSO stories. Additionally for high quality self service, such as Spreadsheet style interfaces, closed source platforms are better.
 #### Orchestration: Airflow
-Apache Airflow is both the most mature and the leader in the category. Newer offerings like Dagster and Prefect offer potentially more user friendly interfaces, but their respective open source offerings are heavily limited in favor of their cloud offerings, including not being able to manage users, which make them non starter for compliance purposes. There's a reason both AWS and Google just made their scheduled managed airflow, it works.
+Apache Airflow is the most mature and the leader in the category. Newer offerings like Dagster and Prefect offer potentially more user friendly interfaces, but their respective open source offerings are heavily limited in favor of their cloud offerings, including not being able to manage users, which make them non starter for compliance purposes. There's a reason both AWS and Google just made their scheduled managed airflow, it works.
 
 #### Data Science: Jupyter
-Jupyter notebooks are simply better adopted than Zeppelin, with more people having experience using them. That being said, Zeppelin has it's usecases, and choosing to use that over Jupyter makes sense in some cases. That's why the goal of this project is a openly configurable baseline.
+Jupyter notebooks are simply better adopted than Zeppelin, with more people having experience using them. That being said, Zeppelin has its usecases, and choosing to use that over Jupyter makes sense in some cases. That's why the goal of this project is a openly configurable baseline.
 
 #### CDP: Jitsu
 This is probably the area with the least compelling open source solution. Rudderstack was the obvious choice, but recent changes made it so you need a login to their platform to deploy the open source stack, using their web ui to configure. Ultimately, if the core configuration isn't open source, it's impossible to call the project open source.

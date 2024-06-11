@@ -9,6 +9,7 @@ resource "helm_release" "airbyte" {
 resource "kubernetes_service" "expose_airbyte_webeserver" {
   metadata {
     name = "expose-airbyte-webeserver"
+    namespace = "terraform-namespace"
   }
 
   spec {

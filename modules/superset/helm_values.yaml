@@ -144,7 +144,7 @@ extraVolumeMounts: []
 # Files can be passed as helm --set-file configOverrides.my-override=my-file.py
 configOverrides:
   secret: |
-    SECRET_KEY = 'YOUR_OWN_RANDOM_GENERATED_SECRET_KEY'
+    SECRET_KEY = "${superset_secret_key}"
   # extend_timeout: |
   #    # Extend timeout to allow long running queries.
   #    SUPERSET_WEBSERVER_TIMEOUT = ...
@@ -192,7 +192,7 @@ extraConfigMountPath: "/app/configs"
 image:
   repository: public.ecr.aws/r9n3c1a5/superset_duckdb
   tag: latest
-  pullPolicy: IfNotPresent
+  pullPolicy: Always
 
 imagePullSecrets: []
 
@@ -722,8 +722,8 @@ init:
     username: admin
     firstname: Superset
     lastname: Admin
-    email: admin@superset.com
-    password: admin
+    email: "${superset_default_user}"
+    password: "${superset_default_password}"
   # -- List of initContainers
   # @default -- a container waiting for postgres
   initContainers:

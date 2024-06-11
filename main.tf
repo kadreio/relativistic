@@ -22,6 +22,9 @@ module "airflow" {
 module "superset" {
     count  = var.superset_enabled ? 1 : 0
     source = "./modules/superset"
+    superset_default_user = var.superset_default_user
+    superset_default_password = var.superset_default_password
+    superset_secret_key = var.superset_secret_key
 }
 
 module "analytics_postgres" {

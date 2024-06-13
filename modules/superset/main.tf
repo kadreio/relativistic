@@ -17,9 +17,9 @@ resource "helm_release" "superset" {
   ]
 }
 
-resource "kubernetes_service" "expose_superset_webeserver" {
+resource "kubernetes_service" "expose_superset_webserver" {
   metadata {
-    name = "expose-superset-webeserver"
+    name = "expose-superset-webserver"
   }
 
   spec {

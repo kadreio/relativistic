@@ -6,10 +6,9 @@ resource "helm_release" "airbyte" {
   values     = [file("./${path.module}/airbyte.yaml")]
 }
 
-resource "kubernetes_service" "expose_airbyte_webeserver" {
+resource "kubernetes_service" "expose_airbyte_webserver" {
   metadata {
-    name = "expose-airbyte-webeserver"
-    namespace = "terraform-namespace"
+    name = "expose-airbyte-webesrver"
   }
 
   spec {

@@ -134,16 +134,16 @@ auth:
   enablePostgresUser: true
   ## @param auth.postgresPassword Password for the "postgres" admin user. Ignored if `auth.existingSecret` is provided
   ##
-  postgresPassword: ""
+  postgresPassword: "postgres"
   ## @param auth.username Name for a custom user to create
   ##
-  username: ""
+  username: "postgres"
   ## @param auth.password Password for the custom user to create. Ignored if `auth.existingSecret` is provided
   ##
-  password: ""
+  password: "postgres"
   ## @param auth.database Name for a custom database to create
   ##
-  database: ""
+  database: "postgres"
   ## @param auth.replicationUsername Name of the replication user
   ##
   replicationUsername: repl_user

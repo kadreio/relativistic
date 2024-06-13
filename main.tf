@@ -51,3 +51,13 @@ module "jitsu" {
     count  = var.lightdash_enabled ? 1 : 0
     source = "./modules/jitsu"
 }
+
+module "argo_workflows" {
+    count  = var.argo_workflows_enabled ? 1 : 0
+    source = "./modules/argo_workflows"
+}
+
+module "windmill" {
+    count  = var.windmill_enabled ? 1 : 0
+    source = "./modules/windmill"
+}

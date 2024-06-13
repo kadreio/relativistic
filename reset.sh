@@ -1,0 +1,1 @@
+terraform destroy -auto-approve && minikube delete && minikube start && terraform apply  -auto-approve &> /dev/null &

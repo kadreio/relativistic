@@ -3,9 +3,10 @@ resource "helm_release" "airflow" {
   repository = "https://airflow-helm.github.io/charts"
   chart      = "airflow"
   version    = "8.8.0"
+  values     = [file("./${path.module}/helm_values.yaml")]
 }
 
-resource "kubernetes_service" "expose_airflow_webeserver" {
+resource "kubernetes_service" "expose_airflow_webserver" {
   metadata {
     name = "expose-airflow-webeserver"
   }

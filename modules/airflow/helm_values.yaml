@@ -1,0 +1,23 @@
+# airflow:
+#   image:
+#     gid: 0
+#     pullPolicy: Always  
+#     pullSecret: ""
+#     repository: kadre/airflow-rich
+#     tag: latest
+#     uid: 50000
+# dags:
+#   gitSync:
+#     branch: main
+#     enabled: true
+#     repo: https://github.com/kadreio/example-airflow-dag.git
+#     subPath: ""
+#     image:
+#       gid: 65533
+#       pullPolicy: Always
+#       repository: registry.k8s.io/git-sync/git-sync
+#       tag: v3.4.0
+#       uid: 65533
+#   persistence:
+#     enabled: false
+  

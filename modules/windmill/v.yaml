@@ -1,0 +1,948 @@
+COMPUTED VALUES: null
+apiVersionOverrides:
+  autoscaling: ""
+  cloudgoogle: ""
+  monitoring: ""
+artifactRepository:
+  archiveLogs: false
+  azure: {}
+  gcs: {}
+  s3: {}
+artifactRepositoryRef: {}
+commonLabels: {}
+controller:
+  affinity: {}
+  clusterWorkflowTemplates:
+    enabled: true
+    serviceAccounts: []
+  columns: []
+  configMap:
+    create: true
+    name: ""
+  cronWorkflowWorkers: null
+  deploymentAnnotations: {}
+  extraArgs: []
+  extraContainers: []
+  extraEnv: []
+  extraInitContainers: []
+  image:
+    registry: quay.io
+    repository: argoproj/workflow-controller
+    tag: ""
+  initialDelay: null
+  instanceID:
+    enabled: false
+    explicitID: ""
+    useReleaseName: false
+  kubeConfig: {}
+  links: []
+  livenessProbe:
+    failureThreshold: 3
+    httpGet:
+      path: /healthz
+      port: 6060
+    initialDelaySeconds: 90
+    periodSeconds: 60
+    timeoutSeconds: 30
+  loadBalancerSourceRanges: []
+  logging:
+    format: text
+    globallevel: "0"
+    level: info
+  metricsConfig:
+    enabled: false
+    headlessService: false
+    ignoreErrors: false
+    metricRelabelings: []
+    metricsTTL: ""
+    path: /metrics
+    port: 9090
+    portName: metrics
+    relabelings: []
+    secure: false
+    servicePort: 8080
+    servicePortName: metrics
+    targetLabels: []
+  name: workflow-controller
+  namespaceParallelism: null
+  navColor: ""
+  nodeEvents:
+    enabled: true
+  nodeSelector:
+    kubernetes.io/os: linux
+  parallelism: null
+  pdb:
+    enabled: false
+  persistence: {}
+  podAnnotations: {}
+  podCleanupWorkers: null
+  podGCDeleteDelayDuration: ""
+  podGCGracePeriodSeconds: null
+  podLabels: {}
+  podSecurityContext: {}
+  priorityClassName: ""
+  rbac:
+    accessAllSecrets: false
+    create: true
+    secretWhitelist: []
+    writeConfigMaps: false
+  replicas: 1
+  resourceRateLimit: {}
+  resources: {}
+  retentionPolicy: {}
+  revisionHistoryLimit: 10
+  securityContext:
+    allowPrivilegeEscalation: false
+    capabilities:
+      drop:
+      - ALL
+    readOnlyRootFilesystem: true
+    runAsNonRoot: true
+  serviceAccount:
+    annotations: {}
+    create: true
+    labels: {}
+    name: ""
+  serviceAnnotations: {}
+  serviceLabels: {}
+  serviceMonitor:
+    additionalLabels: {}
+    enabled: false
+    namespace: default
+  serviceType: ClusterIP
+  telemetryConfig:
+    enabled: false
+    ignoreErrors: false
+    metricsTTL: ""
+    path: /telemetry
+    port: 8081
+    secure: false
+    servicePort: 8081
+    servicePortName: telemetry
+  tolerations: []
+  topologySpreadConstraints: []
+  volumeMounts: []
+  volumes: []
+  workflowDefaults: {}
+  workflowNamespaces:
+  - default
+  workflowRestrictions: {}
+  workflowTTLWorkers: null
+  workflowWorkers: null
+crds:
+  annotations: {}
+  install: true
+  keep: true
+createAggregateRoles: true
+customArtifactRepository: {}
+emissary:
+  images: []
+enterprise:
+  enabled: false
+  enabledS3DistributedCache: false
+  licenseKey: ""
+  nsjail: false
+  s3CacheBucket: ""
+  samlMetadata: ""
+  scimToken: ""
+  scimTokenSecretKey: scimToken
+  scimTokenSecretName: ""
+executor:
+  args: []
+  env: []
+  image:
+    pullPolicy: ""
+    registry: quay.io
+    repository: argoproj/argoexec
+    tag: ""
+  resources: {}
+  securityContext: {}
+extraObjects: []
+fullnameOverride: null
+hub:
+  affinity: {}
+  annotations: {}
+  baseDomain: hub.windmill
+  baseProtocol: http
+  databaseUrl: postgres://postgres:windmill@windmill-hub-postgresql/windmillhub?sslmode=disable
+  databaseUrlSecretKey: url
+  databaseUrlSecretName: ""
+  enabled: false
+  extraEnv: []
+  image: ""
+  labels: {}
+  licenseKey: ""
+  nodeSelector: {}
+  replicas: 1
+  resources: {}
+  securityContext:
+    runAsNonRoot: false
+    runAsUser: 0
+  tolerations: []
+hub-postgresql:
+  auth:
+    database: windmillhub
+    postgresPassword: windmill
+  enabled: false
+  fullnameOverride: windmill-hub-postgresql
+  primary:
+    persistence:
+      enabled: true
+    resources:
+      limits:
+        cpu: "1"
+        memory: 2Gi
+      requests:
+        cpu: 250m
+        memory: 1024Mi
+images:
+  pullPolicy: Always
+  pullSecrets: []
+  tag: ""
+ingress:
+  annotations: {}
+  className: ""
+  enabled: true
+  tls: []
+kubeVersionOverride: ""
+mainContainer:
+  env: []
+  envFrom: []
+  imagePullPolicy: ""
+  resources: {}
+  securityContext: {}
+minio:
+  auth:
+    rootPassword: windmill
+    rootUser: windmill
+  enabled: false
+  fullnameOverride: windmill-minio
+  mode: standalone
+  primary:
+    enabled: true
+nameOverride: null
+namespaceOverride: ""
+postgresql:
+  architecture: standalone
+  audit:
+    clientMinMessages: error
+    logConnections: false
+    logDisconnections: false
+    logHostname: false
+    logLinePrefix: ""
+    logTimezone: ""
+    pgAuditLog: ""
+    pgAuditLogCatalog: "off"
+  auth:
+    database: windmill
+    enablePostgresUser: true
+    existingSecret: ""
+    password: ""
+    postgresPassword: windmill
+    replicationPassword: ""
+    replicationUsername: repl_user
+    secretKeys:
+      adminPasswordKey: postgres-password
+      replicationPasswordKey: replication-password
+      userPasswordKey: password
+    usePasswordFiles: false
+    username: ""
+  clusterDomain: cluster.local
+  common:
+    exampleValue: common-chart
+    global:
+      imagePullSecrets: []
+      imageRegistry: ""
+      postgresql:
+        auth:
+          database: ""
+          existingSecret: ""
+          password: ""
+          postgresPassword: ""
+          secretKeys:
+            adminPasswordKey: ""
+            replicationPasswordKey: ""
+            userPasswordKey: ""
+          username: ""
+        service:
+          ports:
+            postgresql: ""
+      storageClass: ""
+  commonAnnotations: {}
+  commonLabels: {}
+  containerPorts:
+    postgresql: 5432
+  diagnosticMode:
+    args:
+    - infinity
+    command:
+    - sleep
+    enabled: false
+  enabled: true
+  extraDeploy: []
+  fullnameOverride: windmill-postgresql
+  global:
+    imagePullSecrets: []
+    imageRegistry: ""
+    postgresql:
+      auth:
+        database: ""
+        existingSecret: ""
+        password: ""
+        postgresPassword: ""
+        secretKeys:
+          adminPasswordKey: ""
+          replicationPasswordKey: ""
+          userPasswordKey: ""
+        username: ""
+      service:
+        ports:
+          postgresql: ""
+    storageClass: ""
+  image:
+    debug: false
+    digest: ""
+    pullPolicy: IfNotPresent
+    pullSecrets: []
+    registry: docker.io
+    repository: bitnami/postgresql
+    tag: 15.2.0-debian-11-r24
+  kubeVersion: ""
+  ldap:
+    basedn: ""
+    binddn: ""
+    bindpw: ""
+    enabled: false
+    port: ""
+    prefix: ""
+    scheme: ""
+    searchAttribute: ""
+    searchFilter: ""
+    server: ""
+    suffix: ""
+    tls:
+      enabled: false
+    uri: ""
+  metrics:
+    containerPorts:
+      metrics: 9187
+    containerSecurityContext:
+      enabled: true
+      runAsNonRoot: true
+      runAsUser: 1001
+    customLivenessProbe: {}
+    customMetrics: {}
+    customReadinessProbe: {}
+    customStartupProbe: {}
+    enabled: false
+    extraEnvVars: []
+    image:
+      digest: ""
+      pullPolicy: IfNotPresent
+      pullSecrets: []
+      registry: docker.io
+      repository: bitnami/postgres-exporter
+      tag: 0.12.0-debian-11-r79
+    livenessProbe:
+      enabled: true
+      failureThreshold: 6
+      initialDelaySeconds: 5
+      periodSeconds: 10
+      successThreshold: 1
+      timeoutSeconds: 5
+    prometheusRule:
+      enabled: false
+      labels: {}
+      namespace: ""
+      rules: []
+    readinessProbe:
+      enabled: true
+      failureThreshold: 6
+      initialDelaySeconds: 5
+      periodSeconds: 10
+      successThreshold: 1
+      timeoutSeconds: 5
+    resources:
+      limits: {}
+      requests: {}
+    service:
+      annotations:
+        prometheus.io/port: '{{ .Values.metrics.service.ports.metrics }}'
+        prometheus.io/scrape: "true"
+      clusterIP: ""
+      ports:
+        metrics: 9187
+      sessionAffinity: None
+    serviceMonitor:
+      enabled: false
+      honorLabels: false
+      interval: ""
+      jobLabel: ""
+      labels: {}
+      metricRelabelings: []
+      namespace: ""
+      relabelings: []
+      scrapeTimeout: ""
+      selector: {}
+    startupProbe:
+      enabled: false
+      failureThreshold: 15
+      initialDelaySeconds: 10
+      periodSeconds: 10
+      successThreshold: 1
+      timeoutSeconds: 1
+  nameOverride: ""
+  networkPolicy:
+    egressRules:
+      customRules: {}
+      denyConnectionsToExternal: false
+    enabled: false
+    ingressRules:
+      primaryAccessOnlyFrom:
+        customRules: {}
+        enabled: false
+        namespaceSelector: {}
+        podSelector: {}
+      readReplicasAccessOnlyFrom:
+        customRules: {}
+        enabled: false
+        namespaceSelector: {}
+        podSelector: {}
+    metrics:
+      enabled: false
+      namespaceSelector: {}
+      podSelector: {}
+  postgresqlDataDir: /bitnami/postgresql/data
+  postgresqlSharedPreloadLibraries: pgaudit
+  primary:
+    affinity: {}
+    annotations: {}
+    args: []
+    command: []
+    configuration: ""
+    containerSecurityContext:
+      enabled: true
+      runAsUser: 1001
+    customLivenessProbe: {}
+    customReadinessProbe: {}
+    customStartupProbe: {}
+    existingConfigmap: ""
+    existingExtendedConfigmap: ""
+    extendedConfiguration: ""
+    extraEnvVars: []
+    extraEnvVarsCM: ""
+    extraEnvVarsSecret: ""
+    extraPodSpec: {}
+    extraVolumeMounts: []
+    extraVolumes: []
+    hostAliases: []
+    hostIPC: false
+    hostNetwork: false
+    initContainers: []
+    initdb:
+      args: ""
+      password: ""
+      postgresqlWalDir: ""
+      scripts: {}
+      scriptsConfigMap: ""
+      scriptsSecret: ""
+      user: ""
+    labels: {}
+    lifecycleHooks: {}
+    livenessProbe:
+      enabled: true
+      failureThreshold: 6
+      initialDelaySeconds: 30
+      periodSeconds: 10
+      successThreshold: 1
+      timeoutSeconds: 5
+    name: primary
+    nodeAffinityPreset:
+      key: ""
+      type: ""
+      values: []
+    nodeSelector: {}
+    persistence:
+      accessModes:
+      - ReadWriteOnce
+      annotations: {}
+      dataSource: {}
+      enabled: true
+      existingClaim: ""
+      labels: {}
+      mountPath: /bitnami/postgresql
+      selector: {}
+      size: 8Gi
+      storageClass: ""
+      subPath: ""
+    pgHbaConfiguration: ""
+    podAffinityPreset: ""
+    podAnnotations: {}
+    podAntiAffinityPreset: soft
+    podLabels: {}
+    podSecurityContext:
+      enabled: true
+      fsGroup: 1001
+    priorityClassName: ""
+    readinessProbe:
+      enabled: true
+      failureThreshold: 6
+      initialDelaySeconds: 5
+      periodSeconds: 10
+      successThreshold: 1
+      timeoutSeconds: 5
+    resources:
+      limits:
+        cpu: "1"
+        memory: 2Gi
+      requests:
+        cpu: 250m
+        memory: 1024Mi
+    schedulerName: ""
+    service:
+      annotations: {}
+      clusterIP: ""
+      externalTrafficPolicy: Cluster
+      extraPorts: []
+      headless:
+        annotations: {}
+      loadBalancerIP: ""
+      loadBalancerSourceRanges: []
+      nodePorts:
+        postgresql: ""
+      ports:
+        postgresql: 5432
+      sessionAffinity: None
+      sessionAffinityConfig: {}
+      type: ClusterIP
+    sidecars: []
+    standby:
+      enabled: false
+      primaryHost: ""
+      primaryPort: ""
+    startupProbe:
+      enabled: false
+      failureThreshold: 15
+      initialDelaySeconds: 30
+      periodSeconds: 10
+      successThreshold: 1
+      timeoutSeconds: 1
+    terminationGracePeriodSeconds: ""
+    tolerations: []
+    topologySpreadConstraints: []
+    updateStrategy:
+      rollingUpdate: {}
+      type: RollingUpdate
+  psp:
+    create: false
+  rbac:
+    create: false
+    rules: []
+  readReplicas:
+    affinity: {}
+    annotations: {}
+    args: []
+    command: []
+    containerSecurityContext:
+      enabled: true
+      runAsUser: 1001
+    customLivenessProbe: {}
+    customReadinessProbe: {}
+    customStartupProbe: {}
+    extendedConfiguration: ""
+    extraEnvVars: []
+    extraEnvVarsCM: ""
+    extraEnvVarsSecret: ""
+    extraPodSpec: {}
+    extraVolumeMounts: []
+    extraVolumes: []
+    hostAliases: []
+    hostIPC: false
+    hostNetwork: false
+    initContainers: []
+    labels: {}
+    lifecycleHooks: {}
+    livenessProbe:
+      enabled: true
+      failureThreshold: 6
+      initialDelaySeconds: 30
+      periodSeconds: 10
+      successThreshold: 1
+      timeoutSeconds: 5
+    name: read
+    nodeAffinityPreset:
+      key: ""
+      type: ""
+      values: []
+    nodeSelector: {}
+    persistence:
+      accessModes:
+      - ReadWriteOnce
+      annotations: {}
+      dataSource: {}
+      enabled: true
+      existingClaim: ""
+      labels: {}
+      mountPath: /bitnami/postgresql
+      selector: {}
+      size: 8Gi
+      storageClass: ""
+      subPath: ""
+    podAffinityPreset: ""
+    podAnnotations: {}
+    podAntiAffinityPreset: soft
+    podLabels: {}
+    podSecurityContext:
+      enabled: true
+      fsGroup: 1001
+    priorityClassName: ""
+    readinessProbe:
+      enabled: true
+      failureThreshold: 6
+      initialDelaySeconds: 5
+      periodSeconds: 10
+      successThreshold: 1
+      timeoutSeconds: 5
+    replicaCount: 1
+    resources:
+      limits: {}
+      requests:
+        cpu: 250m
+        memory: 256Mi
+    schedulerName: ""
+    service:
+      annotations: {}
+      clusterIP: ""
+      externalTrafficPolicy: Cluster
+      extraPorts: []
+      headless:
+        annotations: {}
+      loadBalancerIP: ""
+      loadBalancerSourceRanges: []
+      nodePorts:
+        postgresql: ""
+      ports:
+        postgresql: 5432
+      sessionAffinity: None
+      sessionAffinityConfig: {}
+      type: ClusterIP
+    sidecars: []
+    startupProbe:
+      enabled: false
+      failureThreshold: 15
+      initialDelaySeconds: 30
+      periodSeconds: 10
+      successThreshold: 1
+      timeoutSeconds: 1
+    terminationGracePeriodSeconds: ""
+    tolerations: []
+    topologySpreadConstraints: []
+    updateStrategy:
+      rollingUpdate: {}
+      type: RollingUpdate
+  replication:
+    applicationName: my_application
+    numSynchronousReplicas: 0
+    synchronousCommit: "off"
+  serviceAccount:
+    annotations: {}
+    automountServiceAccountToken: true
+    create: false
+    name: ""
+  serviceBindings:
+    enabled: false
+  shmVolume:
+    enabled: true
+    sizeLimit: ""
+  tls:
+    autoGenerated: false
+    certCAFilename: ""
+    certFilename: ""
+    certKeyFilename: ""
+    certificatesSecret: ""
+    crlFilename: ""
+    enabled: false
+    preferServerCiphers: true
+  volumePermissions:
+    containerSecurityContext:
+      runAsUser: 0
+    enabled: false
+    image:
+      digest: ""
+      pullPolicy: IfNotPresent
+      pullSecrets: []
+      registry: docker.io
+      repository: bitnami/bitnami-shell
+      tag: 11-debian-11-r108
+    resources:
+      limits: {}
+      requests: {}
+server:
+  GKEbackendConfig:
+    enabled: false
+    spec: {}
+  GKEfrontendConfig:
+    enabled: false
+    spec: {}
+  GKEmanagedCertificate:
+    domains:
+    - argoworkflows.example.com
+    enabled: false
+  affinity: {}
+  authMode: ""
+  authModes:
+  - server
+  autoscaling:
+    behavior: {}
+    enabled: false
+    maxReplicas: 5
+    minReplicas: 1
+    targetCPUUtilizationPercentage: 50
+    targetMemoryUtilizationPercentage: 50
+  baseHref: /
+  clusterWorkflowTemplates:
+    enableEditing: true
+    enabled: true
+  deploymentAnnotations: {}
+  enabled: true
+  extraArgs: []
+  extraContainers: []
+  extraEnv: []
+  extraInitContainers: []
+  hostAliases: []
+  image:
+    registry: quay.io
+    repository: argoproj/argocli
+    tag: ""
+  ingress:
+    annotations: {}
+    enabled: false
+    extraPaths: []
+    hosts: []
+    ingressClassName: ""
+    labels: {}
+    pathType: Prefix
+    paths:
+    - /
+    tls: []
+  loadBalancerIP: ""
+  loadBalancerSourceRanges: []
+  logging:
+    format: text
+    globallevel: "0"
+    level: info
+  name: server
+  nodeSelector:
+    kubernetes.io/os: linux
+  pdb:
+    enabled: false
+  podAnnotations: {}
+  podLabels:
+    app: argo_webserver
+  podSecurityContext: {}
+  priorityClassName: ""
+  rbac:
+    create: true
+  replicas: 1
+  resources: {}
+  revisionHistoryLimit: 10
+  secure: false
+  securityContext:
+    allowPrivilegeEscalation: false
+    capabilities:
+      drop:
+      - ALL
+    readOnlyRootFilesystem: false
+    runAsNonRoot: true
+  serviceAccount:
+    annotations: {}
+    create: true
+    labels: {}
+    name: ""
+  serviceAnnotations: {}
+  serviceLabels: {}
+  serviceNodePort: null
+  servicePort: 2746
+  servicePortName: ""
+  serviceType: ClusterIP
+  sso:
+    clientId:
+      key: client-id
+      name: argo-server-sso
+    clientSecret:
+      key: client-secret
+      name: argo-server-sso
+    customGroupClaimName: ""
+    enabled: false
+    filterGroupsRegex: []
+    insecureSkipVerify: false
+    issuer: https://accounts.google.com
+    issuerAlias: ""
+    rbac:
+      enabled: true
+      secretWhitelist: []
+    redirectUrl: ""
+    scopes: []
+    sessionExpiry: ""
+    userInfoPath: ""
+  tmpVolume:
+    emptyDir: {}
+  tolerations: []
+  topologySpreadConstraints: []
+  volumeMounts: []
+  volumes: []
+serviceAccount:
+  annotations: {}
+  create: true
+  name: ""
+singleNamespace: false
+useStaticCredentials: true
+windmill:
+  app:
+    affinity: {}
+    annotations: {}
+    autoscaling:
+      enabled: false
+      maxReplicas: 10
+      targetCPUUtilizationPercentage: 80
+    extraContainers: []
+    extraEnv: []
+    initContainers: []
+    labels: {}
+    nodeSelector: {}
+    resources:
+      limits:
+        cpu: "1"
+        memory: 2Gi
+    securityContext:
+      runAsNonRoot: false
+      runAsUser: 0
+    tolerations: []
+    volumes: []
+  appReplicas: 2
+  baseDomain: windmill
+  baseProtocol: http
+  cookieDomain: ""
+  databaseUrl: postgres://postgres:windmill@windmill-postgresql/windmill?sslmode=disable
+  databaseUrlSecretKey: url
+  databaseUrlSecretName: ""
+  exposeHostDocker: false
+  image: ""
+  imagePullSecrets: ""
+  instanceEventsWebhook: ""
+  lsp:
+    affinity: {}
+    annotations: {}
+    autoscaling:
+      enabled: false
+      maxReplicas: 10
+      targetCPUUtilizationPercentage: 80
+    extraEnv: []
+    labels: {}
+    nodeSelector: {}
+    resources: {}
+    securityContext:
+      runAsNonRoot: false
+      runAsUser: 0
+    tag: latest
+    tolerations: []
+  lspReplicas: 2
+  multiplayer:
+    affinity: {}
+    annotations: {}
+    autoscaling:
+      enabled: false
+      maxReplicas: 10
+      targetCPUUtilizationPercentage: 80
+    extraEnv: []
+    labels: {}
+    nodeSelector: {}
+    resources: {}
+    securityContext:
+      runAsNonRoot: false
+      runAsUser: 0
+    tag: latest
+    tolerations: []
+  multiplayerReplicas: 1
+  npmConfigRegistry: ""
+  openaiAzureBasePath: ""
+  pipExtraIndexUrl: ""
+  pipIndexUrl: ""
+  pipTrustedHost: ""
+  rustLog: info
+  tag: ""
+  workerGroups:
+  - affinity: {}
+    annotations: {}
+    command: []
+    extraContainers: []
+    extraEnv: []
+    initContainers: []
+    labels: {}
+    mode: worker
+    name: default
+    nodeSelector: {}
+    replicas: 3
+    resources:
+      limits:
+        cpu: "1"
+        memory: 2Gi
+      requests:
+        cpu: 500m
+        memory: 1Gi
+    securityContext:
+      runAsNonRoot: false
+      runAsUser: 0
+    tolerations: []
+    volumeMounts: []
+    volumes: []
+  - affinity: {}
+    annotations: {}
+    extraContainers: []
+    extraEnv: []
+    labels: {}
+    mode: worker
+    name: native
+    nodeSelector: {}
+    replicas: 4
+    resources:
+      limits:
+        cpu: 200m
+        memory: 256Mi
+      requests:
+        cpu: 100m
+        memory: 128Mi
+    securityContext:
+      runAsNonRoot: false
+      runAsUser: 0
+    tolerations: []
+    volumeMounts: []
+    volumes: []
+  - affinity: {}
+    annotations: {}
+    command: []
+    extraContainers: []
+    extraEnv: []
+    labels: {}
+    mode: worker
+    name: gpu
+    nodeSelector: {}
+    replicas: 0
+    resources: {}
+    securityContext:
+      runAsNonRoot: false
+      runAsUser: 0
+    tolerations: []
+    volumeMounts: []
+    volumes: []
+workflow:
+  namespace: default
+  rbac:
+    create: true
+    serviceAccounts: []
+  serviceAccount:
+    annotations: {}
+    create: false
+    labels: {}
+    name: argo-workflow
+    pullSecrets: []

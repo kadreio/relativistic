@@ -1,5 +1,5 @@
 airbyte_enabled           = true
-airflow_enabled           = true
+airflow_enabled           = false
 superset_enabled          = true
 analytics_postgres_enabled = true
 dagster_enabled           = false
@@ -9,3 +9,5 @@ jitsu_enabled = false
 superset_default_user = "admin@superset.com"
 superset_default_password = "admin"
 superset_secret_key = "YOUR_OWN_RANDOM_GENERATED_SECRET_KEY"
+argo_workflows_enabled = true
+windmill_enabled = true

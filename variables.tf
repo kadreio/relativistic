@@ -62,3 +62,19 @@ variable "superset_secret_key" {
   default     = "YOUR_OWN_RANDOM_GENERATED_SECRET_KEY"
 }
 
+variable "argo_workflows_enabled" {
+  description = "Whether to deploy the argo workflows module"
+  type        = bool
+  default     = false
+}
+
+variable "windmill_enabled" {
+  description = "Whether to deploy the windmill module"
+  type        = bool
+  default     = false
+}
+
+
+
+
+

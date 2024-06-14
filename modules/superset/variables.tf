@@ -14,4 +14,3 @@ variable "superset_secret_key" {
   description = "Default user for Superset"
   type        = string
 }
-

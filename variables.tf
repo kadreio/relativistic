@@ -74,6 +74,12 @@ variable "windmill_enabled" {
   default     = false
 }
 
+variable "kubernetes_config_path" {
+  description = "kubernetes config path"
+  type        = string
+  default     = "~/.kube/config"
+}
+
 
 
 

@@ -1,6 +1,5 @@
 provider "kubernetes" {
-  config_path              = "~/.kube/config"
-  config_context_cluster   = "minikube"
+  config_path = var.kubernetes_config_path
 }
 
 resource "kubernetes_namespace" "minikube_namespace" {

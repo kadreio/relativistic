@@ -8,7 +8,7 @@ resource "helm_release" "airbyte" {
 
 resource "kubernetes_service" "expose_airbyte_webserver" {
   metadata {
-    name = "expose-airbyte-webesrver"
+    name = "expose-airbyte-webserver"
   }
 
   spec {

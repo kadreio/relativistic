@@ -190,7 +190,7 @@ configMountPath: "/app/pythonpath"
 extraConfigMountPath: "/app/configs"
 
 image:
-  repository: public.ecr.aws/r9n3c1a5/superset_duckdb
+  # repository: public.ecr.aws/r9n3c1a5/superset_duckdb
   tag: latest
   pullPolicy: Always
 
@@ -212,7 +212,7 @@ service:
     http: nil
 
 ingress:
-  enabled: false
+  enabled: true
   ingressClassName: ~
   annotations: {}
     # kubernetes.io/tls-acme: "true"
@@ -797,8 +797,10 @@ postgresql:
     ## PostgreSQL name for a custom database to create
     database: superset
 
+
   image:
-    tag: "14.6.0-debian-11-r13"
+    tag: "14.12.0-debian-12-r17"
+    pullPolicy: Always
 
   ## PostgreSQL Primary parameters
   primary:

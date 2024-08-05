@@ -696,7 +696,7 @@ server:
   autoscaling:
     behavior: {}
     enabled: false
-    maxReplicas: 5
+    maxReplicas: 2
     minReplicas: 1
     targetCPUUtilizationPercentage: 50
     targetMemoryUtilizationPercentage: 50
@@ -804,7 +804,7 @@ windmill:
     annotations: {}
     autoscaling:
       enabled: false
-      maxReplicas: 10
+      maxReplicas: 2
       targetCPUUtilizationPercentage: 80
     extraContainers: []
     extraEnv: []
@@ -883,7 +883,7 @@ windmill:
     mode: worker
     name: default
     nodeSelector: {}
-    replicas: 3
+    replicas: 2
     resources:
       limits:
         cpu: "1"
@@ -905,7 +905,7 @@ windmill:
     mode: worker
     name: native
     nodeSelector: {}
-    replicas: 4
+    replicas: 2
     resources:
       limits:
         cpu: 200m

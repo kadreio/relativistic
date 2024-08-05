@@ -2,7 +2,7 @@ resource "helm_release" "airbyte" {
   name       = "airbyte"
   repository = "https://airbytehq.github.io/helm-charts"
   chart      = "airbyte"
-  version    = "0.64.81"
+  version    = "0.383.1"
   values     = [file("./${path.module}/airbyte.yaml")]
 }
 
@@ -24,3 +24,4 @@ resource "kubernetes_service" "expose_airbyte_webserver" {
     }
   }
 }
+

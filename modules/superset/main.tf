@@ -1,3 +1,12 @@
+
+# resource "aws_route53_record" "cert_validation" {
+#   name    = aws_acm_certificate.cert.domain_validation_options.0.resource_record_name
+#   type    = aws_acm_certificate.cert.domain_validation_options.0.resource_record_type
+#   zone_id = aws_route53_zone.superset_zone.zone_id
+#   records = [aws_acm_certificate.cert.domain_validation_options.0.resource_record_value]
+#   ttl     = 60
+# }
+
 resource "helm_release" "superset" {
   name       = "superset"
   repository = "https://apache.github.io/superset"
@@ -7,23 +16,4 @@ resource "helm_release" "superset" {
   values = [
     templatefile("${path.module}/helm_values.yaml", { superset_default_user = var.superset_default_user, superset_default_password = var.superset_default_password, superset_secret_key = var.superset_secret_key})
   ]
-}
-
-resource "kubernetes_service" "expose_superset_webserver" {
-  metadata {
-    name = "expose-superset-webserver"
-  }
-
-  spec {
-    type = "NodePort"
-    port {
-      port        = 8088
-      target_port = 8088
-      node_port   = 30082
-    }
-
-    selector = {
-      app= "superset"
-    }
-  }
 }

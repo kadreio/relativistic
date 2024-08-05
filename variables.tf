@@ -74,6 +74,20 @@ variable "windmill_enabled" {
   default     = false
 }
 
+
+variable "kestra_enabled" {
+  description = "Whether to deploy the kestra module"
+  type        = bool
+  default     = false
+}
+
+variable "kubernetes_dashboard_enabled" {
+  description = "Whether to deploy the kubernetes dashboard module"
+  type        = bool
+  default     = false
+}
+
+
 variable "kubernetes_config_path" {
   description = "kubernetes config path"
   type        = string

@@ -1,18 +1,27 @@
-provider "kubernetes" {
-  config_path = var.kubernetes_config_path
+module "aws" {
+    source = "./modules/aws"
 }
 
 provider "helm" {
   kubernetes {
-    config_path = var.kubernetes_config_path
+    host                   = module.aws.cluster_endpoint
+    token                  = module.aws.cluster_auth_cluster_token
+    cluster_ca_certificate = module.aws.cluster_ca_certificate
   }
 }
 
-resource "kubernetes_namespace" "minikube_namespace" {
-  metadata {
-    name = "terraform-namespace"
-  }
+provider "kubernetes" {
+    host                   = module.aws.cluster_endpoint
+    token                  = module.aws.cluster_auth_cluster_token
+    cluster_ca_certificate = module.aws.cluster_ca_certificate
 }
+
+
+# resource "kubernetes_namespace" "minikube_namespace" {
+#   metadata {
+#     name = "terraform-namespace"
+#   }
+# }
 
 module "airbyte" {
     count  = var.airbyte_enabled ? 1 : 0
@@ -65,4 +74,16 @@ module "argo_workflows" {
 module "windmill" {
     count  = var.windmill_enabled ? 1 : 0
     source = "./modules/windmill"
+}
+
+module "kestra" {
+    count  = var.kestra_enabled ? 1 : 0
+    source = "./modules/kestra"
+}
+
+### Infra
+
+module "kubernetes_dashboard" {
+    count  = var.kubernetes_dashboard_enabled ? 1 : 0
+    source = "./modules/kubernetes-dashboard"
 }

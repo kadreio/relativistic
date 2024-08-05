@@ -12,3 +12,4 @@ superset_secret_key = "YOUR_OWN_RANDOM_GENERATED_SECRET_KEY"
 argo_workflows_enabled = true
 windmill_enabled = true
 kubernetes_config_path = "~/.kube/config"
+kubernetes_dashboard_enabled= true

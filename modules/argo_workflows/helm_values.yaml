@@ -20,7 +20,7 @@ controller:
     create: true
     name: ""
   cronWorkflowWorkers: null
-  deploymentAnnotations: {}
+  deploymentAnnotation s: {}
   extraArgs: []
   extraContainers: []
   extraEnv: []
@@ -123,7 +123,9 @@ controller:
   topologySpreadConstraints: []
   volumeMounts: []
   volumes: []
-  workflowDefaults: {}
+  workflowDefaults: 
+    spec:
+      serviceAccountName: argo-server
   workflowNamespaces:
   - default
   workflowRestrictions: {}
@@ -163,6 +165,9 @@ mainContainer:
 nameOverride: null
 namespaceOverride: ""
 server:
+  extraArgs:
+  - --auth-mode=sso
+  - --secure=false
   GKEbackendConfig:
     enabled: false
     spec: {}
@@ -174,8 +179,7 @@ server:
     - argoworkflows.example.com
     enabled: false
   affinity: {}
-  authMode: ""
-  authModes: ["server"]
+  authModes: ["sso"]
   autoscaling:
     behavior: {}
     enabled: false
@@ -251,24 +255,24 @@ server:
   servicePortName: ""
   serviceType: ClusterIP
   sso:
+    enabled: true
     clientId:
-      key: client-id
-      name: argo-server-sso
+      key: clientId
+      name: argo-sso
     clientSecret:
-      key: client-secret
-      name: argo-server-sso
+      key: clientSecret
+      name: argo-sso
     customGroupClaimName: ""
-    enabled: false
     filterGroupsRegex: []
-    insecureSkipVerify: false
+    insecureSkipVerify: true
     issuer: https://accounts.google.com
     issuerAlias: ""
     rbac:
-      enabled: true
+      enabled: false
       secretWhitelist: []
-    redirectUrl: ""
-    scopes: []
-    sessionExpiry: ""
+    redirectUrl: "${deployed_url}/oauth2/callback"
+    scopes: ["email"]
+    sessionExpiry: "24h"
     userInfoPath: ""
   tmpVolume:
     emptyDir: {}
@@ -281,7 +285,7 @@ useStaticCredentials: true
 workflow:
   namespace: default
   rbac:
-    create: true
+    create: false
     serviceAccounts: []
   serviceAccount:
     annotations: {}

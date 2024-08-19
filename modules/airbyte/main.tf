@@ -25,3 +25,53 @@ resource "kubernetes_service" "expose_airbyte_webserver" {
   }
 }
 
+variable "google_oauth_client_id" {
+  description = "Google OAuth client ID"
+  type        = string
+  default     = ""
+}
+
+variable "google_oauth_client_secret" {
+  description = "Google OAuth client secret"
+  type        = string
+  default     = ""
+}
+
+variable "deployed_url" {
+  description = "The url of the deployed application"
+  type        = string
+  default     = "localhost:30083"
+}
+
+
+resource "helm_release" "oauth2_proxy" {
+  name             = "oauth2-proxy-airbyte"
+  repository       = "https://oauth2-proxy.github.io/manifests"
+  chart            = "oauth2-proxy"
+
+  
+  values = [templatefile("./${path.module}/oauth2_proxy.yaml", {
+    google_oauth_client_id     = var.google_oauth_client_id
+    google_oauth_client_secret = var.google_oauth_client_secret
+    deployed_url               = var.deployed_url
+  })]
+}
+
+resource "kubernetes_service" "expose_proxy" {
+  metadata {
+    name = "expose-proxy"
+  }
+
+  spec {
+    type = "NodePort"
+    port {
+      port        = 4180
+      target_port = 4180
+      node_port   = 30087
+    }
+
+    selector = {
+      app = "oauth2-proxy-airbyte"
+    }
+  }
+}

@@ -68,6 +68,12 @@ variable "argo_workflows_enabled" {
   default     = false
 }
 
+variable "argo_cd_enabled" {
+  description = "Whether to deploy the argo cd module"
+  type        = bool
+  default     = false
+}
+
 variable "windmill_enabled" {
   description = "Whether to deploy the windmill module"
   type        = bool
@@ -94,7 +100,20 @@ variable "kubernetes_config_path" {
   default     = "~/.kube/config"
 }
 
+variable "google_oauth_client_id" {
+  description = "Google OAuth client ID"
+  type        = string
+  default     = ""
+}
 
+variable "google_oauth_client_secret" {
+  description = "Google OAuth client secret"
+  type        = string
+  default     = ""
+}
 
-
-
+variable "deployment_domain" {
+  description = "Deployment domain"
+  type        = string
+  default     = ""
+}

@@ -7,3 +7,5 @@
 site/
 nohup.out
 argo-code/
+modules/aws
+terraform.tfvars

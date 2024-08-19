@@ -1,5 +1,7 @@
 module "aws" {
     source = "./modules/aws"
+    domain_root = "kadre.io"
+    subdomain = "${var.deployment_domain}"
 }
 
 provider "helm" {
@@ -16,6 +18,15 @@ provider "kubernetes" {
     cluster_ca_certificate = module.aws.cluster_ca_certificate
 }
 
+# provider "helm" {
+#     kubernetes {
+#         config_path = "~/.kube/config"
+#     }
+# }
+
+# provider "kubernetes" {
+#     config_path = "~/.kube/config"
+# }
 
 # resource "kubernetes_namespace" "minikube_namespace" {
 #   metadata {
@@ -23,9 +34,16 @@ provider "kubernetes" {
 #   }
 # }
 
+module "configuration_postgres" {
+    source = "./modules/configuration_postgres"
+}
+
 module "airbyte" {
     count  = var.airbyte_enabled ? 1 : 0
     source = "./modules/airbyte"
+    google_oauth_client_id = var.google_oauth_client_id
+    google_oauth_client_secret = var.google_oauth_client_secret
+    deployed_url = "https://airbyte.${var.deployment_domain}"
 }
 
 module "airflow" {
@@ -69,6 +87,17 @@ module "jitsu" {
 module "argo_workflows" {
     count  = var.argo_workflows_enabled ? 1 : 0
     source = "./modules/argo_workflows"
+    google_oauth_client_id = var.google_oauth_client_id
+    google_oauth_client_secret = var.google_oauth_client_secret
+    deployed_url = "https://argo-workflows.${var.deployment_domain}"
+}
+
+module "argo_cd" {
+    count  = var.argo_cd_enabled ? 1 : 0
+    source = "./modules/argo_cd"
+    google_oauth_client_id = var.google_oauth_client_id
+    google_oauth_client_secret = var.google_oauth_client_secret
+    deployed_url = "https://argocd.${var.deployment_domain}"
 }
 
 module "windmill" {

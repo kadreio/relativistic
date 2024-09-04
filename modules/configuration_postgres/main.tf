@@ -1,13 +1,42 @@
-resource "helm_release" "cloudnativepg" {
-  name       = "cloudnativepg"
-  repository = "https://cloudnative-pg.github.io/charts"
-  chart      = "cloudnative-pg"
-  version    = "0.21.6"
+resource "helm_release" "configuration_postgres" {
+  name       = "configuration-postgres"
+  repository = "https://charts.bitnami.com/bitnami"
+  chart      = "postgresql"
+  version    = "15.2.5"
+  values     = [file("./${path.module}/helm_values.yaml")]
 }
 
+data "kubernetes_service" "configuration_postgres" {
+  metadata {
+    name = "configuration-postgres-postgresql"
+  }
+  depends_on = [helm_release.configuration_postgres]
+}
 
-# helm repo add cnpg https://cloudnative-pg.github.io/charts
-# helm upgrade --install cnpg \
-# --namespace cnpg-system \
-# --create-namespace \
-# cnpg/cloudnative-pg
+data "kubernetes_secret" "configuration_postgres" {
+  metadata {
+    name = "configuration-postgres-postgresql"
+  }
+  depends_on = [helm_release.configuration_postgres]
+}
+
+output  "postgres_host" {
+  value = data.kubernetes_service.configuration_postgres.spec[0].cluster_ip
+}
+
+output  "postgres_service_port" {
+  value = data.kubernetes_service.configuration_postgres.spec[0].port[0].port
+}
+
+output  "postgres_service_database" {
+  value = "postgres"
+}
+
+output  "postgres_username" {
+  value = "postgres"
+}
+
+output "postgres_password" {
+  value = data.kubernetes_secret.configuration_postgres.data["postgres-password"]
+  sensitive = true
+}

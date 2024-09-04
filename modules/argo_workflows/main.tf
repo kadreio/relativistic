@@ -73,6 +73,16 @@ resource "kubernetes_cluster_role_binding" "argo_server_binding" {
   }
 }
 
+resource "kubernetes_service_account" "admin_argo" {
+  metadata {
+    name = "admin-argo"
+    annotations = {
+      "workflows.argoproj.io/rbac-rule" = "email in ['dylan@getmeez.com', 'kenny@getmeez.com','dan@getmeez.com','daniel@getmeez.com','mateus@getmeez.com','marylee@getmeez.com']"
+      "workflows.argoproj.io/rbac-rule-precedence" = "1"
+    }
+  }
+  
+}
 
 resource "helm_release" "argo_workflows" {
   name       = "argo-workflows"
@@ -80,7 +90,7 @@ resource "helm_release" "argo_workflows" {
   chart      = "argo-workflows"
   version    = "0.41.14"
   values     = [templatefile("./${path.module}/helm_values.yaml", {
-    deployed_url               = var.deployed_url
+    target_domain               = "${var.target_domain}"
   })]
   timeout    = "60"
 }
@@ -95,6 +105,8 @@ resource "kubernetes_cluster_role" "super_admin" {
     resources  = ["*"]
     verbs      = ["*"]
   }
+
+
 }
 
 resource "kubernetes_cluster_role_binding" "super_admin_binding" {
@@ -119,6 +131,33 @@ resource "kubernetes_cluster_role_binding" "super_admin_binding" {
     name      = kubernetes_service_account.argo_server.metadata[0].name
     namespace = kubernetes_service_account.argo_server.metadata[0].namespace
   }
+
+  subject {
+    kind      = "ServiceAccount"
+    name      = kubernetes_service_account.admin_argo.metadata[0].name
+    namespace = kubernetes_service_account.admin_argo.metadata[0].namespace
+  }
+}
+
+resource "kubernetes_service_account" "other_argo" {
+  metadata {
+    name = "other-argo"
+    annotations = {
+      "workflows.argoproj.io/rbac-rule" = "true"
+      "workflows.argoproj.io/rbac-rule-precedence" = "0"
+    }
+  }
+}
+resource "kubernetes_secret" "other-argo-service-account-token" {
+  metadata {
+    name = "other-argo.service-account-token"
+    annotations = {
+      "kubernetes.io/service-account.name" = kubernetes_service_account.other_argo.metadata[0].name
+    }
+  }
+  
+  type = "kubernetes.io/service-account-token"
+
 }
 
 variable "google_oauth_client_id" {
@@ -133,13 +172,17 @@ variable "google_oauth_client_secret" {
   default     = ""
 }
 
-variable "deployed_url" {
+variable "target_domain" {
   description = "The url of the deployed application"
   type        = string
   default     = "localhost:30083"
 }
 
-
+variable "argo_workflows_subdomain" {
+  description = "The subdomain for Argo Workflows"
+  type        = string
+  default     = "argo-workflows"
+}
 
 resource "kubernetes_secret" "argo_sso" {
   metadata {
@@ -151,6 +194,19 @@ resource "kubernetes_secret" "argo_sso" {
     "clientSecret" = var.google_oauth_client_secret
   }
 }
+
+resource "kubernetes_secret" "admin-argo-service-account-token" {
+  metadata {
+    name = "admin-argo.service-account-token"
+    annotations = {
+      "kubernetes.io/service-account.name" = kubernetes_service_account.admin_argo.metadata[0].name
+    }
+  }
+  
+  type = "kubernetes.io/service-account-token"
+
+}
+
 
 resource "kubernetes_service" "expose_argo_workflows_webserver" {
   metadata {

@@ -117,3 +117,27 @@ variable "deployment_domain" {
   type        = string
   default     = ""
 }
+
+variable "zone_domain" {
+  description = "Zone domain"
+  type        = string
+  default     = ""
+}
+
+variable "argo_workflows_subdomain" {
+  description = "The subdomain for Argo Workflows"
+  type        = string
+  default     = "argo-workflows"
+}
+
+variable "argocd_subdomain" {
+  description = "Subdomain for ArgoCD"
+  type        = string
+  default     = "argocd"
+}
+
+variable "airbyte_subdomain" {
+  description = "The subdomain for Airbyte"
+  type        = string
+  default     = "airbyte"
+}

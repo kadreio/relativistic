@@ -37,12 +37,23 @@ variable "google_oauth_client_secret" {
   default     = ""
 }
 
-variable "deployed_url" {
+variable "target_domain" {
   description = "The url of the deployed application"
   type        = string
   default     = "localhost:30083"
 }
 
+variable "airbyte_subdomain" {
+  description = "The subdomain for Airbyte"
+  type        = string
+  default     = "airbyte"
+}
+
+variable "deployment_domain" {
+  description = "The deployment domain"
+  type        = string
+  default     = ""
+}
 
 resource "helm_release" "oauth2_proxy" {
   name             = "oauth2-proxy-airbyte"
@@ -53,7 +64,7 @@ resource "helm_release" "oauth2_proxy" {
   values = [templatefile("./${path.module}/oauth2_proxy.yaml", {
     google_oauth_client_id     = var.google_oauth_client_id
     google_oauth_client_secret = var.google_oauth_client_secret
-    deployed_url               = var.deployed_url
+    target_domain               = var.target_domain
   })]
 }
 

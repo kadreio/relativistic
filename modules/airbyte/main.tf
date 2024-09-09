@@ -1,11 +1,31 @@
+resource "kubernetes_secret" "db_secrets" {
+  metadata {
+    name = "db-secrets"
+  }
+
+  type = "Opaque"
+
+  data = {
+    DATABASE_PASSWORD = var.db_password
+  }
+}
+
+
 resource "helm_release" "airbyte" {
   name       = "airbyte"
   repository = "https://airbytehq.github.io/helm-charts"
   chart      = "airbyte"
-  version    = "0.383.1"
-  values     = [file("./${path.module}/airbyte.yaml")]
+  version    = "0.453.2"
+  values     = [
+    templatefile("./${path.module}/airbyte.yaml", {
+      db_host     = var.db_host
+      db_port     = var.db_port
+      db_name     = var.db_name
+      db_user     = var.db_user
+      db_password = var.db_password
+    })
+  ]
 }
-
 resource "kubernetes_service" "expose_airbyte_webserver" {
   metadata {
     name = "expose-airbyte-webserver"
@@ -54,6 +74,32 @@ variable "deployment_domain" {
   type        = string
   default     = ""
 }
+variable "db_host" {
+  description = "PostgreSQL database host"
+  type        = string
+}
+
+variable "db_port" {
+  description = "PostgreSQL database port"
+  type        = number
+  default     = 5432
+}
+
+variable "db_name" {
+  description = "PostgreSQL database name"
+  type        = string
+}
+
+variable "db_user" {
+  description = "PostgreSQL database user"
+  type        = string
+}
+
+variable "db_password" {
+  description = "PostgreSQL database password"
+  type        = string
+}
+
 
 resource "helm_release" "oauth2_proxy" {
   name             = "oauth2-proxy-airbyte"

@@ -41,9 +41,4 @@ config:
 authenticatedEmailsFile:
   enabled: true
   restricted_access: |-
-    dylan@getmeez.com
-    kenny@getmeez.com
-    dan@getmeez.com
-    daniel@getmeez.com
-    mateus@getmeez.com
-    marylee@getmeez.com
+    ${userlist}

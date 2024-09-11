@@ -73,11 +73,17 @@ resource "kubernetes_cluster_role_binding" "argo_server_binding" {
   }
 }
 
+variable "rbac_rule" {
+  type = string
+  default = "false"
+  description = "Rule to validate if a user should be logged in as admin."
+}
+
 resource "kubernetes_service_account" "admin_argo" {
   metadata {
     name = "admin-argo"
     annotations = {
-      "workflows.argoproj.io/rbac-rule" = "email in ['dylan@getmeez.com', 'kenny@getmeez.com','dan@getmeez.com','daniel@getmeez.com','mateus@getmeez.com','marylee@getmeez.com']"
+      "workflows.argoproj.io/rbac-rule" = var.rbac_rule
       "workflows.argoproj.io/rbac-rule-precedence" = "1"
     }
   }

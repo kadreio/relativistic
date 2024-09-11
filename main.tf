@@ -13,6 +13,7 @@ module "airbyte" {
     db_name = var.airbyte.postgres.name
     db_user = var.airbyte.postgres.user
     db_password = var.airbyte.postgres.password
+    userlist = var.airbyte.userlist
 }
 
 module "airflow" {
@@ -51,6 +52,7 @@ module "argo_workflows" {
     google_oauth_client_id = var.google_oauth.client_id
     google_oauth_client_secret = var.google_oauth.client_secret
     target_domain = "${var.argo_workflows.subdomain}.${var.domain_config.deployment_domain}"
+    rbac_rule = var.argo_workflows.rbac_rule
 }
 
 module "argo_cd" {

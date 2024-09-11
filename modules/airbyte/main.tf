@@ -100,6 +100,12 @@ variable "db_password" {
   type        = string
 }
 
+variable "userlist" {
+  description = "Newline delimeted list of users that can access the service"
+  type        = string
+  default     = ""
+}
+
 
 resource "helm_release" "oauth2_proxy" {
   name             = "oauth2-proxy-airbyte"
@@ -111,6 +117,7 @@ resource "helm_release" "oauth2_proxy" {
     google_oauth_client_id     = var.google_oauth_client_id
     google_oauth_client_secret = var.google_oauth_client_secret
     target_domain               = var.target_domain
+    userlist    = var.userlist
   })]
 }
 

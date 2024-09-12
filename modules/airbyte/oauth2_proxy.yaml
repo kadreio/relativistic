@@ -41,4 +41,4 @@ config:
 authenticatedEmailsFile:
   enabled: true
   restricted_access: |-
-    ${userlist}
+${userlist}

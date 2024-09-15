@@ -34,12 +34,14 @@ variable "superset" {
     default_user    = string
     default_password = string
     secret_key      = string
+    local_exposed_port = number
   })
   default = {
     enabled         = false
     default_user    = "admin@superset.com"
     default_password = "admin"
     secret_key      = "YOUR_OWN_RANDOM_GENERATED_SECRET_KEY"
+    local_exposed_port = 30086
   }
 }
 
@@ -93,15 +95,6 @@ variable "tooljet" {
   }
 }
 
-variable "jitsu" {
-  description = "Configuration for Jitsu deployment"
-  type = object({
-    enabled = bool
-  })
-  default = {
-    enabled = false
-  }
-}
 
 variable "argo_workflows" {
   description = "Configuration for Argo Workflows deployment"

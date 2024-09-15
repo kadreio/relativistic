@@ -11,3 +11,4 @@ modules/aws
 terraform.tfvars
 /relativistic-marketing
 /terraform.tfstate.d
+.vscode/

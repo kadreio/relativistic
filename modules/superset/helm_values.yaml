@@ -1,218 +1,22 @@
-#
-# Licensed to the Apache Software Foundation (ASF) under one or more
-# contributor license agreements.  See the NOTICE file distributed with
-# this work for additional information regarding copyright ownership.
-# The ASF licenses this file to You under the Apache License, Version 2.0
-# (the "License"); you may not use this file except in compliance with
-# the License.  You may obtain a copy of the License at
-#
-#    http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-#
 
-# Default values for superset.
-# This is a YAML-formatted file.
-# Declare variables to be passed into your templates.
-
-# A README is automatically generated from this file to document it, using helm-docs (see https://github.com/norwoodj/helm-docs)
-# To update it, install helm-docs and run helm-docs from the root of this chart
-
-# -- Provide a name to override the name of the chart
-nameOverride: ~
-# -- Provide a name to override the full names of resources
-fullnameOverride: ~
-
-# -- User ID directive. This user must have enough permissions to run the bootstrap script
-# Running containers as root is not recommended in production. Change this to another UID - e.g. 1000 to be more secure
-runAsUser: 0
-
-# -- Specify service account name to be used
-serviceAccountName: ~
-serviceAccount:
-  # -- Create custom service account for Superset. If create: true and serviceAccountName is not provided, `superset.fullname` will be used.
-  create: false
-  annotations: {}
-
-# -- Install additional packages and do any other bootstrap configuration in this script
-# For production clusters it's recommended to build own image with this step done in CI
-# @default -- see `values.yaml`
-bootstrapScript: |
-  #!/bin/bash
-  if [ ! -f ~/bootstrap ]; then echo "Running Superset with uid {{ .Values.runAsUser }}" > ~/bootstrap; fi
-
-# -- The name of the secret which we will use to generate a superset_config.py file
-# Note: this secret must have the key superset_config.py in it and can include other files as well
-configFromSecret: '{{ template "superset.fullname" . }}-config'
-
-# -- The name of the secret which we will use to populate env vars in deployed pods
-# This can be useful for secret keys, etc.
-envFromSecret: '{{ template "superset.fullname" . }}-env'
-# -- This can be a list of templated strings
-envFromSecrets: []
-
-# -- Extra environment variables that will be passed into pods
-extraEnv: {}
-  # Different gunicorn settings, refer to the gunicorn documentation
-  # https://docs.gunicorn.org/en/stable/settings.html#
-  # These variables are used as Flags at the gunicorn startup
-  # https://github.com/apache/superset/blob/master/docker/run-server.sh#L22
-  # Extend timeout to allow long running queries.
-  # GUNICORN_TIMEOUT: 300
-  # Increase the gunicorn worker amount, can improve performance drastically
-  # See: https://docs.gunicorn.org/en/stable/design.html#how-many-workers
-  # SERVER_WORKER_AMOUNT: 4
-  # WORKER_MAX_REQUESTS: 0
-  # WORKER_MAX_REQUESTS_JITTER: 0
-  # SERVER_THREADS_AMOUNT: 20
-  # GUNICORN_KEEPALIVE: 2
-  # SERVER_LIMIT_REQUEST_LINE: 0
-  # SERVER_LIMIT_REQUEST_FIELD_SIZE: 0
-
-  # OAUTH_HOME_DOMAIN: ..
-  # # If a whitelist is not set, any address that can use your OAuth2 endpoint will be able to login.
-  # #   this includes any random Gmail address if your OAuth2 Web App is set to External.
-  # OAUTH_WHITELIST_REGEX: ...
-
-# -- Extra environment variables in RAW format that will be passed into pods
-extraEnvRaw: []
-  # Load DB password from other secret (e.g. for zalando operator)
-  # - name: DB_PASS
-  #   valueFrom:
-  #     secretKeyRef:
-  #       name: superset.superset-postgres.credentials.postgresql.acid.zalan.do
-  #       key: password
-
-# -- Extra environment variables to pass as secrets
-extraSecretEnv: {}
-  # MAPBOX_API_KEY: ...
-  # # Google API Keys: https://console.cloud.google.com/apis/credentials
-  # GOOGLE_KEY: ...
-  # GOOGLE_SECRET: ...
-  #   # Generate your own secret key for encryption. Use openssl rand -base64 42 to generate a good key
-  #  SUPERSET_SECRET_KEY: 'CHANGE_ME_TO_A_COMPLEX_RANDOM_SECRET'
-
-# -- Extra files to mount on `/app/pythonpath`
-extraConfigs: {}
-  # import_datasources.yaml: |
-  #     databases:
-  #     - allow_file_upload: true
-  #       allow_ctas: true
-  #       allow_cvas: true
-  #       database_name: example-db
-  #       extra: "{\r\n    \"metadata_params\": {},\r\n    \"engine_params\": {},\r\n    \"\
-  #         metadata_cache_timeout\": {},\r\n    \"schemas_allowed_for_file_upload\": []\r\n\
-  #         }"
-  #       sqlalchemy_uri: example://example-db.local
-  #       tables: []
-
-# -- Extra files to mount on `/app/pythonpath` as secrets
-extraSecrets: {}
-
-# extraVolumes:
-#   - name: duckdb-storage-claim
-#     persistentVolumeClaim:
-#       claimName: duckdb-storage-claim
-
-# extraVolumeMounts:
-#   - name: duckdb-storage-claim
-#     mountPath: /mnt/data
-#     # readOnly: true
-
-# extraVolumes: []
-  # - name: customConfig
-  #   configMap:
-  #     name: '{{ template "superset.fullname" . }}-custom-config'
-  # - name: additionalSecret
-  #   secret:
-  #     secretName: my-secret
-  #     defaultMode: 0600
-
-extraVolumeMounts: []
-  # - name: customConfig
-  #   mountPath: /mnt/config
-  #   readOnly: true
-  # - name: additionalSecret:
-  #   mountPath: /mnt/secret
-
-# -- A dictionary of overrides to append at the end of superset_config.py - the name does not matter
-# WARNING: the order is not guaranteed
-# Files can be passed as helm --set-file configOverrides.my-override=my-file.py
 configOverrides:
   secret: |
     SECRET_KEY = "${superset_secret_key}"
-  # extend_timeout: |
-  #    # Extend timeout to allow long running queries.
-  #    SUPERSET_WEBSERVER_TIMEOUT = ...
-  # enable_oauth: |
-  #   from flask_appbuilder.security.manager import (AUTH_DB, AUTH_OAUTH)
-  #   AUTH_TYPE = AUTH_OAUTH
-  #   OAUTH_PROVIDERS = [
-  #       {
-  #           "name": "google",
-  #           "whitelist": [ os.getenv("OAUTH_WHITELIST_REGEX", "") ],
-  #           "icon": "fa-google",
-  #           "token_key": "access_token",
-  #           "remote_app": {
-  #               "client_id": os.environ.get("GOOGLE_KEY"),
-  #               "client_secret": os.environ.get("GOOGLE_SECRET"),
-  #               "api_base_url": "https://www.googleapis.com/oauth2/v2/",
-  #               "client_kwargs": {"scope": "email profile"},
-  #               "request_token_url": None,
-  #               "access_token_url": "https://accounts.google.com/o/oauth2/token",
-  #               "authorize_url": "https://accounts.google.com/o/oauth2/auth",
-  #               "authorize_params": {"hd": os.getenv("OAUTH_HOME_DOMAIN", "")}
-  #           }
-  #       }
-  #   ]
-  #   # Map Authlib roles to superset roles
-  #   AUTH_ROLE_ADMIN = 'Admin'
-  #   AUTH_ROLE_PUBLIC = 'Public'
-  #   # Will allow user self registration, allowing to create Flask users from Authorized User
-  #   AUTH_USER_REGISTRATION = True
-  #   # The default user self registration role
-  #   AUTH_USER_REGISTRATION_ROLE = "Admin"
-  # secret: |
-  #   # Generate your own secret key for encryption. Use `openssl rand -base64 42` to generate a good key
-  #   SECRET_KEY = 'CHANGE_ME_TO_A_COMPLEX_RANDOM_SECRET'
 
-# -- Same as above but the values are files
-configOverridesFiles: {}
-  # extend_timeout: extend_timeout.py
-  # enable_oauth: enable_oauth.py
-
-configMountPath: "/app/pythonpath"
-
-extraConfigMountPath: "/app/configs"
-
-image:
-  # repository: public.ecr.aws/r9n3c1a5/superset_duckdb
-  tag: latest
-  pullPolicy: Always
-
-imagePullSecrets: []
-
-initImage:
-  repository: apache/superset
-  tag: dockerize
-  pullPolicy: IfNotPresent
-  
 service:
-  type: ClusterIP
-  port: 8088
+  type: NodePort
+  port: 8080
+  target_port: 8080
   annotations: {}
     # cloud.google.com/load-balancer-type: "Internal"
   loadBalancerIP: ~
   nodePort:
     # -- (int)
-    http: nil
+    http: ${superset_local_exposed_port}
+
 
 ingress:
-  enabled: true
+  enabled: false
   ingressClassName: ~
   annotations: {}
     # kubernetes.io/tls-acme: "true"

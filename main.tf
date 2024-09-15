@@ -1,3 +1,17 @@
+terraform {
+  required_providers {
+    helm = {
+      source  = "hashicorp/helm"
+      version = "~> 2.14.0"
+    }
+    kubernetes = {
+      source  = "hashicorp/kubernetes"
+      version = "~> 2.21.0"
+    }
+  }
+}
+
+
 module "configuration_postgres" {
     source = "./modules/configuration_postgres"
 }
@@ -39,11 +53,6 @@ module "tooljet" {
 module "lightdash" {
     count  = var.lightdash.enabled ? 1 : 0
     source = "./modules/lightdash"
-}
-
-module "jitsu" {
-    count  = var.jitsu.enabled ? 1 : 0
-    source = "./modules/jitsu"
 }
 
 module "argo_workflows" {
@@ -90,4 +99,5 @@ module "superset" {
     superset_default_user = var.superset.default_user
     superset_default_password = var.superset.default_password
     superset_secret_key = var.superset.secret_key
+    superset_local_exposed_port = var.superset.local_exposed_port
 }

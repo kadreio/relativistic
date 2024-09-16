@@ -9,7 +9,7 @@ provider "helm" {
 }
 
 module "relativistic" {
-    source = "../../"
+    source = "github.com/kadreio/relativistic.git?ref=v0.0.3-rc1"
 
     superset = {
         enabled = true

@@ -45,11 +45,6 @@ module "dagster" {
     source = "./modules/dagster"
 }
 
-module "tooljet" {
-    count  = var.tooljet.enabled ? 1 : 0
-    source = "./modules/tooljet"
-}
-
 module "lightdash" {
     count  = var.lightdash.enabled ? 1 : 0
     source = "./modules/lightdash"
@@ -75,11 +70,6 @@ module "argo_cd" {
 module "windmill" {
     count  = var.windmill.enabled ? 1 : 0
     source = "./modules/windmill"
-}
-
-module "kestra" {
-    count  = var.kestra.enabled ? 1 : 0
-    source = "./modules/kestra"
 }
 
 ### Infra

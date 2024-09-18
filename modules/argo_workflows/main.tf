@@ -98,7 +98,6 @@ resource "helm_release" "argo_workflows" {
   values     = [templatefile("./${path.module}/helm_values.yaml", {
     target_domain               = "${var.target_domain}"
   })]
-  timeout    = "60"
 }
 
 resource "kubernetes_cluster_role" "super_admin" {

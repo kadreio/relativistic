@@ -1,187 +1,201 @@
-variable "airbyte" {
-  description = "Configuration for Airbyte deployment"
-  type = object({
-    enabled = bool
-    postgres = object({
-      host     = string
-      port     = number
-      name     = string
-      user     = string
-      password = string
-    })
-    subdomain = string
-    userlist  = string
-  })
-  default = {
-    enabled = false
-    postgres = {
-      host     = null
-      port     = 5432
-      name     = null
-      user     = null
-      password = null
-    }
-    subdomain = "airbyte"
-    userlist  = ""
-  }
-  sensitive = true
+variable "airbyte_enabled" {
+  description = "Enable Airbyte deployment"
+  type        = bool
+  default     = false
 }
 
-variable "superset" {
-  description = "Configuration for Apache Superset deployment"
-  type = object({
-    enabled         = bool
-    default_user    = string
-    default_password = string
-    secret_key      = string
-    local_exposed_port = number
-  })
-  default = {
-    enabled         = false
-    default_user    = "admin@superset.com"
-    default_password = "admin"
-    secret_key      = "YOUR_OWN_RANDOM_GENERATED_SECRET_KEY"
-    local_exposed_port = 30086
-  }
+variable "airbyte_postgres_host" {
+  description = "Airbyte PostgreSQL host"
+  type        = string
+  default     = "airbyte"
 }
 
-variable "airflow" {
-  description = "Configuration for Apache Airflow deployment"
-  type = object({
-    enabled = bool
-  })
-  default = {
-    enabled = false
-  }
+variable "airbyte_postgres_port" {
+  description = "Airbyte PostgreSQL port"
+  type        = number
+  default     = 5432
 }
 
-variable "analytics_postgres" {
-  description = "Configuration for Analytics PostgreSQL deployment"
-  type = object({
-    enabled = bool
-  })
-  default = {
-    enabled = false
-  }
+variable "airbyte_postgres_name" {
+  description = "Airbyte PostgreSQL database name"
+  type        = string
+  default     = "airbyte"
 }
 
-variable "dagster" {
-  description = "Configuration for Dagster deployment"
-  type = object({
-    enabled = bool
-  })
-  default = {
-    enabled = false
-  }
+variable "airbyte_postgres_user" {
+  description = "Airbyte PostgreSQL user"
+  type        = string
+  default     = "airbyte"
 }
 
-variable "lightdash" {
-  description = "Configuration for Lightdash deployment"
-  type = object({
-    enabled = bool
-  })
-  default = {
-    enabled = false
-  }
+variable "airbyte_postgres_password" {
+  description = "Airbyte PostgreSQL password"
+  type        = string
+  default     = "airbyte"
+  sensitive   = true
 }
 
-variable "tooljet" {
-  description = "Configuration for Tooljet deployment"
-  type = object({
-    enabled = bool
-  })
-  default = {
-    enabled = false
-  }
+variable "airbyte_subdomain" {
+  description = "Subdomain for Airbyte"
+  type        = string
+  default     = "airbyte"
 }
 
-
-variable "argo_workflows" {
-  description = "Configuration for Argo Workflows deployment"
-  type = object({
-    enabled   = bool
-    subdomain = string
-    rbac_rule = string
-  })
-  default = {
-    enabled   = false
-    subdomain = "argo-workflows"
-    rbac_rule = "false"
-  }
+variable "airbyte_userlist" {
+  description = "User list for Airbyte"
+  type        = string
+  default     = ""
 }
 
-variable "argo_cd" {
-  description = "Configuration for Argo CD deployment"
-  type = object({
-    enabled   = bool
-    subdomain = string
-  })
-  default = {
-    enabled   = false
-    subdomain = "argocd"
-  }
+variable "airbyte_use_external_pg" {
+  description = "Use external PostgreSQL for Airbyte"
+  type        = bool
+  default     = false
 }
 
-variable "windmill" {
-  description = "Configuration for Windmill deployment"
-  type = object({
-    enabled = bool
-  })
-  default = {
-    enabled = false
-  }
+variable "superset_enabled" {
+  description = "Enable Apache Superset deployment"
+  type        = bool
+  default     = false
 }
 
-variable "kestra" {
-  description = "Configuration for Kestra deployment"
-  type = object({
-    enabled = bool
-  })
-  default = {
-    enabled = false
-  }
+variable "superset_default_user" {
+  description = "Default user for Apache Superset"
+  type        = string
+  default     = "admin@superset.com"
 }
 
-variable "kubernetes_dashboard" {
-  description = "Configuration for Kubernetes Dashboard deployment"
-  type = object({
-    enabled = bool
-  })
-  default = {
-    enabled = false
-  }
+variable "superset_default_password" {
+  description = "Default password for Apache Superset"
+  type        = string
+  default     = "admin"
+  sensitive   = true
 }
 
-variable "kubernetes_config" {
-  description = "Kubernetes configuration settings"
-  type = object({
-    config_path = string
-  })
-  default = {
-    config_path = "~/.kube/config"
-  }
+variable "superset_secret_key" {
+  description = "Secret key for Apache Superset"
+  type        = string
+  default     = "YOUR_OWN_RANDOM_GENERATED_SECRET_KEY"
+  sensitive   = true
 }
 
-variable "google_oauth" {
-  description = "Google OAuth configuration for authentication"
-  type = object({
-    client_id     = string
-    client_secret = string
-  })
-  default = {
-    client_id     = ""
-    client_secret = ""
-  }
+variable "superset_local_exposed_port" {
+  description = "Local exposed port for Apache Superset"
+  type        = number
+  default     = 30086
 }
 
-variable "domain_config" {
-  description = "Domain configuration for deployments"
-  type = object({
-    deployment_domain = string
-    zone_domain       = string
-  })
-  default = {
-    deployment_domain = ""
-    zone_domain       = ""
-  }
+variable "airflow_enabled" {
+  description = "Enable Apache Airflow deployment"
+  type        = bool
+  default     = false
+}
+
+variable "analytics_postgres_enabled" {
+  description = "Enable Analytics PostgreSQL deployment"
+  type        = bool
+  default     = false
+}
+
+variable "dagster_enabled" {
+  description = "Enable Dagster deployment"
+  type        = bool
+  default     = false
+}
+
+variable "lightdash_enabled" {
+  description = "Enable Lightdash deployment"
+  type        = bool
+  default     = false
+}
+
+variable "tooljet_enabled" {
+  description = "Enable Tooljet deployment"
+  type        = bool
+  default     = false
+}
+
+variable "argo_workflows_enabled" {
+  description = "Enable Argo Workflows deployment"
+  type        = bool
+  default     = false
+}
+
+variable "argo_workflows_subdomain" {
+  description = "Subdomain for Argo Workflows"
+  type        = string
+  default     = "argo-workflows"
+}
+
+variable "argo_workflows_rbac_rule" {
+  description = "RBAC rule for Argo Workflows"
+  type        = string
+  default     = "false"
+}
+
+variable "argo_cd_enabled" {
+  description = "Enable Argo CD deployment"
+  type        = bool
+  default     = false
+}
+
+variable "argo_cd_subdomain" {
+  description = "Subdomain for Argo CD"
+  type        = string
+  default     = "argocd"
+}
+
+variable "windmill_enabled" {
+  description = "Enable Windmill deployment"
+  type        = bool
+  default     = false
+}
+
+variable "kestra_enabled" {
+  description = "Enable Kestra deployment"
+  type        = bool
+  default     = false
+}
+
+variable "kubernetes_dashboard_enabled" {
+  description = "Enable Kubernetes Dashboard deployment"
+  type        = bool
+  default     = false
+}
+
+variable "kubernetes_config_path" {
+  description = "Path to Kubernetes configuration file"
+  type        = string
+  default     = "~/.kube/config"
+}
+
+variable "google_oauth_client_id" {
+  description = "Google OAuth client ID"
+  type        = string
+  default     = ""
+}
+
+variable "google_oauth_client_secret" {
+  description = "Google OAuth client secret"
+  type        = string
+  default     = ""
+  sensitive   = true
+}
+
+variable "domain_config_deployment_domain" {
+  description = "Deployment domain for configurations"
+  type        = string
+  default     = ""
+}
+
+variable "domain_config_zone_domain" {
+  description = "Zone domain for configurations"
+  type        = string
+  default     = ""
+}
+
+variable "prometheus_enabled" {
+  description = "Enable Prometheus deployment"
+  type        = bool
+  default     = false
 }

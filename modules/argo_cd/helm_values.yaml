@@ -1,11 +1,13 @@
 global:
-  domain: argocd.data.kadre.io
+  domain: ${target_domain}
 configs:
+  rbac:
+    create: true
+    policy.default: 'role:admin'
+    
   cm:
     create: true
     dex.config: |
-      enablePasswordDB: true
-
       connectors:
       - type: oidc
         id: google
@@ -14,7 +16,8 @@ configs:
           issuer: https://accounts.google.com
           clientID: "${google_oauth_client_id}"
           clientSecret: "${google_oauth_client_secret}"
-    url: ${deployed_url}
+
+    url: https://${target_domain}
 
   params:
     server.insecure: true

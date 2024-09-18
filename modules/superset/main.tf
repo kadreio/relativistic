@@ -14,6 +14,11 @@ resource "helm_release" "superset" {
   version    = "0.12.9"
 
   values = [
-    templatefile("${path.module}/helm_values.yaml", { superset_default_user = var.superset_default_user, superset_default_password = var.superset_default_password, superset_secret_key = var.superset_secret_key})
+    templatefile("${path.module}/helm_values.yaml", {
+      superset_default_user = var.superset_default_user,
+      superset_default_password = var.superset_default_password,
+      superset_secret_key = var.superset_secret_key,
+      superset_local_exposed_port = var.superset_local_exposed_port
+    })
   ]
 }

@@ -1,38 +1,16 @@
-module "aws" {
-    source = "./modules/aws"
-    domain_root = "kadre.io"
-    subdomain = "${var.deployment_domain}"
-}
-
-provider "helm" {
-  kubernetes {
-    host                   = module.aws.cluster_endpoint
-    token                  = module.aws.cluster_auth_cluster_token
-    cluster_ca_certificate = module.aws.cluster_ca_certificate
+terraform {
+  required_providers {
+    helm = {
+      source  = "hashicorp/helm"
+      version = "~> 2.14.0"
+    }
+    kubernetes = {
+      source  = "hashicorp/kubernetes"
+      version = "~> 2.21.0"
+    }
   }
 }
 
-provider "kubernetes" {
-    host                   = module.aws.cluster_endpoint
-    token                  = module.aws.cluster_auth_cluster_token
-    cluster_ca_certificate = module.aws.cluster_ca_certificate
-}
-
-# provider "helm" {
-#     kubernetes {
-#         config_path = "~/.kube/config"
-#     }
-# }
-
-# provider "kubernetes" {
-#     config_path = "~/.kube/config"
-# }
-
-# resource "kubernetes_namespace" "minikube_namespace" {
-#   metadata {
-#     name = "terraform-namespace"
-#   }
-# }
 
 module "configuration_postgres" {
     source = "./modules/configuration_postgres"
@@ -43,20 +21,19 @@ module "airbyte" {
     source = "./modules/airbyte"
     google_oauth_client_id = var.google_oauth_client_id
     google_oauth_client_secret = var.google_oauth_client_secret
-    deployed_url = "https://airbyte.${var.deployment_domain}"
+    target_domain = "${var.airbyte_subdomain}.${var.domain_config_deployment_domain}"
+    db_host = var.airbyte_postgres_host
+    db_port = var.airbyte_postgres_port
+    db_name = var.airbyte_postgres_name
+    db_user = var.airbyte_postgres_user
+    db_password = var.airbyte_postgres_password
+    userlist = var.airbyte_userlist
+    use_external_pg = var.airbyte_use_external_pg
 }
 
 module "airflow" {
     count  = var.airflow_enabled ? 1 : 0
     source = "./modules/airflow"
-}
-
-module "superset" {
-    count  = var.superset_enabled ? 1 : 0
-    source = "./modules/superset"
-    superset_default_user = var.superset_default_user
-    superset_default_password = var.superset_default_password
-    superset_secret_key = var.superset_secret_key
 }
 
 module "analytics_postgres" {
@@ -69,19 +46,9 @@ module "dagster" {
     source = "./modules/dagster"
 }
 
-module "tooljet" {
-    count  = var.tooljet_enabled ? 1 : 0
-    source = "./modules/tooljet"
-}
-
 module "lightdash" {
     count  = var.lightdash_enabled ? 1 : 0
     source = "./modules/lightdash"
-}
-
-module "jitsu" {
-    count  = var.lightdash_enabled ? 1 : 0
-    source = "./modules/jitsu"
 }
 
 module "argo_workflows" {
@@ -89,7 +56,8 @@ module "argo_workflows" {
     source = "./modules/argo_workflows"
     google_oauth_client_id = var.google_oauth_client_id
     google_oauth_client_secret = var.google_oauth_client_secret
-    deployed_url = "https://argo-workflows.${var.deployment_domain}"
+    target_domain = "${var.argo_workflows_subdomain}.${var.domain_config_deployment_domain}"
+    rbac_rule = var.argo_workflows_rbac_rule
 }
 
 module "argo_cd" {
@@ -97,7 +65,7 @@ module "argo_cd" {
     source = "./modules/argo_cd"
     google_oauth_client_id = var.google_oauth_client_id
     google_oauth_client_secret = var.google_oauth_client_secret
-    deployed_url = "https://argocd.${var.deployment_domain}"
+    target_domain = "${var.argo_cd_subdomain}.${var.domain_config_deployment_domain}"
 }
 
 module "windmill" {
@@ -105,14 +73,23 @@ module "windmill" {
     source = "./modules/windmill"
 }
 
-module "kestra" {
-    count  = var.kestra_enabled ? 1 : 0
-    source = "./modules/kestra"
-}
-
 ### Infra
 
 module "kubernetes_dashboard" {
     count  = var.kubernetes_dashboard_enabled ? 1 : 0
     source = "./modules/kubernetes-dashboard"
+}
+
+module "prometheus" {
+    count  = var.prometheus_enabled ? 1 : 0
+    source = "./modules/prometheus"
+}
+
+module "superset" {
+    count  = var.superset_enabled ? 1 : 0
+    source = "./modules/superset"
+    superset_default_user = var.superset_default_user
+    superset_default_password = var.superset_default_password
+    superset_secret_key = var.superset_secret_key
+    superset_local_exposed_port = var.superset_local_exposed_port
 }

@@ -1,0 +1,8 @@
+ul.tight-list p, ul.tight-list li  {
+    margin-top: .5rem !important;
+}
+
+
+section {
+    margin-bottom: 1rem;
+}

@@ -6,9 +6,8 @@ resource "helm_release" "argo_cd" {
   values     = [templatefile("./${path.module}/helm_values.yaml", {
     google_oauth_client_id     = var.google_oauth_client_id
     google_oauth_client_secret = var.google_oauth_client_secret
-    deployed_url               = var.deployed_url
+    target_domain               = var.target_domain
   })]
-  timeout    = "300"
 }
 
 variable "google_oauth_client_id" {
@@ -23,7 +22,7 @@ variable "google_oauth_client_secret" {
   default     = ""
 } 
 
-variable "deployed_url" {
+variable "target_domain" {
   description = "The url of the deployed application"
   type        = string
   default     = "localhost:30088"

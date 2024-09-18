@@ -1,7 +1,7 @@
 *.tfstate
 *.tfstate.backup
 .terraform/
-/*.yaml
+# /*.yaml
 *.hcl
 .obsidian/
 site/
@@ -9,3 +9,6 @@ nohup.out
 argo-code/
 modules/aws
 terraform.tfvars
+/relativistic-marketing
+/terraform.tfstate.d
+.vscode/

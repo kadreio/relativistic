@@ -20,7 +20,7 @@ controller:
     create: true
     name: ""
   cronWorkflowWorkers: null
-  deploymentAnnotation s: {}
+  deploymentAnnotations: {}
   extraArgs: []
   extraContainers: []
   extraEnv: []
@@ -263,17 +263,18 @@ server:
       key: clientSecret
       name: argo-sso
     customGroupClaimName: ""
-    filterGroupsRegex: []
     insecureSkipVerify: true
     issuer: https://accounts.google.com
     issuerAlias: ""
+    allowedDomains: ["getmeez.com"]
     rbac:
-      enabled: false
+      enabled: true
       secretWhitelist: []
-    redirectUrl: "${deployed_url}/oauth2/callback"
+    redirectUrl: "https://${target_domain}/oauth2/callback"
     scopes: ["email"]
     sessionExpiry: "24h"
     userInfoPath: ""
+
   tmpVolume:
     emptyDir: {}
   tolerations: []

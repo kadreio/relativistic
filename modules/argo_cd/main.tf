@@ -8,6 +8,7 @@ resource "helm_release" "argo_cd" {
     google_oauth_client_secret = var.google_oauth_client_secret
     target_domain               = var.target_domain
   })]
+  timeout = 1200
 }
 
 variable "google_oauth_client_id" {

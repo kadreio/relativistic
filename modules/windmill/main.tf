@@ -4,6 +4,8 @@ resource "helm_release" "windmill" {
   chart      = "windmill"
   version    = "2.0.214"
   values     = [file("./${path.module}/helm_values.yaml")]
+
+  timeout = 1200
 }
 
 resource "kubernetes_service" "expose_windmill_webserver" {

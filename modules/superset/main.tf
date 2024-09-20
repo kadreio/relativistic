@@ -12,6 +12,7 @@ resource "helm_release" "superset" {
   repository = "https://apache.github.io/superset"
   chart      = "superset"
   version    = "0.12.9"
+  timeout = 1200
 
   values = [
     templatefile("${path.module}/helm_values.yaml", {

@@ -4,6 +4,7 @@ resource "helm_release" "airflow" {
   chart      = "airflow"
   version    = "8.8.0"
   values     = [file("./${path.module}/helm_values.yaml")]
+  timeout = 1200
 }
 
 resource "kubernetes_service" "expose_airflow_webserver" {

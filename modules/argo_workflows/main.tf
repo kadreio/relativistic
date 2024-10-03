@@ -73,6 +73,18 @@ resource "kubernetes_cluster_role_binding" "argo_server_binding" {
   }
 }
 
+variable "auth_mode" {
+  type = string
+  default = "server"
+  description = "The authentication mode for Argo Workflows. Options: server, sso, client"
+}
+
+variable "allowed_domains" {
+  type = list(string)
+  default = []
+  description = "The domains that are allowed to access Argo Workflows"
+}
+
 variable "rbac_rule" {
   type = string
   default = "false"
@@ -94,9 +106,10 @@ resource "helm_release" "argo_workflows" {
   name       = "argo-workflows"
   repository = "https://argoproj.github.io/argo-helm"
   chart      = "argo-workflows"
-  version    = "0.41.14"
+  version    = "0.42.3"
   values     = [templatefile("./${path.module}/helm_values.yaml", {
     target_domain               = "${var.target_domain}"
+    auth_mode = var.auth_mode
   })]
 }
 

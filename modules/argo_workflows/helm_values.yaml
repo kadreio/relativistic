@@ -166,7 +166,7 @@ nameOverride: null
 namespaceOverride: ""
 server:
   extraArgs:
-  - --auth-mode=sso
+  - --auth-mode=${auth_mode}
   - --secure=false
   GKEbackendConfig:
     enabled: false
@@ -179,7 +179,7 @@ server:
     - argoworkflows.example.com
     enabled: false
   affinity: {}
-  authModes: ["sso"]
+  authModes: ["${auth_mode}"]
   autoscaling:
     behavior: {}
     enabled: false
@@ -232,7 +232,7 @@ server:
   priorityClassName: ""
   rbac:
     create: true
-  replicas: 1
+  replicas: 2
   resources: {}
   revisionHistoryLimit: 10
   secure: false

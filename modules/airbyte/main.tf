@@ -10,12 +10,17 @@ resource "kubernetes_secret" "db_secrets" {
   }
 }
 
+variable "airbyte_chart_version" {
+  description = "Airbyte chart version"
+  type        = string
+  default     = "0.453.2"
+}
 
 resource "helm_release" "airbyte" {
   name       = "airbyte"
   repository = "https://airbytehq.github.io/helm-charts"
   chart      = "airbyte"
-  version    = "0.453.2"
+  version    = var.airbyte_chart_version
   values     = [
     templatefile("./${path.module}/airbyte.yaml", {
       db_host     = var.db_host

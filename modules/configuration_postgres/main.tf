@@ -1,9 +1,14 @@
+variable "configuration_postgres_chart_version" {
+  description = "Configuration Postgres chart version"
+  type        = string
+  default     = "15.2.5"
+}
+
 resource "helm_release" "configuration_postgres" {
   name       = "configuration-postgres"
   repository = "https://charts.bitnami.com/bitnami"
   chart      = "postgresql"
-  version    = "15.2.5"
-  values     = [file("./${path.module}/helm_values.yaml")]
+  version    = var.configuration_postgres_chart_version
 }
 
 data "kubernetes_service" "configuration_postgres" {

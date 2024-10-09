@@ -1,17 +1,14 @@
-
-# resource "aws_route53_record" "cert_validation" {
-#   name    = aws_acm_certificate.cert.domain_validation_options.0.resource_record_name
-#   type    = aws_acm_certificate.cert.domain_validation_options.0.resource_record_type
-#   zone_id = aws_route53_zone.superset_zone.zone_id
-#   records = [aws_acm_certificate.cert.domain_validation_options.0.resource_record_value]
-#   ttl     = 60
-# }
+variable "superset_chart_version" {
+  description = "Superset chart version"
+  type        = string
+  default     = "0.12.9"
+}
 
 resource "helm_release" "superset" {
   name       = "superset"
   repository = "https://apache.github.io/superset"
   chart      = "superset"
-  version    = "0.12.9"
+  version    = var.superset_chart_version
   timeout = 1200
 
   values = [

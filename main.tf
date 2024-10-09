@@ -30,11 +30,13 @@ module "airbyte" {
     db_password = var.airbyte_postgres_password
     userlist = var.airbyte_userlist
     use_external_pg = var.airbyte_use_external_pg
+    airbyte_chart_version = var.airbyte_chart_version
 }
 
 module "airflow" {
     count  = var.airflow_enabled ? 1 : 0
     source = "./modules/airflow"
+    airflow_chart_version = var.airflow_chart_version
 }
 
 module "analytics_postgres" {
@@ -45,11 +47,13 @@ module "analytics_postgres" {
 module "dagster" {
     count  = var.dagster_enabled ? 1 : 0
     source = "./modules/dagster"
+    dagster_chart_version = var.dagster_chart_version
 }
 
 module "lightdash" {
     count  = var.lightdash_enabled ? 1 : 0
     source = "./modules/lightdash"
+    lightdash_chart_version = var.lightdash_chart_version
 }
 
 module "argo_workflows" {
@@ -59,6 +63,7 @@ module "argo_workflows" {
     google_oauth_client_secret = var.google_oauth_client_secret
     target_domain = "${var.argo_workflows_subdomain}.${var.domain_config_deployment_domain}"
     rbac_rule = var.argo_workflows_rbac_rule
+    argo_workflows_chart_version = var.argo_workflows_chart_version
 }
 
 module "argo_cd" {
@@ -67,11 +72,13 @@ module "argo_cd" {
     google_oauth_client_id = var.google_oauth_client_id
     google_oauth_client_secret = var.google_oauth_client_secret
     target_domain = "${var.argo_cd_subdomain}.${var.domain_config_deployment_domain}"
+    argo_cd_chart_version = var.argo_cd_chart_version
 }
 
 module "windmill" {
     count  = var.windmill_enabled ? 1 : 0
     source = "./modules/windmill"
+    windmill_chart_version = var.windmill_chart_version
 }
 
 ### Infra
@@ -79,11 +86,14 @@ module "windmill" {
 module "kubernetes_dashboard" {
     count  = var.kubernetes_dashboard_enabled ? 1 : 0
     source = "./modules/kubernetes-dashboard"
+    kubernetes_dashboard_chart_version = var.kubernetes_dashboard_chart_version
 }
 
 module "prometheus" {
     count  = var.prometheus_enabled ? 1 : 0
     source = "./modules/prometheus"
+    prometheus_operator_chart_version = var.prometheus_operator_chart_version
+    loki_chart_version = var.loki_chart_version
 }
 
 module "superset" {
@@ -93,6 +103,7 @@ module "superset" {
     superset_default_password = var.superset_default_password
     superset_secret_key = var.superset_secret_key
     superset_local_exposed_port = var.superset_local_exposed_port
+    superset_chart_version = var.superset_chart_version
 }
 
 module "ubuntu" {

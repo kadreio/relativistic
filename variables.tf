@@ -211,3 +211,70 @@ variable "configuration_postgres_enabled" {
   type        = bool
   default     = false
 }
+
+variable "kubernetes_dashboard_chart_version" {
+  description = "Kubernetes Dashboard chart version"
+  type        = string
+  default     = "7.5.0"
+}
+
+variable "prometheus_operator_chart_version" {
+  description = "Prometheus Operator chart version"
+  type        = string
+  default     = "61.9.0"
+}
+
+variable "loki_chart_version" {
+  description = "Loki chart version"
+  type        = string
+  default     = "2.10.0"
+}
+
+variable "argo_cd_chart_version" {
+  description = "Argo CD chart version"
+  type        = string
+  default     = "7.4.3"
+}
+
+variable "lightdash_chart_version" {
+  description = "Lightdash chart version"
+  type        = string
+  default     = "0.8.9"
+}
+
+variable "argo_workflows_chart_version" {
+  description = "Argo Workflows chart version"
+  type        = string
+  default     = "0.42.3"
+}
+
+variable "dagster_chart_version" {
+  description = "Dagster chart version"
+  type        = string
+  default     = "1.7.1"
+}
+
+variable "superset_chart_version" {
+  description = "Superset chart version"
+  type        = string
+  default     = "0.12.9"
+}
+
+variable "windmill_chart_version" {
+  description = "Windmill chart version"
+  type        = string
+  default     = "2.0.214"
+}
+
+
+variable "airbyte_chart_version" {
+  description = "Airbyte chart version"
+  type        = string
+  default     = "0.453.2"
+}
+
+variable "airflow_chart_version" {
+  description = "Airflow chart version"
+  type        = string
+  default     = "8.8.0"
+}

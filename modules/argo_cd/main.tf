@@ -1,8 +1,14 @@
+variable "argo_cd_chart_version" {
+  description = "Argo CD chart version"
+  type        = string
+  default     = "7.4.3"
+}
+
 resource "helm_release" "argo_cd" {
   name       = "argo-cd"
   repository = "https://argoproj.github.io/argo-helm"
   chart      = "argo-cd"
-  version    = "7.4.3"
+  version    = var.argo_cd_chart_version
   values     = [templatefile("./${path.module}/helm_values.yaml", {
     google_oauth_client_id     = var.google_oauth_client_id
     google_oauth_client_secret = var.google_oauth_client_secret

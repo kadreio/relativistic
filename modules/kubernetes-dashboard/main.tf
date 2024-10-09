@@ -1,8 +1,14 @@
+variable "kubernetes_dashboard_chart_version" {
+  description = "Kubernetes Dashboard chart version"
+  type        = string
+  default     = "7.5.0"
+}
+
 resource "helm_release" "kubernetes_dashboard" {
   name       = "kubernetes-dashboard"
   repository = "https://kubernetes.github.io/dashboard"
   chart      = "kubernetes-dashboard"
-  version    = "7.5.0"
+  version    = var.kubernetes_dashboard_chart_version
 
   # values = [
   #   templatefile("${path.module}/helm_values.yaml")

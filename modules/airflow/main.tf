@@ -1,8 +1,14 @@
+variable "airflow_chart_version" {
+  description = "Airflow chart version"
+  type        = string
+  default     = "8.8.0"
+}
+
 resource "helm_release" "airflow" {
   name       = "airflow"
   repository = "https://airflow-helm.github.io/charts"
   chart      = "airflow"
-  version    = "8.8.0"
+  version    = var.airflow_chart_version
   values     = [file("./${path.module}/helm_values.yaml")]
   timeout = 1200
 }

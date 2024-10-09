@@ -102,11 +102,17 @@ resource "kubernetes_service_account" "admin_argo" {
   
 }
 
+variable "argo_workflows_chart_version" {
+  description = "Argo Workflows chart version"
+  type        = string
+  default     = "0.42.3"
+}
+
 resource "helm_release" "argo_workflows" {
   name       = "argo-workflows"
   repository = "https://argoproj.github.io/argo-helm"
   chart      = "argo-workflows"
-  version    = "0.42.3"
+  version    = var.argo_workflows_chart_version
   values     = [templatefile("./${path.module}/helm_values.yaml", {
     target_domain               = "${var.target_domain}"
     auth_mode = var.auth_mode

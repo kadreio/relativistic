@@ -1,9 +1,14 @@
+variable "windmill_chart_version" {
+  description = "Windmill chart version"
+  type        = string
+  default     = "2.0.214"
+}
+
 resource "helm_release" "windmill" {
   name       = "windmill"
   repository = "https://windmill-labs.github.io/windmill-helm-charts"
   chart      = "windmill"
-  version    = "2.0.214"
-  values     = [file("./${path.module}/helm_values.yaml")]
+  version    = var.windmill_chart_version
 
   timeout = 1200
 }

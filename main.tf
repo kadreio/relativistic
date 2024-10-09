@@ -13,6 +13,7 @@ terraform {
 
 
 module "configuration_postgres" {
+    count  = var.configuration_postgres_enabled ? 1 : 0
     source = "./modules/configuration_postgres"
 }
 
@@ -92,4 +93,9 @@ module "superset" {
     superset_default_password = var.superset_default_password
     superset_secret_key = var.superset_secret_key
     superset_local_exposed_port = var.superset_local_exposed_port
+}
+
+module "ubuntu" {
+    count  = var.ubuntu_enabled ? 1 : 0
+    source = "./modules/ubuntu"
 }

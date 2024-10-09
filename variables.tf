@@ -199,3 +199,15 @@ variable "prometheus_enabled" {
   type        = bool
   default     = false
 }
+
+variable "ubuntu_enabled" {
+  description = "Enable Ubuntu deployment"
+  type        = bool
+  default     = false
+}
+
+variable "configuration_postgres_enabled" {
+  description = "Enable Configuration PostgreSQL deployment"
+  type        = bool
+  default     = false
+}

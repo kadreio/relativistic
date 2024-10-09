@@ -13,7 +13,7 @@ resource "kubernetes_secret" "db_secrets" {
 variable "airbyte_chart_version" {
   description = "Airbyte chart version"
   type        = string
-  default     = "0.453.2"
+  default     = "1.1.0"
 }
 
 resource "helm_release" "airbyte" {
@@ -46,7 +46,7 @@ resource "kubernetes_service" "expose_airbyte_webserver" {
     }
 
     selector = {
-      airbyte_deploy = "webapp"
+      "relativistic-app" = "airbyte"
     }
   }
 }
@@ -66,7 +66,7 @@ variable "google_oauth_client_secret" {
 variable "target_domain" {
   description = "The url of the deployed application"
   type        = string
-  default     = "localhost:30083"
+  default     = "localhost:30080"
 }
 
 variable "airbyte_subdomain" {

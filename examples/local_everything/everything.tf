@@ -92,7 +92,7 @@ module "relativistic" {
 
     ubuntu_enabled = true
     windmill_enabled = true
-    prometheus_enabled = true
+    prometheus_enabled = false
 
  
     google_oauth_client_id = "test"

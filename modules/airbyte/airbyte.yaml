@@ -52,3 +52,7 @@ externalDatabase:
 %{ endif ~}
 
 ## @section Logs parameters
+
+webapp:
+  podLabels:
+    relativistic-app: "airbyte"

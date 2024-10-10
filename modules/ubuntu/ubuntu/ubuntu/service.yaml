@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "ubuntu.fullname" . }}
+  labels:
+    app.kubernetes.io/name: {{ include "ubuntu.name" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ .Values.service.port }}
+      targetPort: 80
+      nodePort: {{ .Values.service.nodePort }}
+  selector:
+    app.kubernetes.io/name: {{ include "ubuntu.name" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}

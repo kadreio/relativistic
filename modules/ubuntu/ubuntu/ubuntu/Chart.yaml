@@ -1,0 +1,5 @@
+apiVersion: v2
+name: ubuntu
+description: A Helm chart for deploying Ubuntu
+version: 0.1.0
+appVersion: "20.04"

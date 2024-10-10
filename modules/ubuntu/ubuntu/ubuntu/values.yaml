@@ -1,0 +1,6 @@
+replicaCount: 1
+
+image:
+  repository: ubuntu
+  tag: "24.04"
+  pullPolicy: IfNotPresent

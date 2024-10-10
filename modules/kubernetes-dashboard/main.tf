@@ -9,6 +9,7 @@ resource "helm_release" "kubernetes_dashboard" {
   repository = "https://kubernetes.github.io/dashboard"
   chart      = "kubernetes-dashboard"
   version    = var.kubernetes_dashboard_chart_version
+  force_update = true
 
   # values = [
   #   templatefile("${path.module}/helm_values.yaml")

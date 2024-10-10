@@ -18,59 +18,13 @@ variable "superset_default_password" {
     default = "admin"
 }
 
-
-resource "helm_release" "kube_state_metrics" {
-  name       = "kube-state-metrics"
-  repository = "https://prometheus-community.github.io/helm-charts"
-  chart      = "kube-state-metrics"
-  namespace  = "kube-system"
-  version    = "5.15.2"  # You can specify a version or omit for the latest
-
-  set {
-    name  = "autosharding.enabled"
-    value = "true"
-  }
-
-  set {
-    name  = "metricLabelsAllowlist[0]"
-    value = "pods=[*]"
-  }
-
-  set {
-    name  = "metricAnnotationsAllowList[0]"
-    value = "pods=[*]"
-  }
-}
-
-resource "helm_release" "metrics_server" {
-  name       = "metrics-server"
-  repository = "https://kubernetes-sigs.github.io/metrics-server/"
-  chart      = "metrics-server"
-  namespace  = "kube-system"
-  version    = "3.11.0"  # You can specify a version or omit for the latest
-
-  set {
-    name  = "args[0]"
-    value = "--kubelet-insecure-tls"
-  }
-
-  set {
-    name  = "args[1]"
-    value = "--kubelet-preferred-address-types=InternalIP"
-  }
-
-  set {
-    name  = "metrics.enabled"
-    value = "true"
-  }
-}
-
 module "relativistic" {
     source = "../../"
     superset_enabled = true
     superset_default_password = "starting_password_to_change"
     superset_default_user = "you@yourcompany.com"
 
+    airbyte_chart_version = "1.1.0"
     airbyte_enabled = true
     airbyte_userlist = <<EOF
         fake@example.com

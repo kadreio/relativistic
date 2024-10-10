@@ -21,6 +21,7 @@ resource "helm_release" "airbyte" {
   repository = "https://airbytehq.github.io/helm-charts"
   chart      = "airbyte"
   version    = var.airbyte_chart_version
+  force_update = true
   values     = [
     templatefile("./${path.module}/airbyte.yaml", {
       db_host     = var.db_host

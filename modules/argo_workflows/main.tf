@@ -113,6 +113,7 @@ resource "helm_release" "argo_workflows" {
   repository = "https://argoproj.github.io/argo-helm"
   chart      = "argo-workflows"
   version    = var.argo_workflows_chart_version
+  force_update = true
   values     = [templatefile("./${path.module}/helm_values.yaml", {
     target_domain               = "${var.target_domain}"
     auth_mode = var.auth_mode

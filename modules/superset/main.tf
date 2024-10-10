@@ -9,6 +9,7 @@ resource "helm_release" "superset" {
   repository = "https://apache.github.io/superset"
   chart      = "superset"
   version    = var.superset_chart_version
+  force_update = true
   timeout = 1200
 
   values = [

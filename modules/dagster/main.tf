@@ -11,4 +11,5 @@ resource "helm_release" "dagster" {
   version    = var.dagster_chart_version
   values     = [file("${path.module}/dagster_values.yaml")]
   timeout = 1200
+  force_update = true
 }

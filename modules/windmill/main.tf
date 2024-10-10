@@ -9,6 +9,7 @@ resource "helm_release" "windmill" {
   repository = "https://windmill-labs.github.io/windmill-helm-charts"
   chart      = "windmill"
   version    = var.windmill_chart_version
+  force_update = true
 
   timeout = 1200
 }

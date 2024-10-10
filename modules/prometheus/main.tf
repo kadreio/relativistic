@@ -16,6 +16,7 @@ resource "helm_release" "prometheus_operator" {
 
   values     = [file("./${path.module}/helm_values.yaml")]
 
+  force_update = true
 }
 
 variable "loki_chart_version" {

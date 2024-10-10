@@ -9,6 +9,7 @@ resource "helm_release" "configuration_postgres" {
   repository = "https://charts.bitnami.com/bitnami"
   chart      = "postgresql"
   version    = var.configuration_postgres_chart_version
+  force_update = true
 }
 
 data "kubernetes_service" "configuration_postgres" {

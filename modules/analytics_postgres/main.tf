@@ -9,4 +9,5 @@ resource "helm_release" "analytics_postgres" {
   repository = "https://charts.bitnami.com/bitnami"
   chart      = "postgresql"
   version    = var.analytics_postgres_chart_version
+  force_update = true
 }

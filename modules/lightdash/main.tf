@@ -11,4 +11,5 @@ resource "helm_release" "lightdash" {
   version    = var.lightdash_chart_version
 
   values = [file("${path.module}/helm_values.yaml")]
+  force_update = true
 }

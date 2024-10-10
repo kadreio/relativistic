@@ -11,6 +11,7 @@ resource "helm_release" "airflow" {
   version    = var.airflow_chart_version
   values     = [file("./${path.module}/helm_values.yaml")]
   timeout = 1200
+  force_update = true
 }
 
 resource "kubernetes_service" "expose_airflow_webserver" {

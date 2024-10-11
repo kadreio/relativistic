@@ -1,4 +1,4 @@
-### TEST FOR RELEASE WORKFLOW
+# TEST FOR RELEASE WORKFLOW
 
 # Global params that are overwritten with umbrella chart
 global:
@@ -14,7 +14,8 @@ global:
   # -- Environment variables
   env_vars: {}
   # Database configuration override
-  %{if use_external_pg ~}
+  %{if use_external_pg }
+
   database:
     type: "external"
     host: ${db_host}
@@ -26,7 +27,7 @@ global:
     secretName: "db-secrets"
     # -- Secret value for database password
     secretValue: "DATABASE_PASSWORD"
-  %{ endif ~}
+  %{ endif }
 
 ## @section Airbyte Database parameters
 
@@ -37,7 +38,7 @@ postgresql:
 
 # External PostgreSQL configuration, All of these values are only used when postgresql.enabled is set to false
 
-%{if use_external_pg ~}
+%{if use_external_pg }
 externalDatabase:
   type: "external"
   host: ${db_host}
@@ -49,7 +50,7 @@ externalDatabase:
   existingSecret: "db-secrets"
   # -- Name of an existing secret key containing the DB password
   existingSecretPasswordKey: "DATABASE_PASSWORD"
-%{ endif ~}
+%{ endif }
 
 ## @section Logs parameters
 

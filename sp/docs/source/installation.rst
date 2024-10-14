@@ -5,7 +5,7 @@ Installation
 
 This page is an in depth guide to installing and configuring Relativistic. By the end of this guide you'll have a running instance of Relativistic on your local machine.
 
-Installation
+Requirements
 ------------
 
 Relativistic is a terraform module to bootstrap a data stack on a Kubernetes cluster.

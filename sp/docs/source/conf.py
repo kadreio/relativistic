@@ -4,6 +4,47 @@ from sphinxawesome_theme.postprocess import Icons
 import sys
 import os
 sys.path.insert(0, os.path.abspath('_ext'))
+import subprocess
+
+def get_latest_git_tag():
+    try:
+        # Run the git command to get tags sorted by creation date
+        result = subprocess.run(
+            ['git', 'tag', '--sort=-creatordate'],
+            capture_output=True,
+            text=True,
+            check=True
+        )
+
+        # Filter tags that match the pattern vx.x.x
+        import re
+
+        version_pattern = re.compile(r'^v\d+\.\d+\.\d+$')
+        filtered_tags = [tag for tag in result.stdout.strip().split('\n') if version_pattern.match(tag)]
+        
+        # If there are no matching tags, return a message
+        if not filtered_tags:
+            return "No tags matching the pattern vx.x.x found in this repository."
+        
+        # Return the most recent matching tag
+        return filtered_tags[0]
+        
+        # Split the output into lines and get the first (most recent) tag
+        tags = result.stdout.strip().split('\n')
+        
+        if tags:
+            return tags[0]
+        else:
+            return "No tags found in this repository."
+    
+    except subprocess.CalledProcessError as e:
+        return f"An error occurred: {e}"
+    except FileNotFoundError:
+        return "Git is not installed or not in the system PATH."
+
+if __name__ == "__main__":
+    latest_tag = get_latest_git_tag()
+    print(f"The latest tag is: {latest_tag}")
 
 # Configuration file for the Sphinx documentation builder.
 
@@ -13,8 +54,8 @@ project = 'Relativistic'
 copyright = '2024, Kadre LLC'
 author = 'Dylan Watt'
 
-release = '0.0.4'
-version = '0.0.4'
+release = get_latest_git_tag()
+version = get_latest_git_tag()
 
 # -- General configuration
 

@@ -270,7 +270,7 @@ variable "windmill_chart_version" {
 variable "airbyte_chart_version" {
   description = "Airbyte chart version"
   type        = string
-  default     = "0.453.2"
+  default     = "1.1.0"
 }
 
 variable "airflow_chart_version" {

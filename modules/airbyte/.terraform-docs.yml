@@ -1,0 +1,41 @@
+formatter: "markdown table"
+
+content: |-
+  {{ .Header }}
+
+  ## Overview
+
+  This module deploys Airbyte, an open-source data integration platform, on Kubernetes. It sets up the necessary Helm release, configures the database, and exposes the Airbyte webserver. This module also includes OAuth2 proxy configuration for secure access.
+
+  {{ .Inputs }}
+
+  {{ .Outputs }}
+
+  {{ .Providers }}
+
+  {{ .Requirements }}
+
+  {{ .Resources }}
+
+  {{ .Modules }}
+
+
+
+sort:
+  enabled: true
+  by: name
+
+settings:
+  anchor: true
+  color: true
+  default: true
+  description: true
+  escape: true
+  hide-empty: false
+  html: true
+  indent: 2
+  lockfile: true
+  read-comments: true
+  required: true
+  sensitive: true
+  type: true

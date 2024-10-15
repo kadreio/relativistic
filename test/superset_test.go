@@ -35,7 +35,12 @@ func TestSuperset(t *testing.T) {
 	terraformOptions := &terraform.Options{
 		TerraformDir: ".", // Use the current directory (test/)
 		Vars: map[string]interface{}{
-			"kubernetes_config_path": kubeconfigPath,
+			"kubernetes_config_path": func() string {
+				if kubeconfig := os.Getenv("KUBECONFIG"); kubeconfig != "" {
+					return kubeconfigPath
+				}
+				return filepath.Join(os.Getenv("HOME"), ".kube", "config")
+			}(),
 		},
 		// Set the state file path to the temporary directory
 		BackendConfig: map[string]interface{}{

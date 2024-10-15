@@ -28,7 +28,8 @@ jobs:
         kubectl get pods -n kube-system
         echo "current-context:" $(kubectl config current-context)
         echo "environment-kubeconfig:" ${KUBECONFIG}
-
+        ls ~/.kube
+        ls ~/.kube/config
     - name: Install Terraform
       uses: hashicorp/setup-terraform@v1
 

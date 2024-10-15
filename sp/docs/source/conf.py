@@ -8,7 +8,11 @@ import subprocess
 sys.path.append(os.path.join(os.path.dirname(__file__), './'))
 from generate_tf_docs import run
 
-run()
+try:
+    run()
+except Exception as e:
+    print(f"Couldn't build Terraform documentation: {e}")
+
 def get_latest_git_tag():
     try:
         # Run the git command to get tags sorted by creation date

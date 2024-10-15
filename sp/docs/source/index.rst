@@ -91,26 +91,15 @@ Contents
    :caption: Introduction
    
    Relativistic <self>
+   installation
    who_is_this_for
    Drawbacks <why_not>
-
-.. toctree::
-   :maxdepth: 2
-   :caption: Usage
-
-   installation
-   usage
-
 
 .. toctree::
    :maxdepth: 2
    :caption: Relativistic Documentation
 
    terraform/relativistic
-
-.. toctree::
-   :maxdepth: 2
-   :caption: Submodule Documentation
-
+   usage
    terraform/submodule/index
    

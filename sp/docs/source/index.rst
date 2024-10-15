@@ -1,7 +1,7 @@
 Relativistic Documentation
 ==========================
 
-**Relativistic** is the fastest way to get a SOC23 compliant open source data stack up and running, saving tens or hundreds of thousands of dollars in vendor costs.
+**Relativistic** is the fastest way to get a SOC2 compliant open source data stack up and running, saving tens or hundreds of thousands of dollars in vendor costs.
 
 
 Relativistic is a configuration tool for deploying open source data tools on your Kubernetes cluster via Terraform. It allows you to deploy over a dozen of the most popular data tools on Kubernetes in under 5 minutes. From dashboarding to ETLs to DAG schedulers to metrics and more, Relativistic has you covered.

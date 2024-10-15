@@ -110,7 +110,7 @@ Contents
 
 .. toctree::
    :maxdepth: 2
-   :glob:
    :caption: Submodule Documentation
 
-   terraform/**/*
+   terraform/submodule/index
+   

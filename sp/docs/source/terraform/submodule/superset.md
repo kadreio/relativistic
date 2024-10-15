@@ -1,24 +1,10 @@
 # Superset Module
 
-### Requirements
 
-No requirements.
 
-### Providers
+### Overview
 
-| Name | Version |
-|------|---------|
-| <a name="provider_helm"></a> [helm](#provider\_helm) | n/a |
-
-### Modules
-
-No modules.
-
-### Resources
-
-| Name | Type |
-|------|------|
-| [helm_release.superset](https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release) | resource |
+This module deploys Apache Superset, a modern data exploration and visualization platform, on Kubernetes. It sets up the Superset web application, its dependencies, and the necessary database using a Helm chart. The module also configures authentication and exposes the Superset UI for easy access to data analytics and dashboard creation.
 
 ### Inputs
 
@@ -33,3 +19,23 @@ No modules.
 ### Outputs
 
 No outputs.
+
+### Providers
+
+| Name | Version |
+|------|---------|
+| <a name="provider_helm"></a> [helm](#provider\_helm) | n/a |
+
+### Requirements
+
+No requirements.
+
+### Resources
+
+| Name | Type |
+|------|------|
+| [helm_release.superset](https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release) | resource |
+
+### Modules
+
+No modules.

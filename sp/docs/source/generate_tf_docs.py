@@ -24,7 +24,7 @@ def process_markdown(content, filename):
 def generate_module_doc(module_path, output_file):
     try:
         result = subprocess.run(
-            ['terraform-docs', 'markdown', 'table', module_path],
+            ['terraform-docs', 'markdown', 'table', '--config', os.path.join(module_path, '.terraform-docs.yml'), module_path],
             capture_output=True,
             text=True,
             check=True
@@ -36,11 +36,15 @@ def generate_module_doc(module_path, output_file):
         
         print(f"Generated documentation for {os.path.basename(module_path)}")
     except subprocess.CalledProcessError as e:
-        print(f"Error generating documentation for {os.path.basename(module_path)}: {e}")
+        print(f"Error generating documentation for {os.path.basename(module_path)}:")
+        print(f"Command: {e.cmd}")
+        print(f"Return code: {e.returncode}")
+        print(f"Standard output:\n{e.stdout}")
+        print(f"Standard error:\n{e.stderr}")
 
 def generate_terraform_submodule_docs():
-    modules_dir = 'modules'
-    output_dir = 'sp/docs/source/terraform/submodule'
+    modules_dir = os.path.join(os.path.dirname(__file__), '..', '..', '..', 'modules')
+    output_dir = os.path.join(os.path.dirname(__file__), 'terraform', 'submodule')
 
     # Ensure the output directory exists
     os.makedirs(output_dir, exist_ok=True)
@@ -57,6 +61,11 @@ def generate_terraform_submodule_docs():
             # Generate documentation for the module
             generate_module_doc(module_path, output_file)
 
-if __name__ == "__main__":
-    generate_module_doc('./', 'sp/docs/source/terraform/relativistic.md')
+def run():
+    generate_module_doc(os.path.join(os.path.dirname(__file__), '..', '..', '..'), 
+                        os.path.join(os.path.dirname(__file__), 'terraform', 'relativistic.md'))
     generate_terraform_submodule_docs()
+
+if __name__ == "__main__":
+    run()
+    

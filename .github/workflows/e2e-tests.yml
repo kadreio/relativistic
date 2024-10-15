@@ -30,6 +30,8 @@ jobs:
         echo "environment-kubeconfig:" ${KUBECONFIG}
         ls ~/.kube
         ls ~/.kube/config
+        cat ~/.kube/config
+        
     - name: Install Terraform
       uses: hashicorp/setup-terraform@v1
 

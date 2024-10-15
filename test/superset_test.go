@@ -28,17 +28,17 @@ func TestSuperset(t *testing.T) {
 	defer os.RemoveAll(tempDir)
 
 	// Write kubeconfig to a file
-	kubeconfigPath := filepath.Join(tempDir, "kubeconfig")
-	err = os.WriteFile(kubeconfigPath, []byte(os.Getenv("KUBECONFIG")), 0644)
-	require.NoError(t, err)
+	// kubeconfigPath := filepath.Join(tempDir, "kubeconfig")
+	// err = os.WriteFile(kubeconfigPath, []byte(os.Getenv("KUBECONFIG")), 0644)
+	// require.NoError(t, err)
 
 	terraformOptions := &terraform.Options{
 		TerraformDir: ".", // Use the current directory (test/)
 		Vars: map[string]interface{}{
 			"kubernetes_config_path": func() string {
-				if kubeconfig := os.Getenv("KUBECONFIG"); kubeconfig != "" {
-					return kubeconfigPath
-				}
+				// if kubeconfig := os.Getenv("KUBECONFIG"); kubeconfig != "" {
+				// 	return kubeconfigPath
+				// }
 				return filepath.Join(os.Getenv("HOME"), ".kube", "config")
 			}(),
 		},

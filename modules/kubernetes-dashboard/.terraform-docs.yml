@@ -1,0 +1,41 @@
+formatter: "markdown table"
+
+content: |-
+  {{ .Header }}
+
+  ## Overview
+
+  This module deploys the Kubernetes Dashboard, a web-based Kubernetes user interface, on the cluster. It sets up the dashboard using a Helm chart and configures the necessary RBAC permissions. The module also creates a service account with admin access for easy management of the cluster through the dashboard.
+
+  {{ .Inputs }}
+
+  {{ .Outputs }}
+
+  {{ .Providers }}
+
+  {{ .Requirements }}
+
+  {{ .Resources }}
+
+  {{ .Modules }}
+
+
+
+sort:
+  enabled: true
+  by: name
+
+settings:
+  anchor: true
+  color: true
+  default: true
+  description: true
+  escape: true
+  hide-empty: false
+  html: true
+  indent: 2
+  lockfile: true
+  read-comments: true
+  required: true
+  sensitive: true
+  type: true

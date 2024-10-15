@@ -1,11 +1,6 @@
 Usage
 =====
 
-.. _installation:
-
-Usage
------
-
 Relativistic is designed as a module of modules, where each submodule is a open source project to be deployed, with the top level module being a coodinator.
 
 Each submodule has configuration specific to that project, as well as common elements, such as what ports or domains to expose the site on.

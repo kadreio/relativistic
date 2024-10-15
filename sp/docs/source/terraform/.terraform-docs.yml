@@ -1,0 +1,18 @@
+content: |-
+  {{ .Header }}
+
+  ## Overview
+
+  This is a custom description of the module. You can include any freeform text here.
+
+  {{ .Inputs }}
+
+  {{ .Outputs }}
+
+  {{ .Providers }}
+
+  {{ .Requirements }}
+
+  {{ .Resources }}
+
+  {{ .Modules }}

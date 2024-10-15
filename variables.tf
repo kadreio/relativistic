@@ -75,7 +75,7 @@ variable "superset_default_password" {
 variable "superset_secret_key" {
   description = "Secret key for Apache Superset"
   type        = string
-  default     = "YOUR_OWN_RANDOM_GENERATED_SECRET_KEY"
+  default     = "CHANGE_ME"
   sensitive   = true
 }
 

@@ -1,6 +1,6 @@
 module github.com/kadreio/relativistic
 
-go 1.23.2
+go 1.23
 
 require (
 	github.com/gruntwork-io/terratest v0.47.2

@@ -29,8 +29,8 @@ func TestSuperset(t *testing.T) {
 
 	// Write kubeconfig to a file
 	kubeconfigPath := filepath.Join(os.Getenv("HOME"), ".kube", "config")
-	err = os.WriteFile(kubeconfigPath, []byte(os.Getenv("KUBECONFIG")), 0644)
-	require.NoError(t, err)
+	// err = os.WriteFile(kubeconfigPath, []byte(os.Getenv("KUBECONFIG")), 0644)
+	// require.NoError(t, err)
 
 	terraformOptions := &terraform.Options{
 		TerraformDir: ".", // Use the current directory (test/)

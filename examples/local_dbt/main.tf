@@ -9,7 +9,7 @@ provider "helm" {
 }
 
 module "relativistic" {
-    source = "../../"
+    source = "git@github.com:kadreio/relativistic.git?ref=v0.1.2"
     argo_workflows_enabled = true
 }
 

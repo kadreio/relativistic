@@ -130,7 +130,7 @@ resource "helm_release" "cluster_autoscaler" {
 }
 
 module "relativistic" {
-    source = "../../"
+    source = "git@github.com:kadreio/relativistic.git?ref=v0.1.2"
     superset_enabled = true
     superset_default_password = "starting_password_to_change"
     superset_default_user = "you@yourcompany.com"

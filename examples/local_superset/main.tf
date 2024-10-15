@@ -9,7 +9,7 @@ provider "helm" {
 }
 
 module "relativistic" {
-    source = "github.com/kadreio/relativistic.git?ref=v0.0.4-rc1"
+    source = "github.com/kadreio/relativistic.git?ref=v0.1.2"
 
     superset_enabled = true
     superset_default_password = "starting_password_to_change"

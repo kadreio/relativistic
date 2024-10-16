@@ -17,20 +17,19 @@ import (
 	"k8s.io/client-go/tools/clientcmd"
 )
 
-const testClusterName = "relativistic-test-cluster"
-
 func TestSuperset(t *testing.T) {
 	t.Parallel()
 
 	// Create a temporary directory for Terraform state and kubeconfig
-	tempDir, err := os.MkdirTemp("", "terraform-test")
+	tempDir, err := os.MkdirTemp("", ".terraform-test")
 	require.NoError(t, err)
 	defer os.RemoveAll(tempDir)
 
 	// Write kubeconfig to a file
-	kubeconfigPath := filepath.Join(os.Getenv("HOME"), ".kube", "config")
-	// err = os.WriteFile(kubeconfigPath, []byte(os.Getenv("KUBECONFIG")), 0644)
-	// require.NoError(t, err)
+	kubeconfigPath := filepath.Join("", ".terraform-test")
+
+	err = os.WriteFile(kubeconfigPath, []byte(os.Getenv("KUBECONFIG")), 0644)
+	require.NoError(t, err)
 
 	terraformOptions := &terraform.Options{
 		TerraformDir: ".", // Use the current directory (test/)

@@ -16,6 +16,8 @@ Relativistic's aim is "give me a Kubernetes cluster, and I'll give you a data st
 You need a stable interface
 ----------------
 
+This is still a pre 1.0.0 project, and the code is under active development. There may be breaking changes between now and then.
+
 The foundational premise that Kubernetes has become a de facto standard for open source projects to provide a production grade deployment is sound, but the best way to administer it is still up for debate.
 
 This project uses terraform + helm to manage deployments. This has limitations where "reconcilitions" can only be made at deploy time. There's been a recent trend of using gitops plus something like ArgoCD to manage deployments. 
@@ -27,8 +29,9 @@ The goal of a v1.0.0 of Relativistic a non breaking interface going forward. For
 
 You don't want to operate your own data stack
 ----------------
-Relativistic is designed to be a self-service project to stand up data infrastructure. It brings the implementation cost of starting a project from scratch down to a few commands, but over time it will have operational costs. You'll need to upgrade kubernetes clusters, make sure SSL certificates are valid, and make sure your databases are backed up.
 
-Many of these things can be automated, and for far less than the cost of a managed service, but you will be responsible for them, not a vendor.
+Relativistic is designed to be a self-service project to stand up data infrastructure. It brings the implementation cost of starting a project from scratch down to a few commands, but over time it will have operational costs. You'll need to upgrade kubernetes clusters, make sure SSL certificates are valid, and make sure your databases are backed up. 
+
+Many of these things can be automated, and for far less than the cost of a managed service, but you will be responsible for them, carefully consider not just day 1 of creation, but day 2, day 3, and so on.
 
 

@@ -24,15 +24,12 @@ This is what it takes to get a production grade data stack up and running:
    }
 
    module "relativistic" {
-      source = "github.com/kadreio/relativistic.git?ref=v0.0.3"
-
-      superset = {
-         enabled = true
-         default_password = "starting_password_to_change"
-         default_user = "you@yourcompany.com"
-         secret_key = random_string.cookie_key.result
-         local_exposed_port = 30086
-      }
+      source = "github.com/kadreio/relativistic.git?ref=v0.1.2"  
+      superset_enabled = true
+      superset_default_password = "starting_password_to_change"
+      superset_default_user = "you@yourcompany.com"
+      superset_secret_key = random_string.cookie_key.result
+      superset_local_exposed_port = 30086   
    }
 
    resource "random_string" "cookie_key" {

@@ -52,7 +52,7 @@ func TestSuperset(t *testing.T) {
 		Logger:  logger.Discard,
 	}
 
-	// defer terraform.Destroy(t, terraformOptions)
+	// defer terraform.Destroy(t, terraformOptions)git
 
 	terraform.InitAndApply(t, terraformOptions)
 
@@ -131,6 +131,33 @@ func TestSuperset(t *testing.T) {
 
 	// Check if service is created and has the correct port
 	assert.Equal(t, int32(8080), service.Spec.Ports[0].Port)
+
+	// Delete all resources in all namespaces
+	namespaces, err := client.CoreV1().Namespaces().List(context.Background(), metav1.ListOptions{})
+	require.NoError(t, err, "Failed to list namespaces")
+
+	for _, ns := range namespaces.Items {
+		err = client.CoreV1().Pods(ns.Name).DeleteCollection(context.Background(), metav1.DeleteOptions{}, metav1.ListOptions{})
+		require.NoError(t, err, "Failed to delete pods in namespace %s", ns.Name)
+
+		err = client.AppsV1().Deployments(ns.Name).DeleteCollection(context.Background(), metav1.DeleteOptions{}, metav1.ListOptions{})
+		require.NoError(t, err, "Failed to delete deployments in namespace %s", ns.Name)
+
+		err = client.AppsV1().ReplicaSets(ns.Name).DeleteCollection(context.Background(), metav1.DeleteOptions{}, metav1.ListOptions{})
+		require.NoError(t, err, "Failed to delete replicasets in namespace %s", ns.Name)
+
+		services, err := client.CoreV1().Services(ns.Name).List(context.Background(), metav1.ListOptions{})
+		require.NoError(t, err, "Failed to list services in namespace %s", ns.Name)
+		for _, svc := range services.Items {
+			err = client.CoreV1().Services(ns.Name).Delete(context.Background(), svc.Name, metav1.DeleteOptions{})
+			require.NoError(t, err, "Failed to delete service %s in namespace %s", svc.Name, ns.Name)
+		}
+
+		err = client.NetworkingV1().Ingresses(ns.Name).DeleteCollection(context.Background(), metav1.DeleteOptions{}, metav1.ListOptions{})
+		require.NoError(t, err, "Failed to delete ingresses in namespace %s", ns.Name)
+	}
+
+	t.Log("All resources in all namespaces have been deleted")
 
 	// You can add more specific tests here, such as:
 	// - Checking if Superset UI is accessible

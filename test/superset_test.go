@@ -9,6 +9,7 @@ import (
 	"time"
 
 	"github.com/gruntwork-io/terratest/modules/k8s"
+	"github.com/gruntwork-io/terratest/modules/logger"
 	"github.com/gruntwork-io/terratest/modules/terraform"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
@@ -28,8 +29,10 @@ func TestSuperset(t *testing.T) {
 	// Write kubeconfig to a file
 	kubeconfigPath := filepath.Join("", ".terraform-test")
 
-	err = os.WriteFile(kubeconfigPath, []byte(os.Getenv("KUBECONFIG")), 0644)
-	require.NoError(t, err)
+	if kubeconfig := os.Getenv("KUBECONFIG"); kubeconfig != "" {
+		err = os.WriteFile(kubeconfigPath, []byte(os.Getenv("KUBECONFIG")), 0644)
+		require.NoError(t, err)
+	}
 
 	terraformOptions := &terraform.Options{
 		TerraformDir: ".", // Use the current directory (test/)
@@ -45,6 +48,8 @@ func TestSuperset(t *testing.T) {
 		BackendConfig: map[string]interface{}{
 			"path": filepath.Join(tempDir, "terraform.tfstate"),
 		},
+		NoColor: true,
+		Logger:  logger.Discard,
 	}
 
 	defer terraform.Destroy(t, terraformOptions)

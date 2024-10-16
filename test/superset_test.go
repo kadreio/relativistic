@@ -52,7 +52,7 @@ func TestSuperset(t *testing.T) {
 		Logger:  logger.Discard,
 	}
 
-	defer terraform.Destroy(t, terraformOptions)
+	// defer terraform.Destroy(t, terraformOptions)
 
 	terraform.InitAndApply(t, terraformOptions)
 

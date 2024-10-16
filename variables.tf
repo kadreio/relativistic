@@ -278,3 +278,9 @@ variable "airflow_chart_version" {
   type        = string
   default     = "8.8.0"
 }
+
+variable "airbyte_enable_proxy" {
+  description = "Enable OAuth2 Proxy"
+  type        = bool
+  default     = true
+}

@@ -139,7 +139,14 @@ resource "random_string" "cookie_secret" {
   special = false
 }
 
+variable "enable_proxy" {
+  description = "Enable OAuth2 proxy for Airbyte"
+  type        = bool
+  default     = true
+}
+
 resource "helm_release" "oauth2_proxy" {
+  count      = var.enable_proxy ? 1 : 0
   name       = "oauth2-proxy-airbyte"
   repository = "https://oauth2-proxy.github.io/manifests"
   chart      = "oauth2-proxy"
@@ -154,6 +161,7 @@ resource "helm_release" "oauth2_proxy" {
 }
 
 resource "kubernetes_service" "expose_proxy" {
+  count = var.enable_proxy ? 1 : 0
   metadata {
     name = "expose-proxy"
   }

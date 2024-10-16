@@ -2,9 +2,9 @@ name: E2E Tests
 
 on:
   push:
-    branches: [ main, testing ]
+    branches: [ master, testing ]
   pull_request:
-    branches: [ main ]
+    branches: [ master ]
 
 jobs:
   test:
@@ -31,7 +31,7 @@ jobs:
         ls ~/.kube
         ls ~/.kube/config
         cat ~/.kube/config
-        
+
     - name: Install Terraform
       uses: hashicorp/setup-terraform@v1
 

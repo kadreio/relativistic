@@ -94,6 +94,7 @@ Contents
    installation
    who_is_this_for
    Drawbacks <why_not>
+   Project Roadmap <roadmap>
 
 .. toctree::
    :maxdepth: 2

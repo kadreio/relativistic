@@ -32,6 +32,7 @@ module "airbyte" {
     use_external_pg = var.airbyte_use_external_pg
     airbyte_chart_version = var.airbyte_chart_version
     enable_proxy = var.airbyte_enable_proxy
+    override_helm_values = var.airbyte_override_helm_values
 }
 
 module "airflow" {

@@ -66,6 +66,12 @@ Goals
   
 Ensure that a production deployment can implement proper observability.
 
+
+0.7.0 - Ingress work
+-----
+
+Implement a network layer to aide in standardized authentication management, and auditing.
+
 1.0.0 - Stable Interface
 -----
 

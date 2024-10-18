@@ -127,6 +127,7 @@ html_theme_options = {
     "page_width": "100%",
     "body_max_width": "none",
 }
+html_favicon = 'tealfavicon.png'
 
 import yaml
 from docutils import nodes

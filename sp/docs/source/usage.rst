@@ -71,6 +71,10 @@ Here are the main configuration options for the Airbyte module:
      - string
      - Comma-separated list of authorized user emails
      - ""
+   * - airbyte_override_helm_values
+     - string
+     - YAML string to override Airbyte helm values
+     - ""
 
 Example usage:
 
@@ -87,6 +91,16 @@ Example usage:
       airbyte_postgres_password = "secure_password"
       airbyte_subdomain = "airbyte"
       airbyte_userlist = "user1@example.com,user2@example.com"
+      airbyte_override_helm_values = <<EOT
+        replicaCount: 2
+        resources:
+          limits:
+            cpu: 1
+            memory: 1Gi
+          requests:
+            cpu: 500m
+            memory: 512Mi
+      EOT
     }
 
 Authentication

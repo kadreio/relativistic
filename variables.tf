@@ -284,3 +284,9 @@ variable "airbyte_enable_proxy" {
   type        = bool
   default     = true
 }
+
+variable "airbyte_override_helm_values" {
+  description = "Override helm values for Airbyte as YAML string"
+  type        = string
+  default     = ""
+}

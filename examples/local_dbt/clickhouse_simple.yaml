@@ -1,0 +1,27 @@
+apiVersion: "clickhouse.altinity.com/v1"
+kind: "ClickHouseInstallation"
+metadata:
+  name: "simple-01"
+  namespace: default
+spec:
+  configuration:
+    users:
+      # printf 'test_password' | sha256sum
+      test_user/password_sha256_hex: 10a6e6cc8311a3e2bcc09bf6c199adecd5dd59408c343e926b129c4914f3cb01
+      # to allow access outside from kubernetes
+      test_user/networks/ip:
+        - 0.0.0.0/0
+    clusters:
+      - name: "simple"
+
+# apiVersion: "clickhouse-keeper.altinity.com/v1"
+# kind: "ClickHouseKeeperInstallation"
+# metadata:
+#   name: simple-3
+#   namespace: default
+# spec:
+#   configuration:
+#     clusters:
+#       - name: "cluster1"
+#         layout:
+#           replicasCount: 3

@@ -290,3 +290,21 @@ variable "airbyte_override_helm_values" {
   type        = string
   default     = ""
 }
+
+variable "clickhouse_enabled" {
+  description = "Enable Clickhouse deployment"
+  type        = bool
+  default     = false
+}
+
+variable "clickhouse_chart_version" {
+  description = "Clickhouse chart version"
+  type        = string
+  default     = "0.24.0"
+}
+
+variable "clickhouse_override_helm_values" {
+  description = "Override helm values for Clickhouse as YAML string"
+  type        = string
+  default     = ""
+}

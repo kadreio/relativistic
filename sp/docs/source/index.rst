@@ -17,7 +17,7 @@ Example - Set up Superset
 .. code-block:: console
 
    $ git clone https://github.com/kadreio/relativistic
-   $ cd relativistic/examples/simple_superset
+   $ cd relativistic/examples/local_superset
    $ terraform init && terraform apply --auto-approve
    $ open http://localhost:30086
 

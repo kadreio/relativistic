@@ -112,3 +112,10 @@ module "ubuntu" {
     count  = var.ubuntu_enabled ? 1 : 0
     source = "./modules/ubuntu"
 }
+
+module "clickhouse" {
+    count  = var.clickhouse_enabled ? 1 : 0
+    source = "./modules/clickhouse"
+    clickhouse_chart_version = var.clickhouse_chart_version
+    override_helm_values = var.clickhouse_override_helm_values
+}

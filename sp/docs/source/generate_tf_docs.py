@@ -34,6 +34,13 @@ def generate_module_doc(module_path, output_file):
         with open(output_file, 'w') as f:
             f.write(process_markdown(result.stdout, output_file))
         
+        # Write the output to the README.md in the module directory
+        readme_path = os.path.join(module_path, 'README.md')
+        with open(readme_path, 'w') as readme:
+            readme.write(process_markdown(result.stdout, readme_path))
+        
+        print(f"Generated README.md for {os.path.basename(module_path)}")
+        
         print(f"Generated documentation for {os.path.basename(module_path)}")
     except subprocess.CalledProcessError as e:
         print(f"Error generating documentation for {os.path.basename(module_path)}:")

@@ -4,12 +4,20 @@ variable "airflow_chart_version" {
   default     = "8.8.0"
 }
 
+variable "override_helm_values" {
+  description = "List of Helm values files to override default configurations for Airflow"
+  type        = list(string)
+  default     = []
+}
+
 resource "helm_release" "airflow" {
   name       = "airflow"
   repository = "https://airflow-helm.github.io/charts"
   chart      = "airflow"
   version    = var.airflow_chart_version
-  values     = [file("./${path.module}/helm_values.yaml")]
+  values     = concat([
+    file("${path.module}/helm_values.yaml")
+  ], var.override_helm_values)
   timeout = 1200
   force_update = true
 }

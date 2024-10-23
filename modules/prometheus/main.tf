@@ -4,6 +4,24 @@ variable "prometheus_operator_chart_version" {
   default     = "61.9.0"
 }
 
+variable "loki_chart_version" {
+  description = "Loki chart version"
+  type        = string
+  default     = "2.10.0"
+}
+
+variable "prometheus_override_helm_values" {
+  description = "List of Helm values files to override default configurations for Prometheus"
+  type        = list(string)
+  default     = []
+}
+
+variable "loki_override_helm_values" {
+  description = "List of Helm values files to override default configurations for Loki"
+  type        = list(string)
+  default     = []
+}
+
 resource "helm_release" "prometheus_operator" {
   name       = "prometheus-operator"
   namespace  = "monitoring"
@@ -12,17 +30,13 @@ resource "helm_release" "prometheus_operator" {
 
   repository = "https://prometheus-community.github.io/helm-charts"
   chart      = "kube-prometheus-stack"
-  version    = var.prometheus_operator_chart_version # Check for the latest version
+  version    = var.prometheus_operator_chart_version
 
-  values     = [file("./${path.module}/helm_values.yaml")]
+  values = concat([
+    file("${path.module}/helm_values.yaml")
+  ], var.prometheus_override_helm_values)
 
   force_update = true
-}
-
-variable "loki_chart_version" {
-  description = "Loki chart version"
-  type        = string
-  default     = "2.10.0"
 }
 
 resource "helm_release" "loki" {
@@ -30,13 +44,14 @@ resource "helm_release" "loki" {
   namespace        = "monitoring"
   create_namespace = true
   timeout          = 1200
-  values     = [file("./${path.module}/loki_values.yaml")]
 
   repository = "https://grafana.github.io/helm-charts"
   chart      = "loki"
-  version    = var.loki_chart_version # Check for the latest version
+  version    = var.loki_chart_version
 
-  # values = [file("./${path.module}/loki_values.yaml")]
+  values = concat([
+    file("${path.module}/loki_values.yaml")
+  ], var.loki_override_helm_values)
 
   depends_on = [helm_release.prometheus_operator]
 }

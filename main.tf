@@ -39,6 +39,7 @@ module "airflow" {
     count  = var.airflow_enabled ? 1 : 0
     source = "./modules/airflow"
     airflow_chart_version = var.airflow_chart_version
+    override_helm_values = var.airflow_override_helm_values
 }
 
 module "analytics_postgres" {
@@ -50,12 +51,14 @@ module "dagster" {
     count  = var.dagster_enabled ? 1 : 0
     source = "./modules/dagster"
     dagster_chart_version = var.dagster_chart_version
+    override_helm_values = var.dagster_override_helm_values
 }
 
 module "lightdash" {
     count  = var.lightdash_enabled ? 1 : 0
     source = "./modules/lightdash"
     lightdash_chart_version = var.lightdash_chart_version
+    override_helm_values = var.lightdash_override_helm_values
 }
 
 module "argo_workflows" {
@@ -66,6 +69,7 @@ module "argo_workflows" {
     target_domain = "${var.argo_workflows_subdomain}.${var.domain_config_deployment_domain}"
     rbac_rule = var.argo_workflows_rbac_rule
     argo_workflows_chart_version = var.argo_workflows_chart_version
+    override_helm_values = var.argo_workflows_override_helm_values
 }
 
 module "argo_cd" {
@@ -75,12 +79,14 @@ module "argo_cd" {
     google_oauth_client_secret = var.google_oauth_client_secret
     target_domain = "${var.argo_cd_subdomain}.${var.domain_config_deployment_domain}"
     argo_cd_chart_version = var.argo_cd_chart_version
+    override_helm_values = var.argo_cd_override_helm_values
 }
 
 module "windmill" {
     count  = var.windmill_enabled ? 1 : 0
     source = "./modules/windmill"
     windmill_chart_version = var.windmill_chart_version
+    override_helm_values = var.windmill_override_helm_values
 }
 
 ### Infra
@@ -96,6 +102,8 @@ module "prometheus" {
     source = "./modules/prometheus"
     prometheus_operator_chart_version = var.prometheus_operator_chart_version
     loki_chart_version = var.loki_chart_version
+    prometheus_override_helm_values = var.prometheus_override_helm_values
+    loki_override_helm_values = var.loki_override_helm_values
 }
 
 module "superset" {
@@ -106,6 +114,7 @@ module "superset" {
     superset_secret_key = var.superset_secret_key
     superset_local_exposed_port = var.superset_local_exposed_port
     superset_chart_version = var.superset_chart_version
+    override_helm_values = var.superset_override_helm_values
 }
 
 module "ubuntu" {

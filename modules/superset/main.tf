@@ -12,12 +12,12 @@ resource "helm_release" "superset" {
   force_update = true
   timeout = 1200
 
-  values = [
+  values = concat([
     templatefile("${path.module}/helm_values.yaml", {
       superset_default_user = var.superset_default_user,
       superset_default_password = var.superset_default_password,
       superset_secret_key = var.superset_secret_key,
       superset_local_exposed_port = var.superset_local_exposed_port
     })
-  ]
+  ], var.override_helm_values)
 }

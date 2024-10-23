@@ -4,17 +4,26 @@ variable "argo_cd_chart_version" {
   default     = "7.4.3"
 }
 
+variable "override_helm_values" {
+  description = "Override helm values as YAML string"
+  type        = string
+  default     = ""
+}
+
 resource "helm_release" "argo_cd" {
   name       = "argo-cd"
   repository = "https://argoproj.github.io/argo-helm"
   chart      = "argo-cd"
   version    = var.argo_cd_chart_version
   force_update = true
-  values     = [templatefile("./${path.module}/helm_values.yaml", {
-    google_oauth_client_id     = var.google_oauth_client_id
-    google_oauth_client_secret = var.google_oauth_client_secret
-    target_domain               = var.target_domain
-  })]
+  values     = [
+    templatefile("${path.module}/helm_values.yaml", {
+      google_oauth_client_id     = var.google_oauth_client_id
+      google_oauth_client_secret = var.google_oauth_client_secret
+      target_domain              = var.target_domain
+    }),
+    var.override_helm_values
+  ]
   timeout = 1200
 }
 
@@ -55,4 +64,3 @@ resource "kubernetes_service" "expose_argo_cd_webserver" {
     }
   }
 }
-

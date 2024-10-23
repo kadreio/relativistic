@@ -266,7 +266,6 @@ variable "windmill_chart_version" {
   default     = "2.0.214"
 }
 
-
 variable "airbyte_chart_version" {
   description = "Airbyte chart version"
   type        = string
@@ -307,4 +306,58 @@ variable "clickhouse_override_helm_values" {
   description = "Override helm values for Clickhouse as YAML string"
   type        = string
   default     = ""
+}
+
+variable "argo_workflows_override_helm_values" {
+  description = "Override helm values for Argo Workflows as YAML string"
+  type        = string
+  default     = ""
+}
+
+variable "argo_cd_override_helm_values" {
+  description = "Override helm values for Argo CD as YAML string"
+  type        = string
+  default     = ""
+}
+
+variable "dagster_override_helm_values" {
+  description = "Override helm values for Dagster as YAML string"
+  type        = string
+  default     = ""
+}
+
+variable "superset_override_helm_values" {
+  description = "List of Helm values files to override default configurations for Superset"
+  type        = list(string)
+  default     = []
+}
+
+variable "windmill_override_helm_values" {
+  description = "List of Helm values files to override default configurations for Windmill"
+  type        = list(string)
+  default     = []
+}
+
+variable "prometheus_override_helm_values" {
+  description = "List of Helm values files to override default configurations for Prometheus"
+  type        = list(string)
+  default     = []
+}
+
+variable "loki_override_helm_values" {
+  description = "List of Helm values files to override default configurations for Loki"
+  type        = list(string)
+  default     = []
+}
+
+variable "lightdash_override_helm_values" {
+  description = "List of Helm values files to override default configurations for Lightdash"
+  type        = list(string)
+  default     = []
+}
+
+variable "airflow_override_helm_values" {
+  description = "List of Helm values files to override default configurations for Airflow"
+  type        = list(string)
+  default     = []
 }

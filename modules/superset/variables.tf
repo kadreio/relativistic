@@ -20,3 +20,9 @@ variable "superset_local_exposed_port" {
   type        = number
   default     = 30086
 }
+
+variable "override_helm_values" {
+  description = "List of Helm values files to override default configurations"
+  type        = list(string)
+  default     = []
+}

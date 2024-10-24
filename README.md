@@ -1,8 +1,4 @@
-# Readme Module
-
-
-
-### Overview
+# Relativistic 
 
 # Relativistic
 
@@ -108,7 +104,7 @@ No resources.
 | <a name="module_dagster"></a> [dagster](#module\_dagster) | ./modules/dagster | n/a |
 | <a name="module_kubernetes_dashboard"></a> [kubernetes\_dashboard](#module\_kubernetes\_dashboard) | ./modules/kubernetes-dashboard | n/a |
 | <a name="module_lightdash"></a> [lightdash](#module\_lightdash) | ./modules/lightdash | n/a |
-| <a name="module_prometheus"></a> [prometheus](#module\_prometheus) | ./modules/prometheus | n/a |
+| <a name="module_prometheus"></a> [prometheus](#module\_prometheus) | ./modules/monitoring | n/a |
 | <a name="module_superset"></a> [superset](#module\_superset) | ./modules/superset | n/a |
 | <a name="module_ubuntu"></a> [ubuntu](#module\_ubuntu) | ./modules/ubuntu | n/a |
 | <a name="module_windmill"></a> [windmill](#module\_windmill) | ./modules/windmill | n/a |

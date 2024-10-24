@@ -1,6 +1,4 @@
-# Readme Module
-
-
+# Kubernetes dashboard 
 
 ### Overview
 

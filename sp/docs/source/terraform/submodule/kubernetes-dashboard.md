@@ -1,6 +1,4 @@
-# Kubernetes dashboard Module
-
-
+# Kubernetes dashboard 
 
 ### Overview
 

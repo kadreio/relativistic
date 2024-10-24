@@ -2,11 +2,11 @@ import os
 import subprocess
 
 
-def process_markdown(content, filename):
+def process_markdown(content, filename, title):
     # Add title header
-    title = os.path.splitext(os.path.basename(filename))[0].replace('_', ' ').replace('-', ' ').capitalize()
+    # title = os.path.splitext(os.path.basename(filename))[0].replace('_', ' ').replace('-', ' ').capitalize()
 
-    content = f"# {title} Module\n\n{content}"
+    content = f"# {title} {content}"
     
     # Replace "##" headers with "###" headers
     lines = content.split('\n')
@@ -23,6 +23,9 @@ def process_markdown(content, filename):
 
 def generate_module_doc(module_path, output_file):
     try:
+
+        title = os.path.splitext(os.path.basename(output_file))[0].replace('_', ' ').replace('-', ' ').capitalize()
+
         result = subprocess.run(
             ['terraform-docs', 'markdown', 'table', '--config', os.path.join(module_path, '.terraform-docs.yml'), module_path],
             capture_output=True,
@@ -32,12 +35,12 @@ def generate_module_doc(module_path, output_file):
         
         # Write the output to the file
         with open(output_file, 'w') as f:
-            f.write(process_markdown(result.stdout, output_file))
+            f.write(process_markdown(result.stdout, output_file, title))
         
         # Write the output to the README.md in the module directory
         readme_path = os.path.join(module_path, 'README.md')
         with open(readme_path, 'w') as readme:
-            readme.write(process_markdown(result.stdout, readme_path))
+            readme.write(process_markdown(result.stdout, readme_path, title))
         
         print(f"Generated README.md for {os.path.basename(module_path)}")
         

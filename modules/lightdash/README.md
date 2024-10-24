@@ -1,6 +1,4 @@
-# Readme Module
-
-
+# Lightdash 
 
 ### Overview
 

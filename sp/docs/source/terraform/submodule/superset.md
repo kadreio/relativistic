@@ -1,6 +1,4 @@
-# Superset Module
-
-
+# Superset 
 
 ### Overview
 
@@ -8,6 +6,8 @@ This module deploys Apache Superset, a modern data exploration and visualization
 
 ### Example Usage
 From [examples/simple/main.tf](https://github.com/kadreio/relativistic/blob/main/modules/superset/examples/simple/main.tf)
+
+```hcl
 provider "kubernetes" {
     config_path = "~/.kube/config"
 }
@@ -27,6 +27,7 @@ resource "random_string" "cookie_key" {
     length  = 32
     special = false
 }
+```
 
 ### Inputs
 

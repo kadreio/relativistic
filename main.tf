@@ -99,7 +99,7 @@ module "kubernetes_dashboard" {
 
 module "prometheus" {
     count  = var.prometheus_enabled ? 1 : 0
-    source = "./modules/prometheus"
+    source = "./modules/monitoring"
     prometheus_operator_chart_version = var.prometheus_operator_chart_version
     loki_chart_version = var.loki_chart_version
     prometheus_override_helm_values = var.prometheus_override_helm_values

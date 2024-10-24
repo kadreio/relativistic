@@ -9,7 +9,10 @@ content: |-
 
   ## Example Usage
   From [examples/simple/main.tf](https://github.com/kadreio/relativistic/blob/main/modules/superset/examples/simple/main.tf)
+
+  ```hcl
   {{ include "examples/simple/main.tf" }}
+  ```
 
   {{ .Inputs }}
 

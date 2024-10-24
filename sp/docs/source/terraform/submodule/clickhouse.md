@@ -1,6 +1,4 @@
-# Clickhouse Module
-
-
+# Clickhouse 
 
 ### Overview
 

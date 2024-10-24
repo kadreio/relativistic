@@ -1,6 +1,4 @@
-# Lightdash Module
-
-
+# Lightdash 
 
 ### Overview
 

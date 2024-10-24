@@ -5,8 +5,12 @@ content: |-
 
   ## Overview
 
-  This is the root module for the Relativistic project, which orchestrates the deployment of various data engineering and analytics tools on Kubernetes. It includes submodules for Airbyte, Airflow, Argo CD, Argo Workflows, Dagster, Kubernetes Dashboard, Lightdash, Prometheus, Superset, and more. This module provides a comprehensive data platform setup for modern data stack requirements.
+  # Relativistic
 
+  Relativistic is a Terraform, Helm, and custom configuration project to be able to deploy an production grade open source data stack quickly.
+
+  For full documentation, visit [docs.relativistic.io](https://docs.relativistic.io).
+  
   {{ .Inputs }}
 
   {{ .Outputs }}

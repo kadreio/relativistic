@@ -9,7 +9,6 @@ import (
 	"time"
 
 	"github.com/gruntwork-io/terratest/modules/k8s"
-	"github.com/gruntwork-io/terratest/modules/logger"
 	"github.com/gruntwork-io/terratest/modules/terraform"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
@@ -24,7 +23,6 @@ func TestSuperset(t *testing.T) {
 	// Create a temporary directory for Terraform state and kubeconfig
 	tempDir, err := os.MkdirTemp("", ".terraform-test")
 	require.NoError(t, err)
-	defer os.RemoveAll(tempDir)
 
 	// Write kubeconfig to a file
 	kubeconfigPath := filepath.Join("", ".terraform-test")
@@ -32,24 +30,21 @@ func TestSuperset(t *testing.T) {
 	if kubeconfig := os.Getenv("KUBECONFIG"); kubeconfig != "" {
 		err = os.WriteFile(kubeconfigPath, []byte(os.Getenv("KUBECONFIG")), 0644)
 		require.NoError(t, err)
+	} else {
+		kubeconfigPath = filepath.Join(os.Getenv("HOME"), ".kube", "config")
 	}
 
 	terraformOptions := &terraform.Options{
 		TerraformDir: ".", // Use the current directory (test/)
 		Vars: map[string]interface{}{
-			"kubernetes_config_path": func() string {
-				if kubeconfig := os.Getenv("KUBECONFIG"); kubeconfig != "" {
-					return kubeconfigPath
-				}
-				return filepath.Join(os.Getenv("HOME"), ".kube", "config")
-			}(),
+			"kubernetes_config_path": kubeconfigPath,
 		},
 		// Set the state file path to the temporary directory
 		BackendConfig: map[string]interface{}{
 			"path": filepath.Join(tempDir, "terraform.tfstate"),
 		},
 		NoColor: true,
-		Logger:  logger.Discard,
+		// Logger:  logger.Discard,
 	}
 
 	// defer terraform.Destroy(t, terraformOptions)git
@@ -135,6 +130,7 @@ func TestSuperset(t *testing.T) {
 	// Delete all resources in all namespaces
 	namespaces, err := client.CoreV1().Namespaces().List(context.Background(), metav1.ListOptions{})
 	require.NoError(t, err, "Failed to list namespaces")
+	defer os.RemoveAll(tempDir)
 
 	for _, ns := range namespaces.Items {
 		err = client.CoreV1().Pods(ns.Name).DeleteCollection(context.Background(), metav1.DeleteOptions{}, metav1.ListOptions{})

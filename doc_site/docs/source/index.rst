@@ -114,8 +114,6 @@ Contents
 .. toctree::
    :maxdepth: 2
    :caption: Relativistic Documentation
-
-   terraform/relativistic
    usage
    terraform/submodule/index
    

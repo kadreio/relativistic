@@ -3,42 +3,31 @@ Installation
 
 .. _installation:
 
-This page is an in depth guide to installing and configuring Relativistic. By the end of this guide you'll have a running instance of Relativistic on your local machine.
-
-Requirements
-------------
-
-Relativistic is a terraform module to bootstrap a data stack on a Kubernetes cluster.
-
-To get started you'll need:
-
-.. rst-class:: tight-list
-
-- A Kubernetes cluster
-- Kubectl installed
-- Helm installed
-- Terraform installed
+This page is an in depth guide to installing and configuring Relativistic. By the end of this guide you'll have a running instance of Relativistic on your local machine. We'll set up a Kubernetes cluster, helm, terraform, and then deploy Relativistic to it.
 
 
-A kubernetes cluster
---------------------
+.. _kubernetes:
 
-There are several ways to get a kubernetes cluster, including:
+Kubernetes
+----------------
+
+Kubernetes is a container orchestration platform. Relativistic uses it to run the data stack. There are several ways to get a kubernetes cluster, including:
 
 .. rst-class:: tight-list
 
-- `Docker Desktop <https://docs.docker.com/desktop/kubernetes/>`_
-- `Minikube <https://minikube.sigs.k8s.io/docs/start/>`_
-- `K3s <https://k3s.io/>`_
-- `AKS <https://learn.microsoft.com/en-us/azure/aks/quickstart-cli>`_
-- `EKS <https://aws.amazon.com/eks/>`_
-- `GKE <https://cloud.google.com/kubernetes-engine>`_
-- `Digital Ocean <https://www.digitalocean.com/products/kubernetes/>`_
+   - `Docker Desktop <https://docs.docker.com/desktop/kubernetes/>`_
+   - `Minikube <https://minikube.sigs.k8s.io/docs/start/>`_
+   - `K3s <https://k3s.io/>`_
+   - `AKS <https://learn.microsoft.com/en-us/azure/aks/quickstart-cli>`_
+   - `EKS <https://aws.amazon.com/eks/>`_
+   - `GKE <https://cloud.google.com/kubernetes-engine>`_
+   - `Digital Ocean <https://www.digitalocean.com/products/kubernetes/>`_
 
 For this guide we'll be using docker desktop. Docker desktop has the advantage of having the kubernetes network be the same as the host, meaning that you can access the services on `localhost`. Note that if you use something like minikube, you'll want to look at the documentation to find the IP address of the cluster and access the services from there.
 
 Note that once you install docker desktop, you'll need to enable kubernetes, per the linked docs.
 
+.. _kubectl:
 Kubectl
 -------
 
@@ -46,10 +35,14 @@ Kubectl is the command line tool for interacting with your kubernetes cluster. I
 
 There are many ways to define a connection to a kubernetes cluster, but this guide will assume that you've set up kubectl in the default way, with the configuration file in `~/.kube/config`.
 
+.. _helm:
+
 Helm
 ----
 
 While not strictly necessary, under the hood, many of the modules that relativistic manages are helm charts. Having helm installed will allow you to investigate the infrastructure that relativistic creates. Helm installation instructions can be found `here <https://helm.sh/docs/intro/install/>`_.
+
+.. _terraform:
 
 Terraform
 ---------

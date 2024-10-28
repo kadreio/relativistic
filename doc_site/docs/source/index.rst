@@ -109,7 +109,7 @@ Supported Tools
      - Beta
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 4
    :caption: Introduction
    :hidden:
    

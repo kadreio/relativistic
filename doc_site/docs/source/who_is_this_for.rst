@@ -1,51 +1,14 @@
 Who Is This For
 =====
 
-.. _pain:
 
-This is for you if...
+This is for you if:
 ----------------
 
 You're looking for a way to be able to spin up a data stack that's secure, compliant, and you just paying for the compute costs. Either you, or someone in your company has access to a cloud environment, and are comfortable running a `terraform apply` command, or are willing to learn to save hundreds of thousands of dollars in the long term.
 
-This is what it takes to get a production grade data stack up and running:
 
-.. code-block:: terraform
-   :force:
-
-   provider "kubernetes" {
-      config_path = "~/.kube/config"
-   }
-
-   provider "helm" {
-      kubernetes {
-         config_path = "~/.kube/config"
-      }
-   }
-
-   module "relativistic" {
-      source = "github.com/kadreio/relativistic.git?ref=v0.1.2"  
-      superset_enabled = true
-      superset_default_password = "starting_password_to_change"
-      superset_default_user = "you@yourcompany.com"
-      superset_secret_key = random_string.cookie_key.result
-      superset_local_exposed_port = 30086   
-   }
-
-   resource "random_string" "cookie_key" {
-      length  = 32
-      special = false
-   }
-
-
-.. code-block:: console
-   
-   $ terraform apply
-
-
-Now, if you're running docker desktop, you can navigate to http://localhost:30086 and see your new superset instance.
-
-
+.. _pain:
 The Pain
 ----------------
 

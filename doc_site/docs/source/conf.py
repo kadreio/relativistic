@@ -132,31 +132,3 @@ html_theme_options = {
     "body_max_width": "none",
 }
 html_favicon = 'tealfavicon.png'
-
-import yaml
-from docutils import nodes
-from docutils.parsers.rst import Directive
-
-class YamlValueDirective(Directive):
-    has_content = False
-    required_arguments = 2  # First argument: YAML file path, Second argument: key
-
-    def run(self):
-        yaml_file = self.arguments[0]
-        key = self.arguments[1]
-        try:
-            with open(yaml_file, 'r') as f:
-                data = yaml.safe_load(f)
-            value = data.get(key, '')
-            paragraph_node = nodes.paragraph(text=str(value))
-            return [paragraph_node]
-        except Exception as e:
-            error_message = f"Error reading YAML file '{yaml_file}': {e}"
-            error_node = self.state_machine.reporter.error(
-                error_message,
-                nodes.literal_block(self.block_text, self.block_text),
-                line=self.lineno)
-            return [error_node]
-
-def setup(app):
-    app.add_directive('yamlvalue', YamlValueDirective)

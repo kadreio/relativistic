@@ -11,9 +11,15 @@ Many open source data tools are better than their closed source counterparts. Th
 Example - Set up Superset
 ----
 
-**Code**  On a machine with `Docker Desktop Kubernetes <https://docs.docker.com/desktop/kubernetes>`_ and terraform installed:
+**Prerequisites:**
 
-.. code-block:: hcl
+- `Docker Desktop Kubernetes <https://docs.docker.com/desktop/kubernetes>`_
+- `Terraform <https://developer.hashicorp.com/terraform/install>`_
+
+**main.tf**  
+
+.. code-block:: terraform
+
   provider "kubernetes" {
     config_path = "~/.kube/config"
   }
@@ -37,9 +43,15 @@ Example - Set up Superset
       special = false
   }
 
-**Step 2.**  Run `terraform init && terraform apply --auto-approve`
+**command**  
 
-**Step 3.**  Open `http://localhost:30086` in your browser - or if using minikube, `minikube tunnel`, and use that IP.
+.. code-block:: console
+
+  $ terraform init  
+  $ terraform apply --auto-approve
+  $ open http://localhost:30086
+
+For other examples, such as minikube, see :doc:`./installation`
 
 Supported Tools
 ----
@@ -114,6 +126,7 @@ Contents
 .. toctree::
    :maxdepth: 2
    :caption: Relativistic Documentation
+
    usage
    terraform/submodule/index
    

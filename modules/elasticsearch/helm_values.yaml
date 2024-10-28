@@ -1,0 +1,29 @@
+# Elasticsearch Helm values
+
+replicas: ${elasticsearch_replicas}
+
+# Permit co-located instances for solitary minikube virtual machines.
+antiAffinity: "soft"
+
+# Shrink default JVM heap.
+esJavaOpts: "-Xmx${elasticsearch_heap_size} -Xms${elasticsearch_heap_size}"
+
+# Allocate smaller chunks of memory per pod.
+resources:
+  requests:
+    cpu: "100m"
+    memory: "1Gi"
+  limits:
+    cpu: "1000m"
+    memory: "2Gi"
+
+# Request smaller persistent volumes.
+volumeClaimTemplate:
+  accessModes: [ "ReadWriteOnce" ]
+  resources:
+    requests:
+      storage: ${elasticsearch_storage_size}
+
+service:
+  type: NodePort
+  nodePort: ${elasticsearch_local_exposed_port}

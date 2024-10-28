@@ -1,0 +1,22 @@
+tenant:
+  name: minio-tenant
+  pools:
+    - name: pool-0
+      servers: ${minio_servers}
+      volumesPerServer: ${minio_volumes_per_server}
+      size: ${minio_storage_size}
+  
+  secrets:
+    accessKey: ${minio_access_key}
+    secretKey: ${minio_secret_key}
+
+  service:
+    type: NodePort
+    port: 80
+    nodePort: ${minio_exposed_port}
+
+  # console:
+  #   consoleSecret:
+  #     name: console-secret
+  #     accessKey: ${minio_access_key}
+  #     secretKey: ${minio_secret_key}

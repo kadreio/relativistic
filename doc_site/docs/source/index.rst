@@ -1,30 +1,45 @@
 Relativistic Documentation
 ==========================
 
-**Relativistic** is the fastest way to get a SOC2 compliant open source data stack up and running, saving tens or hundreds of thousands of dollars in vendor costs.
+**Relativistic** is the fastest way to get a SOC2 compliant data stack based on open source tools up and running, saving hundreds of thousands of dollars in vendor costs.
 
+Relativistic is a configuration tool for deploying open source data tools on a Kubernetes cluster via Terraform. It allows you to deploy over a dozen of the most popular data tools on Kubernetes in under 5 minutes. From dashboarding to ETLs to DAG schedulers to metrics and more, Relativistic has you covered.
 
-Relativistic is a configuration tool for deploying open source data tools on your Kubernetes cluster via Terraform. It allows you to deploy over a dozen of the most popular data tools on Kubernetes in under 5 minutes. From dashboarding to ETLs to DAG schedulers to metrics and more, Relativistic has you covered.
-
-Open source data tools often are better than their closed source counterparts. The issue is deploying them in a way that is secure, scalable, maintainable, and compliant. Relativistic comes from the learnings of a data consultancy deploying the same tools to dozens of clients, and how to get running in a day.
+Many open source data tools are better than their closed source counterparts. The issue is deploying them in a way that is secure, scalable, maintainable, and compliant. Relativistic comes from the learnings of a data consultancy deploying the same tools to dozens of clients, and how to get running in a day.
 
 
 Example - Set up Superset
 ----
 
-**Step 1.**  On a machine with `Docker Desktop Kubernetes <https://docs.docker.com/desktop/kubernetes>`_ and terraform installed:
+**Code**  On a machine with `Docker Desktop Kubernetes <https://docs.docker.com/desktop/kubernetes>`_ and terraform installed:
 
-.. code-block:: console
+.. code-block:: hcl
+  provider "kubernetes" {
+    config_path = "~/.kube/config"
+  }
 
-   $ git clone https://github.com/kadreio/relativistic
-   $ cd relativistic/examples/local_superset
-   $ terraform init && terraform apply --auto-approve
-   $ open http://localhost:30086
+  provider "helm" {
+    kubernetes {
+      config_path = "~/.kube/config"
+    }
+  }
 
-**Step 2.**  You have a data stack on your local Kubernetes cluster!
+  module "relativistic" {
+      source = "kadreio/relativistic/kubernetes"
+      superset_enabled = true
+      superset_default_password = "starting_password_to_change"
+      superset_default_user = "you@yourcompany.com"
+      superset_secret_key = random_string.cookie_key.result
+  }
 
-**Step 3.**  Now set up a kubernetes cluster in AWS, Azure, GCP, or Digital Ocean, and deploy Relativistic to it instead. 
+  resource "random_string" "cookie_key" {
+      length  = 32
+      special = false
+  }
 
+**Step 2.**  Run `terraform init && terraform apply --auto-approve`
+
+**Step 3.**  Open `http://localhost:30086` in your browser - or if using minikube, `minikube tunnel`, and use that IP.
 
 Supported Tools
 ----

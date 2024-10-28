@@ -54,7 +54,7 @@ While not strictly necessary, under the hood, many of the modules that relativis
 Terraform
 ---------
 
-Terraform is an "IAC" tool. It allows you to define the infrastructure you need in code, and then apply those definitions to create it. Relatistic's entrypoint is a terraform module, which bootstraps kuberenetes resources to your cluster. It is recommended that your familiar with terraform before deploying relativistic to production, to understand how to manage infrastructure over time.
+Terraform is an "Infrastructure as Code" tool. It allows you to define the infrastructure you need in code, and then apply those definitions to create it. Relativistic's entrypoint is a terraform module, which bootstraps kubernetes resources to your cluster. It is recommended that your familiar with terraform before deploying relativistic to production, to understand how to manage infrastructure over time.
 
 Both OpenTOFU and Terraform work:
 
@@ -85,8 +85,7 @@ Create this `main.tf` file in a new project directory, changing the password and
    }
 
    module "relativistic" {
-      source = "github.com/kadreio/relativistic.git?ref=v0.0.4-rc1"
-
+      source = "kadreio/relativistic/kubernetes"
       superset_enabled = true
       superset_default_password = "starting_password_to_change"
       superset_default_user = "you@yourcompany.com"

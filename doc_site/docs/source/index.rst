@@ -108,14 +108,10 @@ Supported Tools
      - Visualization
      - Beta
 
-
-
-Contents
-------
-
 .. toctree::
    :maxdepth: 2
    :caption: Introduction
+   :hidden:
    
    Relativistic <self>
    installation
@@ -126,7 +122,7 @@ Contents
 .. toctree::
    :maxdepth: 2
    :caption: Relativistic Documentation
+   :hidden:
 
    usage
    terraform/submodule/index
-   

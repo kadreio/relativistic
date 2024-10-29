@@ -1,5 +1,8 @@
 # Clickhouse 
 
+{bdg-danger}`In Development`
+
+
 ### Overview
 
 This module deploys a ClickHouse database on Kubernetes. It uses the official ClickHouse Helm chart to set up a reliable columnar database instance, suitable for high-performance analytics and data warehousing in the cluster. The module also provides outputs for easy access to database connection details.

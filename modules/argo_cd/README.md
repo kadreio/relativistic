@@ -1,8 +1,11 @@
 # Argo cd 
 
+{bdg-success}`Released`
+
 ### Overview
 
 This module deploys Argo CD, a declarative, GitOps continuous delivery tool for Kubernetes. It sets up the necessary Helm release, configures SSO integration, and exposes the Argo CD server. The module includes OAuth2 configuration for secure access.
+
 
 ```{tip}
   This implementation uses the official Argo CD Helm chart. You can find more details in the [Argo CD documentation](https://github.com/argoproj/argo-helm/tree/main/charts/argo-cd).

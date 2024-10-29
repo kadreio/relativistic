@@ -73,9 +73,11 @@ extensions = [
     'sphinx.ext.extlinks',
     'sphinx.ext.autosummary',
     'sphinx.ext.intersphinx',
+    'sphinx_design',
     'myst_parser'
 
 ]
+myst_enable_extensions = ["colon_fence"]
 
 source_suffix = {
     '.rst': 'restructuredtext',

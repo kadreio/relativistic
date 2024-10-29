@@ -1,5 +1,7 @@
 # Superset 
 
+{bdg-success}`Released`
+
 ### Overview
 
 This module deploys Apache Superset, a modern data exploration and visualization platform, on Kubernetes. It sets up the Superset web application, its dependencies, and the necessary database using a Helm chart. The module also configures authentication and exposes the Superset UI for easy access to data analytics and dashboard creation.

@@ -1,5 +1,7 @@
 # Argo workflows 
 
+{bdg-success}`Released`
+
 ### Overview
 
 This module deploys Argo Workflows, an open-source container-native workflow engine for orchestrating parallel jobs on Kubernetes. It sets up the Argo Workflows controller and server using a Helm chart, configures RBAC, and enables SSO integration for secure access to the Argo Workflows UI.

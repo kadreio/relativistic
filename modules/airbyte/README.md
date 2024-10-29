@@ -1,5 +1,8 @@
 # Airbyte 
 
+
+{bdg-warning}`Beta`
+
 ### Overview
 
 This module deploys Airbyte, an open-source data integration platform, on Kubernetes. It sets up the necessary Helm release, configures the database, and exposes the Airbyte webserver. This module also includes OAuth2 proxy configuration for secure access.

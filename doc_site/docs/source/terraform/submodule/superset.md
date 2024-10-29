@@ -1,13 +1,30 @@
 # Superset 
 
-{bdg-success}`Released`
+{bdg-warning}`Beta`
 
 ### Overview
 
 This module deploys Apache Superset, a modern data exploration and visualization platform, on Kubernetes. It sets up the Superset web application, its dependencies, and the necessary database using a Helm chart. The module also configures authentication and exposes the Superset UI for easy access to data analytics and dashboard creation.
 
-### Example Usage
-From [examples/simple/main.tf](https://github.com/kadreio/relativistic/blob/main/modules/superset/examples/simple/main.tf)
+### Compute Nodes
+
+For optimal performance, the following resources are recommended:
+- 1 or more CPU cores
+- At least 2GB of memory
+
+### Local Deployment
+
+Superset will start on port 30086 by default.
+
+### Production Considerations
+
+Superset is licensed under the Apache License 2.0.
+
+
+```{Warning}
+  Superset will deploy a self-hosted version of Postgres. This will not back iteslf up, and is not HA. For many use cases, this is not a problem, as Superset is not a system of record itself, and can easily be recreated in disaster recovery. External postgres can be configured by helm chart overrides., but future work will simplify passing in an existing postgres instance.  
+```
+### Examples
 
 ```hcl
 module "superset" {

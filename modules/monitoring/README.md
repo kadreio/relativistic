@@ -1,4 +1,5 @@
 # Monitoring 
+{bdg-warning}`Beta`
 
 ### Overview
 

@@ -3,11 +3,11 @@ formatter: "markdown table"
 content: |-
   {{ .Header }}
 
+  {{ include "../../doc_site/docs/source/partials/status_development.md" }}
+
   Relativistic is a Terraform, Helm, and custom configuration project to be able to deploy an production grade open source data stack quickly.
 
   ## Examples
-
-
 
   {{ .Inputs }}
 
@@ -18,7 +18,6 @@ content: |-
   {{ .Requirements }}
 
   {{ .Resources }}
-
 
 sort:
   enabled: true

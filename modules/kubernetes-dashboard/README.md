@@ -1,5 +1,8 @@
 # Kubernetes dashboard 
 
+{bdg-danger}`In Development`
+
+
 ### Overview
 
 This module deploys the Kubernetes Dashboard, a web-based Kubernetes user interface, on the cluster. It sets up the dashboard using a Helm chart and configures the necessary RBAC permissions. The module also creates a service account with admin access for easy management of the cluster through the dashboard.

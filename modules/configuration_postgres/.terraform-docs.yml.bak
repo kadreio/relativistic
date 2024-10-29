@@ -2,6 +2,7 @@ formatter: "markdown table"
 
 content: |-
   {{ .Header }}
+  {{ include "../../doc_site/docs/source/partials/status_development.md" }}
 
   ## Overview
 

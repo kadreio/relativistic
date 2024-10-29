@@ -63,34 +63,42 @@ Supported Tools
      - Description
      - Category
      - Status
-   * - PostgreSQL
-     - PostgreSQL database for analytics
-     - Storage
-     - Beta
+   * - Argo Workflows
+     - Container-native workflow engine
+     - ETL
+     - Release
+   * - Argo CD
+     - Declarative GitOps continuous delivery tool
+     - Operations
+     - Release
+   * - Apache Superset
+     - Modern data exploration and visualization platform
+     - Visualization
+     - Release
    * - Airbyte
      - Data integration and ETL platform
      - ETL
      - Beta
+   * - PostgreSQL
+     - PostgreSQL database for analytics
+     - Storage
+     - Beta
+   * - Clickhouse
+     - Column-oriented database management system
+     - Storage
+     - In Development
    * - Apache Airflow
      - Workflow management and scheduling platform
      - ETL
      - In Development
-   * - Argo Workflows
-     - Container-native workflow engine
-     - ETL
-     - Beta
    * - Dagster
      - Data orchestration platform
      - ETL
      - In development
-   * - Prometheus
+   * - Prometheus / Loki / Grafana
      - Monitoring and alerting toolkit
      - Monitoring
      - In development
-   * - Argo CD
-     - Declarative GitOps continuous delivery tool
-     - Operations
-     - Beta
    * - Kubernetes Dashboard
      - Web-based Kubernetes user interface
      - Operations
@@ -103,10 +111,6 @@ Supported Tools
      - Open-source BI tool for dbt users
      - Visualization
      - In development
-   * - Apache Superset
-     - Modern data exploration and visualization platform
-     - Visualization
-     - Beta
 
 .. toctree::
    :maxdepth: 4

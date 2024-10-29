@@ -4,6 +4,72 @@
 
 This module deploys Argo Workflows, an open-source container-native workflow engine for orchestrating parallel jobs on Kubernetes. It sets up the Argo Workflows controller and server using a Helm chart, configures RBAC, and enables SSO integration for secure access to the Argo Workflows UI.
 
+```{tip}
+  This implementation uses the official Argo Workflows Helm chart. You can find more details in the [Argo Workflows documentation](https://github.com/argoproj/argo-helm/tree/main/charts/argo-workflows).
+
+  Helm values have been customized from the defaults, and common configuration needs are exposed as variables.
+
+  If needed the entire helm chart can be customized by setting the `override_helm_values` variable.
+
+  Additionally, there is a large amount of security roles configuration.
+```
+
+### Compute Requirements
+
+For optimal performance, the following resources are recommended:
+- 1 CPU core
+- 2GB of memory
+
+Resource requirements will scale with the number and complexity of workflows being executed.
+
+```{warning}
+  When using SSO with Google OAuth, make sure to configure the correct redirect URIs in your Google Cloud Console. The redirect URI should be `https://your-domain/oauth2/callback`.
+```
+
+### Local Deployment
+
+Argo Workflows will start on port 30083 by default.
+
+### Production Considerations
+
+Argo Workflows is licensed under the Apache License 2.0, making it suitable for both personal and commercial use.
+
+### Examples
+
+  ```{note}
+    All examples omit the configuration for the kubernetes provider and helm provider. You can find more information about how to configure these providers in the [usage](/usage) section.
+  ```
+
+#### Simple
+```hcl
+module "argo_workflows" {
+  source = "kadreio/relativistic/kubernetes//modules/argo_workflows"
+} 
+```
+
+#### With SSO
+```hcl
+module "argo_workflows" {
+  source = "kadreio/relativistic/kubernetes//modules/argo_workflows"
+
+  # Enable SSO authentication
+  auth_mode = "sso"
+  
+  # Configure Google OAuth
+  google_oauth_client_id     = "your-client-id"
+  google_oauth_client_secret = "your-client-secret"
+  
+  # Configure domain for SSO
+  target_domain = "argo-workflows.yourdomain.com"
+
+  # Configure allowed domains for SSO
+  allowed_domains = ["yourdomain.com"]
+
+  # Optional: Configure RBAC rule for admin access
+  rbac_rule = "email == 'admin@yourdomain.com' or email == 'admin2@example.com'"
+} 
+```
+
 ### Inputs
 
 | Name | Description | Type | Default | Required |

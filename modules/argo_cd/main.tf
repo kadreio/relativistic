@@ -1,15 +1,3 @@
-variable "argo_cd_chart_version" {
-  description = "Argo CD chart version"
-  type        = string
-  default     = "7.4.3"
-}
-
-variable "override_helm_values" {
-  description = "Override helm values as YAML string"
-  type        = string
-  default     = ""
-}
-
 resource "helm_release" "argo_cd" {
   name       = "argo-cd"
   repository = "https://argoproj.github.io/argo-helm"
@@ -26,25 +14,6 @@ resource "helm_release" "argo_cd" {
   ]
   timeout = 1200
 }
-
-variable "google_oauth_client_id" {
-  description = "Google OAuth client ID"
-  type        = string
-  default     = ""
-}
-
-variable "google_oauth_client_secret" {
-  description = "Google OAuth client secret"
-  type        = string
-  default     = ""
-} 
-
-variable "target_domain" {
-  description = "The url of the deployed application"
-  type        = string
-  default     = "localhost:30088"
-}
-
 
 resource "kubernetes_service" "expose_argo_cd_webserver" {
   metadata {

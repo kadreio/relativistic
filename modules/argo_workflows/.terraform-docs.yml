@@ -7,6 +7,50 @@ content: |-
 
   This module deploys Argo Workflows, an open-source container-native workflow engine for orchestrating parallel jobs on Kubernetes. It sets up the Argo Workflows controller and server using a Helm chart, configures RBAC, and enables SSO integration for secure access to the Argo Workflows UI.
 
+  ```{tip}
+    This implementation uses the official Argo Workflows Helm chart. You can find more details in the [Argo Workflows documentation](https://github.com/argoproj/argo-helm/tree/main/charts/argo-workflows).
+
+    Helm values have been customized from the defaults, and common configuration needs are exposed as variables.
+
+    If needed the entire helm chart can be customized by setting the `override_helm_values` variable.
+
+    Additionally, there is a large amount of security roles configuration.
+  ```
+
+  ## Compute Requirements
+
+  For optimal performance, the following resources are recommended:
+  - 1 CPU core
+  - 2GB of memory
+
+  Resource requirements will scale with the number and complexity of workflows being executed.
+
+  ```{warning}
+    When using SSO with Google OAuth, make sure to configure the correct redirect URIs in your Google Cloud Console. The redirect URI should be `https://your-domain/oauth2/callback`.
+  ```
+
+  ## Local Deployment
+
+  Argo Workflows will start on port 30083 by default.
+
+  ## Production Considerations
+
+  Argo Workflows is licensed under the Apache License 2.0, making it suitable for both personal and commercial use.
+
+  ## Examples
+
+  {{ include "../../doc_site/docs/source/partials/example_note.md" }}
+
+  #### Simple
+  ```hcl
+  {{ include "examples/simple/main.tf" }}
+  ```
+
+  #### With SSO
+  ```hcl
+  {{ include "examples/with_sso/main.tf" }}
+  ```
+
   {{ .Inputs }}
 
   {{ .Outputs }}
@@ -18,8 +62,6 @@ content: |-
   {{ .Resources }}
 
   {{ .Modules }}
-
-
 
 sort:
   enabled: true

@@ -1,13 +1,3 @@
-provider "kubernetes" {
-    config_path = "~/.kube/config"
-}
-
-provider "helm" {
-    kubernetes {
-        config_path = "~/.kube/config"
-    }
-}
-
 module "superset" {
     source = "kadreio/relativistic/kubernetes//modules/superset"
     #The key used for superset cookies

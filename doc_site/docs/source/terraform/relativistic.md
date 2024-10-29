@@ -1,10 +1,10 @@
 # Relativistic 
 
-# Relativistic
-
 Relativistic is a Terraform, Helm, and custom configuration project to be able to deploy an production grade open source data stack quickly.
 
-For full documentation, visit [docs.relativistic.io](https://docs.relativistic.io).
+### Examples
+
+
 
 ### Inputs
 
@@ -89,22 +89,3 @@ No providers.
 ### Resources
 
 No resources.
-
-### Modules
-
-| Name | Source | Version |
-|------|--------|---------|
-| <a name="module_airbyte"></a> [airbyte](#module\_airbyte) | ./modules/airbyte | n/a |
-| <a name="module_airflow"></a> [airflow](#module\_airflow) | ./modules/airflow | n/a |
-| <a name="module_analytics_postgres"></a> [analytics\_postgres](#module\_analytics\_postgres) | ./modules/analytics_postgres | n/a |
-| <a name="module_argo_cd"></a> [argo\_cd](#module\_argo\_cd) | ./modules/argo_cd | n/a |
-| <a name="module_argo_workflows"></a> [argo\_workflows](#module\_argo\_workflows) | ./modules/argo_workflows | n/a |
-| <a name="module_clickhouse"></a> [clickhouse](#module\_clickhouse) | ./modules/clickhouse | n/a |
-| <a name="module_configuration_postgres"></a> [configuration\_postgres](#module\_configuration\_postgres) | ./modules/configuration_postgres | n/a |
-| <a name="module_dagster"></a> [dagster](#module\_dagster) | ./modules/dagster | n/a |
-| <a name="module_kubernetes_dashboard"></a> [kubernetes\_dashboard](#module\_kubernetes\_dashboard) | ./modules/kubernetes-dashboard | n/a |
-| <a name="module_lightdash"></a> [lightdash](#module\_lightdash) | ./modules/lightdash | n/a |
-| <a name="module_prometheus"></a> [prometheus](#module\_prometheus) | ./modules/monitoring | n/a |
-| <a name="module_superset"></a> [superset](#module\_superset) | ./modules/superset | n/a |
-| <a name="module_ubuntu"></a> [ubuntu](#module\_ubuntu) | ./modules/ubuntu | n/a |
-| <a name="module_windmill"></a> [windmill](#module\_windmill) | ./modules/windmill | n/a |

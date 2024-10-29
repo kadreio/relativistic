@@ -8,16 +8,6 @@ This module deploys Apache Superset, a modern data exploration and visualization
 From [examples/simple/main.tf](https://github.com/kadreio/relativistic/blob/main/modules/superset/examples/simple/main.tf)
 
 ```hcl
-provider "kubernetes" {
-    config_path = "~/.kube/config"
-}
-
-provider "helm" {
-    kubernetes {
-        config_path = "~/.kube/config"
-    }
-}
-
 module "superset" {
     source = "kadreio/relativistic/kubernetes//modules/superset"
     #The key used for superset cookies

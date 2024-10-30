@@ -3,3 +3,4 @@ sphinx==7.3.0
 sphinxawesome-theme==5.2.0
 myst-parser
 sphinx-design
+sphinxcontrib.youtube

@@ -74,6 +74,7 @@ extensions = [
     'sphinx.ext.autosummary',
     'sphinx.ext.intersphinx',
     'sphinx_design',
+    'sphinxcontrib.youtube',
     'myst_parser'
 
 ]

@@ -8,6 +8,11 @@ Relativistic configures open source data tools on a Kubernetes cluster via Terra
 Many open source data tools are better than their closed source counterparts. The issue is deploying them in a way that is secure, scalable, maintainable, and compliant. Relativistic comes from the learnings of a data consultancy deploying the same tools to dozens of clients, and how to get running in a day.
 
 
+Demo
+----
+.. youtube:: IUm4ciu8WVk
+  
+
 Example - Set up Superset
 ----
 

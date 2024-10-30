@@ -54,10 +54,10 @@ resource "random_string" "cookie_key" {
 |------|-------------|------|---------|:--------:|
 | <a name="input_override_helm_values"></a> [override\_helm\_values](#input\_override\_helm\_values) | List of Helm values files to override default configurations | `list(string)` | `[]` | no |
 | <a name="input_superset_chart_version"></a> [superset\_chart\_version](#input\_superset\_chart\_version) | Superset chart version | `string` | `"0.12.9"` | no |
-| <a name="input_superset_default_password"></a> [superset\_default\_password](#input\_superset\_default\_password) | Default user for Superset | `string` | `"admin"` | no |
+| <a name="input_superset_default_password"></a> [superset\_default\_password](#input\_superset\_default\_password) | Default User Password for Superset | `string` | `"admin"` | no |
 | <a name="input_superset_default_user"></a> [superset\_default\_user](#input\_superset\_default\_user) | Default user for Superset | `string` | `"admin@superset.com"` | no |
 | <a name="input_superset_local_exposed_port"></a> [superset\_local\_exposed\_port](#input\_superset\_local\_exposed\_port) | Local exposed port for Superset | `number` | `30086` | no |
-| <a name="input_superset_secret_key"></a> [superset\_secret\_key](#input\_superset\_secret\_key) | Default user for Superset | `string` | n/a | yes |
+| <a name="input_superset_secret_key"></a> [superset\_secret\_key](#input\_superset\_secret\_key) | Default Secret Jey for Superset | `string` | n/a | yes |
 
 ### Outputs
 

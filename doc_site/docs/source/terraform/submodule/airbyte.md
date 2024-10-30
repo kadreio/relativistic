@@ -12,7 +12,7 @@ This module deploys Airbyte, an open-source data integration platform, on Kubern
 
   Helm values have been customized from the defaults, and common configuration needs are exposed as variables.
 
-  If needed the entire helm chart can be customized by setting the `helm_values` variable.
+  If needed the entire helm chart can be customized by setting the `override_helm_values` variable.
 ```
 
 ### Compute Nodes

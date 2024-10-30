@@ -1,4 +1,4 @@
-resource "random_string" "clickhouse_suffix" {
+zresource "random_string" "clickhouse_suffix" {
   length  = 8
   special = false
   upper   = false
@@ -24,9 +24,16 @@ variable "override_helm_values" {
     default = ""
 }
 
+variable "clickhouse_password_sha256_hex" {
+    description = "Clickhouse password sha256 hex"
+    type = string
+    default = "10a6e6cc8311a3e2bcc09bf6c199adecd5dd59408c343e926b129c4914f3cb01"
+}
+
 resource "kubectl_manifest" "clickhouse_instance" {
   yaml_body = templatefile("${path.module}/clickhouse.yaml.tpl", {
-    name = "clickhouse-1"
+    name = "clickhouse-1",
+    clickhouse_password_sha256_hex = var.clickhouse_password_sha256_hex
   })
 } 
 

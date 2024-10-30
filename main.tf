@@ -131,4 +131,5 @@ module "clickhouse" {
     source = "./modules/clickhouse"
     clickhouse_chart_version = var.clickhouse_chart_version
     override_helm_values = var.clickhouse_override_helm_values
+    clickhouse_password_sha256_hex = var.clickhouse_password_sha256_hex
 }

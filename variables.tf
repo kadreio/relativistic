@@ -308,6 +308,12 @@ variable "clickhouse_override_helm_values" {
   default     = ""
 }
 
+variable "clickhouse_password_sha256_hex" {
+  description = "Clickhouse password sha256 hex"
+  type        = string
+  default     = "10a6e6cc8311a3e2bcc09bf6c199adecd5dd59408c343e926b129c4914f3cb01"
+}
+
 variable "argo_workflows_override_helm_values" {
   description = "Override helm values for Argo Workflows as YAML string"
   type        = string

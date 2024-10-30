@@ -1,31 +1,17 @@
-#
-# AWS resizable disk example
-#
-apiVersion: storage.k8s.io/v1
-kind: StorageClass
-metadata:
-  name: "${name}"
-provisioner: kubernetes.io/aws-ebs
-parameters:
-  type: gp2
-reclaimPolicy: Delete
-#volumeBindingMode: Immediate
-allowVolumeExpansion: true
----
 apiVersion: "clickhouse.altinity.com/v1"
 kind: "ClickHouseInstallation"
 metadata:
-  name: "pv-multi-resize-${name}"
+  name: "ch-${name}"
 spec:
   configuration:
     users:
       # printf 'test_password' | sha256sum
-      test_user/password_sha256_hex: 10a6e6cc8311a3e2bcc09bf6c199adecd5dd59408c343e926b129c4914f3cb01
+      test_user/password_sha256_hex: ${clickhouse_password_sha256_hex}
       # to allow access outside from kubernetes
       test_user/networks/ip:
         - 0.0.0.0/0
     clusters:
-      - name: "pv-multi-resize-${name}"
+      - name: "ch-${name}"
         templates:
           podTemplate: pod-template-with-volumes-${name}
         layout:
@@ -34,7 +20,7 @@ spec:
 
   templates:
     podTemplates:
-      - name: pod-template-with-volumes-${name}
+      - name: ch-pod-template-${name}
         spec:
           containers:
             - name: clickhouse
@@ -44,7 +30,7 @@ spec:
                   mountPath: /data/clickhouse-01
 
     volumeClaimTemplates:
-      - name: data-storage-vc-template-1-${name}
+      - name: ch-vc-template-1-${name}
         spec:
           storageClassName: "${name}"
           accessModes:

@@ -1,5 +1,5 @@
-zresource "random_string" "clickhouse_suffix" {
-  length  = 8
+resource "random_string" "clickhouse_suffix" {
+  length  = 4
   special = false
   upper   = false
 }
@@ -30,9 +30,16 @@ variable "clickhouse_password_sha256_hex" {
     default = "10a6e6cc8311a3e2bcc09bf6c199adecd5dd59408c343e926b129c4914f3cb01"
 }
 
+resource "kubectl_manifest" "clickhouse_storage_class" {
+  yaml_body = templatefile("${path.module}/clickhouse_storage.yaml.tpl", {
+    name = "${random_string.clickhouse_suffix.result}"
+  })
+} 
+
 resource "kubectl_manifest" "clickhouse_instance" {
+ depends_on = [kubectl_manifest.clickhouse_storage_class]
   yaml_body = templatefile("${path.module}/clickhouse.yaml.tpl", {
-    name = "clickhouse-1",
+    name = "${random_string.clickhouse_suffix.result}",
     clickhouse_password_sha256_hex = var.clickhouse_password_sha256_hex
   })
 } 

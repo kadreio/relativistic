@@ -5,13 +5,13 @@ variable "superset_default_user" {
 }
 
 variable "superset_default_password" {
-  description = "Default user for Superset"
+  description = "Default User Password for Superset"
   type        = string
   default     = "admin"
 }
 
 variable "superset_secret_key" {
-  description = "Default user for Superset"
+  description = "Default Secret Jey for Superset"
   type        = string
 }
 

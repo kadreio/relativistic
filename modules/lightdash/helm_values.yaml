@@ -1,5 +1,7 @@
 ## @section Global Parameters
-
+lightdash:
+  image:
+    tag: "0.1302.7"
 ## @param global.imageRegistry Global Docker image registry
 ## @param global.storageClass Global StorageClass for Persistent Volume(s)
 ##
@@ -47,7 +49,7 @@ replicaCount: 1
 image:
   repository: lightdash/lightdash
   pullPolicy: IfNotPresent
-  tag: ""
+  tag: "0.1302.7"
 
 imagePullSecrets: []
 

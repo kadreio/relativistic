@@ -1,7 +1,7 @@
 variable "lightdash_chart_version" {
   description = "Lightdash chart version"
   type        = string
-  default     = "0.8.9"
+  default     = "1.5.1"
 }
 
 variable "override_helm_values" {

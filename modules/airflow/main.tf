@@ -1,7 +1,7 @@
 variable "airflow_chart_version" {
   description = "Airflow chart version"
   type        = string
-  default     = "8.8.0"
+  default     = "8.9.0"
 }
 
 variable "override_helm_values" {

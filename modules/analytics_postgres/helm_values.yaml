@@ -296,6 +296,18 @@ tls:
 ## @section PostgreSQL Primary parameters
 ##
 primary:
+  extendedConfiguration: |-
+    wal_level = logical
+    shared_buffers = 256MB
+  pgHbaConfiguration: |-
+    host     all            all             0.0.0.0/0               trust
+    host     all            all             ::/0                    trust
+    local    all            all                                     trust
+    host     all            all             127.0.0.1/32            trust
+    host     all            all             ::1/128                 trust
+    local   replication     repl_user                               trust
+    host    replication     repl_user       127.0.0.1/32            trust
+    host    replication     repl_user       ::1/128                 trust
   ## @param primary.name Name of the primary database (eg primary, master, leader, ...)
   ##
   name: primary
@@ -311,17 +323,9 @@ primary:
   ##   host all all localhost trust
   ##   host mydatabase mysuser 192.168.0.0/24 md5
   ##
-  pgHbaConfiguration: ""
-  ## @param primary.existingConfigmap Name of an existing ConfigMap with PostgreSQL Primary configuration
-  ## NOTE: `primary.configuration` and `primary.pgHbaConfiguration` will be ignored
-  ##
   existingConfigmap: ""
   ## @param primary.extendedConfiguration Extended PostgreSQL Primary configuration (appended to main or default configuration)
   ## ref: https://github.com/bitnami/containers/tree/main/bitnami/postgresql#allow-settings-to-be-loaded-from-files-other-than-the-default-postgresqlconf
-  ##
-  extendedConfiguration: ""
-  ## @param primary.existingExtendedConfigmap Name of an existing ConfigMap with PostgreSQL Primary extended configuration
-  ## NOTE: `primary.extendedConfiguration` will be ignored
   ##
   existingExtendedConfigmap: ""
   ## Initdb configuration

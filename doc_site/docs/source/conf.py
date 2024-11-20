@@ -101,7 +101,7 @@ extlinks = {
     "ghdir": ("https://github.com/kai687/sphinxawesome-theme/tree/main/%s", "%s"),
     "sphinxdocs": ("https://www.sphinx-doc.org/en/master/%s", "%s"),
 }
-
+html_show_sphinx = False
 html_theme = 'sphinxawesome_theme'
 html_static_path = ['_static']
 html_css_files = [

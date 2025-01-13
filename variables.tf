@@ -121,6 +121,12 @@ variable "argo_workflows_enabled" {
   default     = false
 }
 
+variable "argo_workflows_auth_mode" {
+  description = "Authentication mode for Argo Workflows"
+  type        = string
+  default     = "sso"
+}
+
 variable "argo_workflows_subdomain" {
   description = "Subdomain for Argo Workflows"
   type        = string

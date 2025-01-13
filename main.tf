@@ -68,6 +68,7 @@ module "lightdash" {
 module "argo_workflows" {
     count  = var.argo_workflows_enabled ? 1 : 0
     source = "./modules/argo_workflows"
+    auth_mode = var.argo_workflows_auth_mode
     google_oauth_client_id = var.google_oauth_client_id
     google_oauth_client_secret = var.google_oauth_client_secret
     target_domain = "${var.argo_workflows_subdomain}.${var.domain_config_deployment_domain}"

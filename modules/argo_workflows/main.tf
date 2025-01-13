@@ -145,19 +145,13 @@ resource "kubernetes_cluster_role_binding" "super_admin_binding" {
   role_ref {
     api_group = "rbac.authorization.k8s.io"
     kind      = "ClusterRole"
-    name      = kubernetes_cluster_role.super_admin.metadata[0].name
+    name      = kubernetes_cluster_role.argo_server_cluster_role.metadata[0].name
   }
 
   subject {
     kind      = "Group"
     name      = "sso-super-admins"
     api_group = "rbac.authorization.k8s.io"
-  }
-
-  subject {
-    kind      = "ServiceAccount"
-    name      = kubernetes_service_account.argo_server.metadata[0].name
-    namespace = kubernetes_service_account.argo_server.metadata[0].namespace
   }
 
   subject {
